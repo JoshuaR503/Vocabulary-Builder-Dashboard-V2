@@ -20,46 +20,44 @@
 
 <script>
 import axios from 'axios';
+import { mapGetters, mapActions } from 'vuex';
 
 export default {
     name: 'Login',
+    computer: mapGetters(['get']),
     methods: {
+        // Authenticate the user.
         async login(e) {
 
+            const user = {
+                email: this.email,
+                password: this.password
+            }
+
             // Show alert if data is missing.
-            if (!this.email || !this.password) {
+            if (!user.email || !user.password) {
                 swal('Data Missing!', 'Please fill all the fields', 'warning');
             }
 
-            try {
-                // Make HTTP request to the server.
-                axios
-                .post('http://localhost:5000/v2/auth', {
-                    email: this.email,
-                    password: this.password
-                })
-                .then(response => console.log(response))
-                .catch(error => {
-                    // Response from the server.
-                    const serverResponse = error.response.data.message;
-                    
-                    // Show error to the user.
-                    this.displayError(
-                        serverResponse 
-                        ? serverResponse 
-                        : 'Please try again later.'
-                    );
-                });
-            } catch (error) {
-                // Show error to the user.
-                this.displayError('Sorry for the inconvenience.');
-                // TODO: Report error.
-                console.error(error);
-            }
+            // Login.
+            this.$store.dispatch('loginAction', user)
+            .then((response) => console.log(response.data))
+            .catch(error => {
+
+                // Data to display to the user.
+                const serverMessage = error.response.data.message;
+                const serverResponse = serverMessage 
+                ? serverMessage
+                : 'Sorry for the inconvenience';
+
+                // Display an error to the user.
+                this.displayError(serverResponse);
+            });
             
             e.preventDefault();
         },
-
+        
+        // Show an alert to the user.
         displayError(message) {
             swal('Something went wrong', message, 'error');
         }
