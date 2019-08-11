@@ -7,10 +7,10 @@ const state = {
 };
 
 const getters = {
-    authStatus: state => state.authStatus,
     authPermission: state => state.authPermission,
     authToken: state => state.authToken,
     authUser: state => state.authUser,
+    isAuth: state => !!state.authToken
 };
 
 const mutations = {
@@ -27,7 +27,7 @@ const actions = {
     async loginAction({commit}, user) {
         return new Promise((resolve, reject) => {
             axios
-            .post('http://localhost:5000/v2/au', user)
+            .post('http://localhost:5000/v2/auth', user)
             .then(response => {
 
                 // Get data from response.
