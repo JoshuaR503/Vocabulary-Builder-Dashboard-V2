@@ -42,7 +42,7 @@ export default {
 
             // Login.
             this.$store.dispatch('loginAction', user)
-            .then((response) => console.log(response.data))
+            .then((response) => this.$router.push('/'))
             .catch(error => {
 
                 // Data to display to the user.

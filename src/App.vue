@@ -1,5 +1,7 @@
 <template>
-  <Login/>
+  <transition name="moveInUp">
+    <router-view/>
+  </transition>
 </template>
 
 <script>
