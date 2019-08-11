@@ -3,24 +3,22 @@ import axios from 'axios';
 const state = {
     authPermission: null,
     authToken: null,
-    user: null
+    authUser: null
 };
 
 const getters = {
     authStatus: state => state.authStatus,
     authPermission: state => state.authPermission,
     authToken: state => state.authToken,
-    user: state => state.user,
+    authUser: state => state.authUser,
 };
 
 const mutations = {
     // Mutate the data values.
-    setAuthData(state, token, authPermission, user) {
+    setAuthData(state, token, authPermission, authUser) {
         state.authToken = token;
         state.authPermission = authPermission;
-        state.user = user;
-
-        console.log('Data stored', state);
+        state.authUser = authUser;
     },
 };
 
@@ -29,12 +27,13 @@ const actions = {
     async loginAction({commit}, user) {
         return new Promise((resolve, reject) => {
             axios
-            .post('http://localhost:5000/v2/auth', user)
+            .post('http://localhost:5000/v2/au', user)
             .then(response => {
+
                 // Get data from response.
                 const authToken = response.data.token;
                 const authPermission = response.data.document.role;
-                const user = response.document;
+                const authUser = response.data.document;
 
                 // Set Auth Token to all http requests.
                 axios.defaults.headers.common['x-authorization-token'] = authToken;
@@ -43,10 +42,10 @@ const actions = {
                 commit('setAuthData', 
                     authToken, 
                     authPermission,
-                    user
+                    authUser
                 );
 
-                // Resolve Promise
+                // Resolve Promise.
                 resolve(response);
             })
             .catch(error => reject(error));
@@ -56,7 +55,7 @@ const actions = {
     // Logout the user.
     async logoutAction({commit}) {
         // Set state
-        return commit('setAuthData', null, null, null, 'expired');
+        return commit('setAuthData', null, null, null);
     }
 };
 

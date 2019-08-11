@@ -29,6 +29,7 @@ export default {
         // Authenticate the user.
         async login(e) {
 
+            // Create user.
             const user = {
                 email: this.email,
                 password: this.password
@@ -45,26 +46,21 @@ export default {
             .catch(error => {
 
                 // Data to display to the user.
-                const serverMessage = error.response.data.message;
+                const serverMessage = error.response.data.message || null;
                 const serverResponse = serverMessage 
                 ? serverMessage
                 : 'Sorry for the inconvenience';
 
                 // Display an error to the user.
-                this.displayError(serverResponse);
+                swal('Something went wrong', serverResponse, 'error');
             });
             
             e.preventDefault();
-        },
-        
-        // Show an alert to the user.
-        displayError(message) {
-            swal('Something went wrong', message, 'error');
         }
     },
     data: () => ({
-        email: null,
-        password: null
+        email: 'josshuagarciia310@gmail.com',
+        password: 'Alichai510'
     }),
 }
 </script>
