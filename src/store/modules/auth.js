@@ -1,8 +1,8 @@
 import axios from 'axios';
 
 const state = {
-    authPermission: null,
-    authToken: null,
+    authToken: localStorage.getItem('auth_token') || null,
+    authPermission: localStorage.getItem('auth_permission') || null,
     authUser: null
 };
 
@@ -35,12 +35,16 @@ const actions = {
                 const authPermission = response.data.document.role;
                 const authUser = response.data.document;
 
+                // Save token in LocalStorage.
+                localStorage.setItem('auth_token', authToken);
+                localStorage.setItem('auth_permission', authPermission);
+
                 // Set Auth Token to all http requests.
                 axios.defaults.headers.common['x-authorization-token'] = authToken;
 
                 // Set state.
-                commit('setAuthData', 
-                    authToken, 
+                commit('setAuthData',
+                    authToken,
                     authPermission,
                     authUser
                 );
@@ -54,8 +58,13 @@ const actions = {
 
     // Logout the user.
     async logoutAction({commit}) {
-        // Set state
-        return commit('setAuthData', null, null, null);
+
+        // Remove data from LocalStorage.
+        localStorage.removeItem('auth_token');
+        localStorage.removeItem('auth_permission');
+
+        // Set state.
+        commit('setAuthData', null, null, null);
     }
 };
 
