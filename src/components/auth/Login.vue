@@ -27,7 +27,7 @@ export default {
     computer: mapGetters(['get']),
     methods: {
         // Authenticate the user.
-        async login(e) {
+        login(e) {
 
             // Create user.
             const user = {
@@ -42,18 +42,8 @@ export default {
 
             // Login.
             this.$store.dispatch('loginAction', user)
-            .then((response) => this.$router.push('/'))
-            .catch(error => {
-
-                // Data to display to the user.
-                const serverMessage = error.response.data.message || null;
-                const serverResponse = serverMessage 
-                ? serverMessage
-                : 'Sorry for the inconvenience';
-
-                // Display an error to the user.
-                swal('Something went wrong', serverResponse, 'error');
-            });
+            .then(() => this.$router.push('/'))
+            .catch(error => console.error(error));
             
             e.preventDefault();
         }

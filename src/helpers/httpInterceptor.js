@@ -1,15 +1,62 @@
 import axios from 'axios';
 import store from '../store/index';
+import router from '../router';
 
+// HTTP interceptor, error handling.
 export default function setup() {
-    axios.interceptors.response.use(undefined, (error) => {
+    // Request handler.
+    axios.interceptors.request.use(request => httpInterceptorOnRequest(request));
 
-        console.log(error);
+    // Response handler.
+    axios.interceptors.response.use(
+        undefined, // Add a handler?
+        error => httpInterceptorOnError(error)
+    );
+}
 
-        // Return to login if token has expired.
-        // TODO: implement better handling.
-        if (error.status === 401 ) {
-            store.dispatch('logoutAction');
-        }
-    });
+// Request handing - Just adds an auth header.
+const httpInterceptorOnRequest = request => {
+
+    // Add authorization header.
+    request.headers['x-authorization-token'] = store.getters['authToken'];
+
+    // Return request.
+    return request;
+}
+
+// Error handling.
+const httpInterceptorOnError = error => {
+
+    console.log({error});
+
+    // Display error message if there is no response from the server.
+    if (!error.response) {
+        displayError('Something unexpected happend', error.message);
+    }
+
+    // Dispay error message from the server if authentication failed.
+    if (error.response.data.message && error.response.status === 401) {
+        // Display error.
+        displayError('Authentication failed', error.response.data.message);
+    }
+
+    // Display error message if token expired.
+    if (error.response.status === 403) {
+        // Display error.
+        displayError('Session expired', 'Please login again');
+
+        // Dispatch logout action.
+        store.dispatch('logoutAction');
+
+        // Redirect to login.
+        router.push('/login');
+    }
+
+    // Reject.
+    return Promise.reject(error);
+}
+
+// Display error message to the user.
+const displayError = (title, message) => {
+    swal(title, message, 'error');
 }
