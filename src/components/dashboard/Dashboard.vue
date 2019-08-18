@@ -1,8 +1,23 @@
 <template>
   <div class="container pt-4">
-    <h3>Welcome, {{authUser}}</h3>
-    <h4 class="pt-2 pb-2">Word Count: {{wordCount}}</h4>
+    
+    <div class="row">
+      <div class="col-sm-12 col-md-6">
+        <div class="text-left">
+          <h3>Welcome, {{authUser}}</h3>
+          <h4 class="pt-2 pb-2">Word Count: {{wordCount}}</h4>  
+        </div>
+      </div>
 
+      <div class="col-sm-12 col-md-6">
+        <div class="text-right">
+          <button type="button" class="btn btn-primary">
+            <i class="fas fa-plus"></i>
+          </button>  
+        </div>
+      </div>
+    </div>
+  
     <form class="pt-2">
       <div class="form-group">
         <label for="search">Search Antyhing.</label>
@@ -10,41 +25,7 @@
       </div>
     </form>
 
-  
-    <div class="table-responsive">
-      <table class="table table-hover text-center">
-
-        <thead>
-          <tr>
-            <th>Word</th>
-            <th>Translation</th>
-            <th>Status</th>
-            <th>Writter</th>
-            <th>Edit</th>
-            <th>Delete</th>
-          </tr>
-        </thead>
-
-        <tbody>
-          <tr v-for="word in words" :key="word.id">
-            <td>{{word.word}}</td>
-            <td>{{word.wordTranslation}}</td>
-            <td>{{word.visible ? 'Public' : 'Needs Revision'}}</td>
-            <td>@{{word.writter.name}}</td>
-            <td>
-              <button type="button" class="btn btn-warning mr-1">
-                <i class="fas fa-pen"></i>
-              </button>
-            </td>
-            <td>
-              <button type="button" class="btn btn-danger ml-1">
-                <i class="fas fa-trash"></i>
-              </button>  
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+    <DashboardTable/>
 
   </div>
 </template>
@@ -52,22 +33,15 @@
 <script>
 
 import axios from 'axios';
-import { mapGetters, mapActions } from 'vuex';
+import DashboardTable from './DashboardTable';
+import { mapGetters } from 'vuex';
 
 export default {
   name: 'Dashboard',
-  methods: mapActions(['fetchWords']),
-  computed: mapGetters(['authUser', 'wordCount', 'words']),
-  created() {
-    this.fetchWords();
-  }
+  components: {
+    DashboardTable
+  },
+  computed: mapGetters(['wordCount', 'authUser']),
 }
 
 </script>
-
-
-<style scoped>
-  i {
-    color: white;
-  }
-</style>
