@@ -1,5 +1,5 @@
 import axios from 'axios';
-import {url} from '../../config/config';
+import {url} from '../../lib/config/config';
 
 const state = {
     authToken: localStorage.getItem('auth_token') || null,
@@ -25,9 +25,10 @@ const mutations = {
 
 const actions = {
     // Login the user.
-    loginAction({commit}, user) {
-        return new Promise((resolve, reject) => {
-            axios
+    async loginAction({commit}, user) {
+
+        try {
+            await axios
             .post(`${url}/v2/auth`, user)
             .then(response => {
 
@@ -47,12 +48,10 @@ const actions = {
                     authPermission,
                     authUser
                 );
-
-                // Resolve Promise.
-                resolve(response);
-            })
-            .catch(error => reject(error));
-        });
+            });
+        } catch (error) {
+            throw error;            
+        }
     },
 
     // Logout the user.

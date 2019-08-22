@@ -11,7 +11,7 @@
 
       <div class="col-sm-12 col-md-6">
         <div class="text-right">
-          <button type="button" class="btn btn-primary">
+          <button @click="addWord" type="button" class="btn btn-primary">
             <i class="fas fa-plus"></i>
           </button>  
         </div>
@@ -34,7 +34,7 @@
 
 import axios from 'axios';
 import DashboardTable from './DashboardTable';
-import { mapGetters } from 'vuex';
+import { mapGetters, mapActions } from 'vuex';
 
 export default {
   name: 'Dashboard',
@@ -42,6 +42,20 @@ export default {
     DashboardTable
   },
   computed: mapGetters(['wordCount', 'authUser']),
+  methods: {
+    addWord() {
+
+      const data = {
+        mode: 'Creating',
+        id: null
+      }
+
+      // Set data and redirect.
+      this.$store
+      .dispatch('setWordMode', data)
+      .finally(() => this.$router.push('/create'));
+    }
+  }
 }
 
 </script>

@@ -1,0 +1,142 @@
+<template>
+  <div class="container pt-4 pb-4">
+    <h3 class="pt-4 pb-4">Current Mode: {{wordMode.mode}}</h3>
+
+    <form @submit="save">
+      <div class="row">
+
+        <!-- English Data Column -->
+        <div class="col-md-6 col-sm-6">
+
+          <div class="form-group">
+            <label>Word</label>
+            <input v-model="wordData.word" type="text" class="form-control" placeholder="Word" required>
+          </div>
+          
+          <div class="form-group">
+            <label>Gramatical Category</label>
+            <input v-model="wordData.EN.categoryEN" type="text" class="form-control" placeholder="Gramatical Category">
+          </div>   
+
+        </div>
+
+        <!-- Spanish Data Column -->
+        <div class="col-md-6 col-sm-6">
+          <div class="form-group">
+            <label>Word in Spanish</label>
+            <input v-model="wordData.wordTranslation" type="text" class="form-control" placeholder="Word in Spanish" required>
+          </div>
+          
+          <div class="form-group">
+            <label>Gramatical Category in Spanish</label>
+            <input v-model="wordData.ES.categoryES" type="text" class="form-control" placeholder="Gramatical Category in Spanish">
+          </div>
+        </div>
+      </div>
+
+      <button @click="save" type="button" class="btn btn-block btn-primary">Save</button>
+    </form>
+
+  </div>
+</template>
+
+<script>
+import { mapGetters, mapActions } from 'vuex';
+import axios from 'axios';
+import {wordData} from '../../lib/models/word';
+export default {
+  name: 'Word',
+  methods: {
+    save(e) {
+
+      if (this.wordData.word && this.wordData.wordTranslation) {
+        // Add data and redirect to main page.
+        this.$store
+        .dispatch('createWord', this.wordData)
+        .finally(response => this.$router.push('/'));
+      } else {
+        // Display warning message.
+        swal('Required data missing', 'Complete all the required data', 'warning');
+      }
+
+      e.preventDefault();
+    },
+  },
+  computed: mapGetters(['wordMode']),
+  created() {
+    const id = this.wordMode.id;
+
+    if (id) {
+      // Load a single word.
+      const word = this.$store.getters.getWord(id);
+
+      this.wordData = {
+        word: word.word,
+        wordTranslation: word.wordTranslation,
+        wordPronuntiation: word.wordPronuntiation,
+        wordPronuntiationTranslation: word.wordPronuntiationTranslation,
+        EN: word.EN,
+        ES: word.EN,
+        createdAt: word.createdAt,
+        updatedAt: word.updatedAt,
+        visible: word.visible,
+        writter: word.writter,
+      }
+    }
+  },
+  data: () => ({
+    wordData: {
+      word: '',
+      wordTranslation: '',
+      wordPronuntiation: '',
+      wordPronuntiationTranslation: '',
+      EN: {
+          // Verb Conjuation English
+          firstPersonEN: '',
+          secondPersonEN: '',
+          thirdPersonEN: '',
+
+          pastEN: '',
+          rootEN: '',
+          presentEN: '',
+
+          // Related Words English
+          synonymsEN: '',
+          antonymsEN: '',
+
+          // Extra Data Enlgish
+          examplesEN: '',
+          noteEN: '',
+
+          categoryEN: '',
+          definitionEN: '',
+      },
+      ES: {
+          // Verb Conjuation English
+          firstPersonES: '',
+          secondPersonES: '',
+          thirdPersonES: '',
+
+          pastES: '',
+          rootES: '',
+          presentES: '',
+
+          // Related Words English
+          synonymsES: '',
+          antonymsES: '',
+
+          // Extra Data Enlgish
+          examplesES: '',
+          noteES: '',
+
+          categoryES: '',
+          definitionES: '',
+      },
+      createdAt: '',
+      updatedAt: '',
+      visible: '',
+      writter: '',
+    }
+  })
+}
+</script>

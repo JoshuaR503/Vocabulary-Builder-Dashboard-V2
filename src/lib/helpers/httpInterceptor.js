@@ -1,6 +1,6 @@
 import axios from 'axios';
-import store from '../store/index';
-import router from '../router';
+import store from '../../store/index';
+import router from '../../router';
 
 // HTTP interceptor, error handling.
 export default function setup() {
@@ -9,7 +9,7 @@ export default function setup() {
 
     // Response handler.
     axios.interceptors.response.use(
-        undefined, // Add a handler?
+        response => httpInterceptorOnSuccess(response),
         error => httpInterceptorOnError(error)
     );
 }
@@ -24,10 +24,18 @@ const httpInterceptorOnRequest = request => {
     return request;
 }
 
+// Sucess Hanlder
+const httpInterceptorOnSuccess = response => {
+    // Display sucess message when created.
+    if (response.status === 201 && response.data) {
+        displaySuccess('Data Sucessfully Saved', response.data.response);
+    }
+
+    // Rsolve
+    return response;
+}
 // Error handling.
 const httpInterceptorOnError = error => {
-
-    console.log({error});
 
     // Display error message if there is no response from the server.
     if (!error.response) {
@@ -52,6 +60,12 @@ const httpInterceptorOnError = error => {
         router.push('/login');
     }
 
+    // Display 500 error.
+    if (error.response.status === 500 && error.response.data) {
+        // Display error.
+        displayError(error.response.statusText, error.response.data.response);
+    }
+
     // Reject.
     return Promise.reject(error);
 }
@@ -59,4 +73,9 @@ const httpInterceptorOnError = error => {
 // Display error message to the user.
 const displayError = (title, message) => {
     swal(title, message, 'error');
+}
+
+// Display success message to the user.
+const displaySuccess = (title, message) => {
+    swal(title, message, 'success');
 }

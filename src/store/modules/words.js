@@ -1,40 +1,78 @@
 import axios from 'axios';
-import {url} from '../../config/config';
+import {url} from '../../lib/config/config';
 
 const state = {
     words: [],
-    wordCount: null
+    wordCount: null,
+    wordMode: {
+        mode: null,
+        id: null
+    }
 };
 
 const getters = {
     words: state => state.words,
-    wordCount: state => state.wordCount
+    wordCount: state => state.wordCount,
+    wordMode: state => state.wordMode,
+    getWord:  state => (id) => state.words.find(word => word._id === id)
+
 };
 
 const mutations = {
     setWords: (state, words) => state.words = words,
     setWordCount: (state, count) => state.wordCount = count,
+    addWord: (state, word) => state.words.unshift(word),
+    setWordMode: (state, wordMode) => state.wordMode = wordMode,
 };
 
 const actions = {
+
+    // Set setWordMode
+    setWordMode({commit}, data) {
+        commit('setWordMode', data);
+    },
+
     // Load all the words.
-    fetchWords({commit}) {
-        return new Promise((resolve, reject) => {
-            axios
+    async fetchWords({commit}) {
+        try {
+            await axios
             .get(`${url}/v2/word`)
             .then(response => {
-
                 // Set words.
                 commit('setWords', response.data.response.document);
-
                 // Set word count
                 commit('setWordCount', response.data.response.count);
+            });
+        } catch (error) {
+            throw error;
+        }
+    },
 
-                // Resolve Promise.
-                resolve(response);
+    // Load a single word.
+    async fetchSingleWord({commit}, id) {
+        try {
+            return commit('setWords', id);
+        } catch (error) {
+            throw error;
+        }
+    },
+    
+    // Create new word.
+    async createWord({commit}, data) {
+        try {
+            return await axios
+            .post(`${url}/v2/word`, data)
+            .then(response => {
+                
+                // Set new word.
+                commit('addWord', response.data);
+
+                // Return data.
+                return response;
             })
-            .catch(error => reject(error));
-        });
+        } catch (error) {
+            throw error;
+        }
     }
 }
 

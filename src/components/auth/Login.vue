@@ -41,7 +41,8 @@ export default {
             }
 
             // Login.
-            this.$store.dispatch('loginAction', user)
+            this.$store
+            .dispatch('loginAction', user)
             .then(() => this.$router.push('/'))
             .catch(error => console.error(error));
             
@@ -54,7 +55,3 @@ export default {
     }),
 }
 </script>
-
-<style scoped>
-
-</style>
