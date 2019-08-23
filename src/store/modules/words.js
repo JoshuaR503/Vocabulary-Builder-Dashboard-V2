@@ -23,6 +23,13 @@ const mutations = {
     setWordCount: (state, count) => state.wordCount = count,
     addWord: (state, word) => state.words.unshift(word),
     setWordMode: (state, wordMode) => state.wordMode = wordMode,
+    updateWord: (state, word) => {
+        const index = state.words.findIndex(word => word._id === word._id);
+
+        if (index !== -1) {
+            state.words.splice(index, 1, word);
+        }
+    }
 };
 
 const actions = {
@@ -70,6 +77,25 @@ const actions = {
                 // Return data.
                 return response;
             })
+        } catch (error) {
+            throw error;
+        }
+    },
+
+    // Update single word.
+    async updateWord({commit}, data) {
+        try {
+            return await axios
+            .put(`${url}/v2/word/${data._id}`)
+            .then(response => {
+
+                console.log(response);
+
+                // Update new word.
+                // commit('updateWord', response.data);
+
+                return response;
+            });
         } catch (error) {
             throw error;
         }

@@ -43,7 +43,6 @@
 <script>
 import { mapGetters, mapActions } from 'vuex';
 import axios from 'axios';
-import {wordData} from '../../lib/models/word';
 export default {
   name: 'Word',
   methods: {
@@ -82,61 +81,24 @@ export default {
         visible: word.visible,
         writter: word.writter,
       }
+    } else {
+      this.wordData = {
+        word: '',
+        wordTranslation: '',
+        wordPronuntiation: '',
+        wordPronuntiationTranslation: '',
+        EN: {},
+        ES: {},
+        createdAt: '',
+        updatedAt: '',
+        visible: '',
+        writter: '',
+      }
     }
   },
   data: () => ({
-    wordData: {
-      word: '',
-      wordTranslation: '',
-      wordPronuntiation: '',
-      wordPronuntiationTranslation: '',
-      EN: {
-          // Verb Conjuation English
-          firstPersonEN: '',
-          secondPersonEN: '',
-          thirdPersonEN: '',
-
-          pastEN: '',
-          rootEN: '',
-          presentEN: '',
-
-          // Related Words English
-          synonymsEN: '',
-          antonymsEN: '',
-
-          // Extra Data Enlgish
-          examplesEN: '',
-          noteEN: '',
-
-          categoryEN: '',
-          definitionEN: '',
-      },
-      ES: {
-          // Verb Conjuation English
-          firstPersonES: '',
-          secondPersonES: '',
-          thirdPersonES: '',
-
-          pastES: '',
-          rootES: '',
-          presentES: '',
-
-          // Related Words English
-          synonymsES: '',
-          antonymsES: '',
-
-          // Extra Data Enlgish
-          examplesES: '',
-          noteES: '',
-
-          categoryES: '',
-          definitionES: '',
-      },
-      createdAt: '',
-      updatedAt: '',
-      visible: '',
-      writter: '',
-    }
+    id: null,
+    wordData: null
   })
 }
 </script>
