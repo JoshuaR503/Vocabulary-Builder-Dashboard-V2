@@ -1,6 +1,9 @@
 <template>
   <div class="container pt-4 pb-4">
-    <h3 class="pt-4 pb-4">Current Mode: {{wordMode.mode}}</h3>
+    <h3 class="pt-4 pb-4"> 
+      <Back/>
+      {{mode}} {{id}}
+    </h3>
 
     <form @submit="save">
       <div class="row">
@@ -42,19 +45,32 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex';
+import Back from '../../layout/Back';
+
 import axios from 'axios';
 export default {
   name: 'Word',
+  components: {
+    Back
+  },
   methods: {
     save(e) {
 
-      if (this.wordData.word) {
-        console.log(this.wordData);
-        // Add data and redirect to main page.
+      if (this.wordData.word && this.wordData.wordTranslation ) {
 
-        this.$store
-        .dispatch('createWord', this.wordData)
-        .finally(response => this.$router.push('/'));
+        if (this.id !== 'new') {
+          // Update.
+          this.wordData._id = this.id;
+          this.$store
+          .dispatch('updateWord', this.wordData)
+          .finally(response => this.$router.push('/'));  
+        } else {
+          // Create a new word.
+          this.$store
+          .dispatch('createWord', this.wordData)
+          .finally(response => this.$router.push('/'));  
+        }
+        
       } else {
         // Display warning message.
         swal('Required data missing', 'Complete all the required data', 'warning');
@@ -63,32 +79,36 @@ export default {
       e.preventDefault();
     },
   },
-  computed: mapGetters(['wordMode']),
   created() {
-    const id = this.wordMode.id;
-
-    // See if id is set.
-    if (id) {
+    const id = this.$route.params.id;
+    
+    if (id !== 'new') {
       // Load a single word.
       const word = this.$store.getters.getWord(id);
 
-      // Set data.
-      this.wordData = {
-        word: word.word,
-        wordTranslation: word.wordTranslation,
-        wordPronuntiation: word.wordPronuntiation,
-        wordPronuntiationTranslation: word.wordPronuntiationTranslation,
-        EN: word.EN,
-        ES: word.EN,
-        createdAt: word.createdAt,
-        updatedAt: word.updatedAt,
-        visible: word.visible,
-        writter: word.writter,
+      if (word === undefined) {
+        this.$router.push('/');
+      } else {
+        this.id = id;
+        this.mode = 'Editing';
+        this.wordData = {
+          word: word.word,
+          wordTranslation: word.wordTranslation,
+          wordPronuntiation: word.wordPronuntiation,
+          wordPronuntiationTranslation: word.wordPronuntiationTranslation,
+          EN: word.EN,
+          ES: word.ES,
+          createdAt: word.createdAt,
+          updatedAt: word.updatedAt,
+          visible: word.visible,
+          writter: word.writter,
+        }  
       }
     }
   },
   data: () => ({
-    id: null,
+    id: 'new',
+    mode: 'Creating',
     wordData: {
       word: '',
       wordTranslation: '',

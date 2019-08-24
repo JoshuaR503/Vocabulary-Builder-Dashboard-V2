@@ -4,24 +4,21 @@ import {url} from '../../lib/config/config';
 const state = {
     words: [],
     wordCount: null,
-    wordMode: {
-        mode: null,
-        id: null
-    }
+    isLoading: true
 };
 
 const getters = {
     words: state => state.words,
     wordCount: state => state.wordCount,
     wordMode: state => state.wordMode,
-    getWord:  state => (id) => state.words.find(word => word._id === id)
-
+    getWord:  state => id => state.words.find(word => word._id === id),
+    isLoading: state => state.isLoading
 };
 
 const mutations = {
     setWords: (state, words) => state.words = words,
     setWordCount: (state, count) => state.wordCount = count,
-    setWordMode: (state, wordMode) => state.wordMode = wordMode,
+    setLoading: (state, isLoading) => state.isLoading = isLoading,
 
     addWord: (state, word) => state.words.unshift(word),
     
@@ -44,14 +41,11 @@ const mutations = {
 };
 
 const actions = {
-
-    // Set setWordMode
-    setWordMode({commit}, data) {
-        commit('setWordMode', data);
-    },
-
     // Load all the words.
     async fetchWords({commit}) {
+        // Start loading.
+        commit('setLoading', true);
+
         try {
             await axios
             .get(`${url}/v2/word`)
@@ -60,16 +54,9 @@ const actions = {
                 commit('setWords', response.data.response.document);
                 // Set word count
                 commit('setWordCount', response.data.response.count);
+                // No longer loading.
+                commit('setLoading', false);
             });
-        } catch (error) {
-            throw error;
-        }
-    },
-
-    // Load a single word.
-    async fetchSingleWord({commit}, id) {
-        try {
-            return commit('setWords', id);
         } catch (error) {
             throw error;
         }
@@ -77,16 +64,17 @@ const actions = {
     
     // Create new word.
     async createWord({commit}, data) {
+        // Start loading.
+        commit('setLoading', true);
+
         try {
-            return await axios
+            await axios
             .post(`${url}/v2/word`, data)
             .then(response => {
-                
                 // Add new word.
-                commit('addWord', response.data);
-
-                // // Return data.
-                return response;
+                commit('addWord', response.data.response.document);
+                // No longer loading.
+                commit('setLoading', false);
             })
         } catch (error) {
             throw error;
@@ -95,15 +83,17 @@ const actions = {
 
     // Update single word.
     async updateWord({commit}, data) {
-        try {
-            return await axios
-            .put(`${url}/v2/word/${data._id}`)
-            .then(response => {
+        // Start loading.
+        commit('setLoading', true);
 
+        try {
+            await axios
+            .put(`${url}/v2/word/${data._id}`, data)
+            .then(response => {
                 // Update word.
                 commit('updateWord', response.data.document);
-
-                return response;
+                // No longer loading.
+                commit('setLoading', false);
             });
         } catch (error) {
             throw error;
@@ -112,15 +102,17 @@ const actions = {
 
     // Delete a single word
     async deleteWord({commit}, id) {
-        try {
-            return await axios
-            .delete(`${url}/v2/word/${id}`)
-            .then(response => {
+        // Start loading.
+        commit('setLoading', true);
 
+        try {
+            await axios
+            .delete(`${url}/v2/word/${id}`)
+            .then(() => {
                 // Update word.
                 commit('deleteWord', id)
-
-                return response;
+                // No longer loading.
+                commit('setLoading', false);
             });
         } catch (error) {
             throw error;
