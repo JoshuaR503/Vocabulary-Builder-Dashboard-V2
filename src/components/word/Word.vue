@@ -63,7 +63,6 @@ export default {
       e.preventDefault();
     },
   },
-  computed: mapGetters(['wordMode']),
   created() {
     const id = this.$route.params.id;
 

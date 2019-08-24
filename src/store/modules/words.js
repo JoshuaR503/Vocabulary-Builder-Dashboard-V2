@@ -71,7 +71,7 @@ const actions = {
             .then(response => {
                 
                 // Add new word.
-                commit('addWord', response.data);
+                commit('addWord', response.data.response.document);
 
                 // // Return data.
                 return response;

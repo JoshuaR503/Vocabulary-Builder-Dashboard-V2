@@ -5,7 +5,7 @@
       <div class="col-sm-12 col-md-6">
         <div class="text-left">
           <h3>{{authUser}}</h3>
-          <h4 v-if="wordCount > 1" class="pt-2 pb-2">Word Count: {{wordCount}}</h4>  
+          <h4 v-if="!wordCount < 1" class="pt-2 pb-2">Word Count: {{wordCount}}</h4>  
         </div>
       </div>
 
@@ -28,7 +28,7 @@
     </div>
 
     <div class="page_content">
-      <div v-if="wordCount > 1" class="content">
+      <div v-if="!wordCount < 1" class="content">
         <DashboardTable />
       </div>
 
