@@ -11,7 +11,7 @@ const getters = {
     words: state => state.words,
     wordCount: state => state.wordCount,
     wordMode: state => state.wordMode,
-    getWord:  state => (id) => state.words.find(word => word._id === id),
+    getWord:  state => id => state.words.find(word => word._id === id),
     isLoading: state => state.isLoading
 };
 
@@ -70,7 +70,7 @@ const actions = {
         try {
             await axios
             .post(`${url}/v2/word`, data)
-            .then(response => {
+            .then(response => {                
                 // Add new word.
                 commit('addWord', response.data.response.document);
                 // No longer loading.
@@ -90,7 +90,6 @@ const actions = {
             await axios
             .put(`${url}/v2/word/${data._id}`)
             .then(response => {
-
                 // Update word.
                 commit('updateWord', response.data.document);
                 // No longer loading.
@@ -109,7 +108,7 @@ const actions = {
         try {
             await axios
             .delete(`${url}/v2/word/${id}`)
-            .then(response => {
+            .then(() => {
                 // Update word.
                 commit('deleteWord', id)
                 // No longer loading.

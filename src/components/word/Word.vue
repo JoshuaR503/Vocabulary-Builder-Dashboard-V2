@@ -1,7 +1,7 @@
 <template>
   <div class="container pt-4 pb-4">
     <h3 class="pt-4 pb-4"> 
-      <i @click="goBack" class="fas fa-arrow-left"></i> 
+      <Back/>
       {{mode}}
     </h3>
 
@@ -45,15 +45,18 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex';
+import Back from '../../layout/back';
+
 import axios from 'axios';
 export default {
   name: 'Word',
+  components: {
+    Back
+  },
   methods: {
     save(e) {
 
       if (this.wordData.word) {
-        console.log(this.wordData);
-        // Add data and redirect to main page.
 
         this.$store
         .dispatch('createWord', this.wordData)
@@ -65,60 +68,48 @@ export default {
 
       e.preventDefault();
     },
-
-    goBack() {
-      this.$router.push('/');
-    }
   },
   created() {
     const id = this.$route.params.id;
-
-    // See if id is set.
+    
     if (id !== 'new') {
       // Load a single word.
       const word = this.$store.getters.getWord(id);
 
-      // Set data.
-      this.mode = 'Editing';
-      this.wordData = {
-        word: word.word,
-        wordTranslation: word.wordTranslation,
-        wordPronuntiation: word.wordPronuntiation,
-        wordPronuntiationTranslation: word.wordPronuntiationTranslation,
-        EN: word.EN,
-        ES: word.EN,
-        createdAt: word.createdAt,
-        updatedAt: word.updatedAt,
-        visible: word.visible,
-        writter: word.writter,
-      }
-    } else {
-      this.mode = 'Creating',
-      this.wordData = {
-        word: '',
-        wordTranslation: '',
-        wordPronuntiation: '',
-        wordPronuntiationTranslation: '',
-        EN: {},
-        ES: {},
-        createdAt: '',
-        updatedAt: '',
-        visible: '',
-        writter: '',
+      if (word === undefined) {
+        this.$router.push('/');
+      } else {
+        this.mode = 'Editing';
+        this.wordData = {
+          word: word.word,
+          wordTranslation: word.wordTranslation,
+          wordPronuntiation: word.wordPronuntiation,
+          wordPronuntiationTranslation: word.wordPronuntiationTranslation,
+          EN: word.EN,
+          ES: word.EN,
+          createdAt: word.createdAt,
+          updatedAt: word.updatedAt,
+          visible: word.visible,
+          writter: word.writter,
+        }  
       }
     }
   },
   data: () => ({
     id: null,
-    mode: null,
-    wordData: null
+    mode: 'Creating',
+    wordData: {
+      word: '',
+      wordTranslation: '',
+      wordPronuntiation: '',
+      wordPronuntiationTranslation: '',
+      EN: {},
+      ES: {},
+      createdAt: '',
+      updatedAt: '',
+      visible: '',
+      writter: '',
+    }
   })
 }
 </script>
-
-<style scoped>
-  i {
-    font-size: 20px;
-    padding-right: 10px;
-  }
-</style>
