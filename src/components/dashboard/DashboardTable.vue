@@ -52,8 +52,8 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex';
-import Empty from '../../layout/empty';
-import Spinner from '../../layout/spinner';
+import Empty from '../../layout/Empty';
+import Spinner from '../../layout/Spinner';
 
 export default {
     name: 'DashboardTable',

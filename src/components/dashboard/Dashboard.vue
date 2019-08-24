@@ -36,7 +36,6 @@
 
 <script>
 
-import axios from 'axios';
 import DashboardTable from './DashboardTable';
 import { mapGetters, mapActions } from 'vuex';
 

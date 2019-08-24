@@ -4,12 +4,12 @@
 
 <script>
 export default {
-    name: 'Back',
-    methods: {
-        back() {
-          this.$router.push('/');
-        }
+  name: 'Back',
+  methods: {
+    back() {
+      this.$router.push('/');
     }
+  }
 }
 </script>
 

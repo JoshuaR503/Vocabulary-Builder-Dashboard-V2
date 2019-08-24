@@ -45,7 +45,7 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex';
-import Back from '../../layout/back';
+import Back from '../../layout/Back';
 
 import axios from 'axios';
 export default {
