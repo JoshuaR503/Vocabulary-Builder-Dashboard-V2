@@ -26,9 +26,20 @@ const httpInterceptorOnRequest = request => {
 
 // Sucess Hanlder
 const httpInterceptorOnSuccess = response => {
+
     // Display sucess message when created.
     if (response.status === 201 && response.data) {
         displaySuccess('Data Sucessfully Saved', response.data.response.message);
+    }
+
+    // Display success message when updated.
+    if (response.status === 204) {
+        displaySuccess('Data Sucessfully Updated', 'Resource updated successfully');
+    }
+
+    // Display success message when deleted.
+    if (response.status === 202) {
+        displaySuccess('Data Sucessfully Deleted', 'Resource deleted successfully');
     }
 
     // Rsolve
