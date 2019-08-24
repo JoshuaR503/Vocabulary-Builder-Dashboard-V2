@@ -28,7 +28,7 @@ const httpInterceptorOnRequest = request => {
 const httpInterceptorOnSuccess = response => {
     // Display sucess message when created.
     if (response.status === 201 && response.data) {
-        displaySuccess('Data Sucessfully Saved', response.data.response);
+        displaySuccess('Data Sucessfully Saved', response.data.response.message);
     }
 
     // Rsolve

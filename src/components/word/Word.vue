@@ -48,8 +48,10 @@ export default {
   methods: {
     save(e) {
 
-      if (this.wordData.word && this.wordData.wordTranslation) {
+      if (this.wordData.word) {
+        console.log(this.wordData);
         // Add data and redirect to main page.
+
         this.$store
         .dispatch('createWord', this.wordData)
         .finally(response => this.$router.push('/'));
@@ -65,10 +67,12 @@ export default {
   created() {
     const id = this.wordMode.id;
 
+    // See if id is set.
     if (id) {
       // Load a single word.
       const word = this.$store.getters.getWord(id);
 
+      // Set data.
       this.wordData = {
         word: word.word,
         wordTranslation: word.wordTranslation,
@@ -81,24 +85,22 @@ export default {
         visible: word.visible,
         writter: word.writter,
       }
-    } else {
-      this.wordData = {
-        word: '',
-        wordTranslation: '',
-        wordPronuntiation: '',
-        wordPronuntiationTranslation: '',
-        EN: {},
-        ES: {},
-        createdAt: '',
-        updatedAt: '',
-        visible: '',
-        writter: '',
-      }
     }
   },
   data: () => ({
     id: null,
-    wordData: null
+    wordData: {
+      word: '',
+      wordTranslation: '',
+      wordPronuntiation: '',
+      wordPronuntiationTranslation: '',
+      EN: {},
+      ES: {},
+      createdAt: '',
+      updatedAt: '',
+      visible: '',
+      writter: '',
+    }
   })
 }
 </script>

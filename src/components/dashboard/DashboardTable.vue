@@ -1,12 +1,11 @@
 <template>
     <div class="table-responsive">
-      <table class="table table-hover text-center">
+      <table class="table table-hover">
         <thead>
           <tr>
             <th>Word</th>
             <th>Translation</th>
             <th>Status</th>
-            <th>Writter</th>
             <th>Edit</th>
             <th>Delete</th>
           </tr>
@@ -17,7 +16,6 @@
             <td>{{word.word}}</td>
             <td>{{word.wordTranslation}}</td>
             <td>{{word.visible ? 'Public' : 'Needs Revision'}}</td>
-            <td>@{{word.writter.name}}</td>
             <td>
               <button type="button" class="btn btn-warning mr-1">
                 <i @click="editWord(word._id)" class="fas fa-pen"></i>
@@ -25,7 +23,7 @@
             </td>
             <td>
               <button type="button" class="btn btn-danger ml-1">
-                <i class="fas fa-trash"></i>
+                <i @click="deleteWord(word._id)" class="fas fa-trash"></i>
               </button>  
             </td>
           </tr>
@@ -41,7 +39,9 @@ export default {
     name: 'DashboardTable',
     computed: mapGetters(['words']),
     methods: {
-      ...mapActions(['fetchWords']),
+      ...mapActions(['fetchWords', 'deleteWord']),
+
+      // Edit a word.
       editWord(id) {
         
         const data = {
@@ -53,17 +53,16 @@ export default {
         this.$store
         .dispatch('setWordMode', data)
         .finally(() => this.$router.push('/create'));
-      }
+      },
     },
     created() {
       this.fetchWords();
     },
-    
 }
 </script>
 
 <style scoped>
-    i {
-        color: white;
-    }
+  i {
+    color: white;
+  }
 </style>

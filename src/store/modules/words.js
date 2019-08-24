@@ -21,15 +21,26 @@ const getters = {
 const mutations = {
     setWords: (state, words) => state.words = words,
     setWordCount: (state, count) => state.wordCount = count,
-    addWord: (state, word) => state.words.unshift(word),
     setWordMode: (state, wordMode) => state.wordMode = wordMode,
+
+    addWord: (state, word) => state.words.unshift(word),
+    
+    deleteWord: (state, id) => state.words.filter(word => {
+        const index = state.words.findIndex(word => word._id === id);
+
+        if (word._id === id) {
+            state.wordCount--;
+            state.words.splice(index, 1);
+        }
+    }),
+
     updateWord: (state, word) => {
         const index = state.words.findIndex(word => word._id === word._id);
 
         if (index !== -1) {
             state.words.splice(index, 1, word);
         }
-    }
+    },
 };
 
 const actions = {
@@ -71,10 +82,10 @@ const actions = {
             .post(`${url}/v2/word`, data)
             .then(response => {
                 
-                // Set new word.
+                // Add new word.
                 commit('addWord', response.data);
 
-                // Return data.
+                // // Return data.
                 return response;
             })
         } catch (error) {
@@ -89,10 +100,25 @@ const actions = {
             .put(`${url}/v2/word/${data._id}`)
             .then(response => {
 
-                console.log(response);
+                // Update word.
+                commit('updateWord', response.data.document);
 
-                // Update new word.
-                // commit('updateWord', response.data);
+                return response;
+            });
+        } catch (error) {
+            throw error;
+        }
+    },
+
+    // Delete a single word
+    async deleteWord({commit}, id) {
+        try {
+            return await axios
+            .delete(`${url}/v2/word/${id}`)
+            .then(response => {
+
+                // Update word.
+                commit('deleteWord', id)
 
                 return response;
             });
