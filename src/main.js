@@ -3,6 +3,12 @@ import App from './App.vue';
 import router from './router'
 import store from './store/index';
 
+// http helper.
+import setup from './lib/helpers/httpInterceptor';
+
+// init helper.
+setup();
+
 Vue.config.productionTip = false;
 
 new Vue({
