@@ -2,7 +2,7 @@
   <div class="container pt-4 pb-4">
     <h3 class="pt-4 pb-4"> 
       <Back/>
-      {{mode}}
+      {{mode}} {{id}}
     </h3>
 
     <form @submit="save">
@@ -56,11 +56,21 @@ export default {
   methods: {
     save(e) {
 
-      if (this.wordData.word) {
+      if (this.wordData.word && this.wordData.wordTranslation ) {
 
-        this.$store
-        .dispatch('createWord', this.wordData)
-        .finally(response => this.$router.push('/'));
+        if (this.id !== 'new') {
+          // Update.
+          this.wordData._id = this.id;
+          this.$store
+          .dispatch('updateWord', this.wordData)
+          .finally(response => this.$router.push('/'));  
+        } else {
+          // Create a new word.
+          this.$store
+          .dispatch('createWord', this.wordData)
+          .finally(response => this.$router.push('/'));  
+        }
+        
       } else {
         // Display warning message.
         swal('Required data missing', 'Complete all the required data', 'warning');
@@ -79,6 +89,7 @@ export default {
       if (word === undefined) {
         this.$router.push('/');
       } else {
+        this.id = id;
         this.mode = 'Editing';
         this.wordData = {
           word: word.word,
@@ -86,7 +97,7 @@ export default {
           wordPronuntiation: word.wordPronuntiation,
           wordPronuntiationTranslation: word.wordPronuntiationTranslation,
           EN: word.EN,
-          ES: word.EN,
+          ES: word.ES,
           createdAt: word.createdAt,
           updatedAt: word.updatedAt,
           visible: word.visible,
@@ -96,7 +107,7 @@ export default {
     }
   },
   data: () => ({
-    id: null,
+    id: 'new',
     mode: 'Creating',
     wordData: {
       word: '',

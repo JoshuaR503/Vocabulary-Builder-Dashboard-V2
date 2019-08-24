@@ -70,7 +70,7 @@ const actions = {
         try {
             await axios
             .post(`${url}/v2/word`, data)
-            .then(response => {                
+            .then(response => {
                 // Add new word.
                 commit('addWord', response.data.response.document);
                 // No longer loading.
@@ -88,7 +88,7 @@ const actions = {
 
         try {
             await axios
-            .put(`${url}/v2/word/${data._id}`)
+            .put(`${url}/v2/word/${data._id}`, data)
             .then(response => {
                 // Update word.
                 commit('updateWord', response.data.document);
