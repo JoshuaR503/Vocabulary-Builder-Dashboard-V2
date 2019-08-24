@@ -1,6 +1,9 @@
 <template>
   <div class="container pt-4 pb-4">
-    <h3 class="pt-4 pb-4">{{mode}}</h3>
+    <h3 class="pt-4 pb-4"> 
+      <i @click="goBack" class="fas fa-arrow-left"></i> 
+      {{mode}}
+    </h3>
 
     <form @submit="save">
       <div class="row">
@@ -62,6 +65,10 @@ export default {
 
       e.preventDefault();
     },
+
+    goBack() {
+      this.$router.push('/');
+    }
   },
   created() {
     const id = this.$route.params.id;
@@ -108,3 +115,10 @@ export default {
   })
 }
 </script>
+
+<style scoped>
+  i {
+    font-size: 20px;
+    padding-right: 10px;
+  }
+</style>
