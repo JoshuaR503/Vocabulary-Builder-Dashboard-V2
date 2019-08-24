@@ -1,10 +1,8 @@
 <template>
   <div class="page_content">
 
-    <div v-if="isLoading" class="d-flex justify-content-center pt-4 pb-4">
-      <div class="spinner-border" role="status">
-        <span class="sr-only">Loading...</span>
-      </div>
+    <div v-if="isLoading">
+      <Spinner/>
     </div>
 
     <div v-else-if="words.length > 0" class="content">
@@ -55,10 +53,11 @@
 <script>
 import { mapGetters, mapActions } from 'vuex';
 import Empty from '../../layout/empty';
+import Spinner from '../../layout/spinner';
 
 export default {
     name: 'DashboardTable',
-    components: { Empty },
+    components: { Empty, Spinner },
     computed: mapGetters(['words', 'isLoading']),
     methods: {
       ...mapActions(['fetchWords', 'deleteWord']),
@@ -77,11 +76,5 @@ export default {
 <style scoped>
   i {
     color: white;
-  }
-
-  .spinner-border {
-    margin: 64px;
-    width: 64px; 
-    height: 64px;
   }
 </style>
