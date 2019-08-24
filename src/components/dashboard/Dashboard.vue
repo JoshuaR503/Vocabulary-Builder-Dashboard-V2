@@ -33,7 +33,9 @@
       </div>
 
       <div v-else class="content">
-        <Empty title="Nothing to see here" message="Start by adding new words"/>
+        <Empty 
+          title="Nothing to see here" 
+          message="Start by adding new words."/>
       </div>
     </div>
 
@@ -56,16 +58,7 @@ export default {
   computed: mapGetters(['wordCount', 'authUser']),
   methods: {
     addWord() {
-
-      const data = {
-        mode: 'Creating',
-        id: null
-      }
-
-      // Set data and redirect.
-      this.$store
-      .dispatch('setWordMode', data)
-      .finally(() => this.$router.push('/create'));
+      this.$router.push('/word/new')
     }
   }
 }

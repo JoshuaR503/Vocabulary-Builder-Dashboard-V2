@@ -1,6 +1,6 @@
 <template>
   <div class="container pt-4 pb-4">
-    <h3 class="pt-4 pb-4">Current Mode: {{wordMode.mode}}</h3>
+    <h3 class="pt-4 pb-4">{{mode}}</h3>
 
     <form @submit="save">
       <div class="row">
@@ -65,14 +65,15 @@ export default {
   },
   computed: mapGetters(['wordMode']),
   created() {
-    const id = this.wordMode.id;
+    const id = this.$route.params.id;
 
     // See if id is set.
-    if (id) {
+    if (id !== 'new') {
       // Load a single word.
       const word = this.$store.getters.getWord(id);
 
       // Set data.
+      this.mode = 'Editing';
       this.wordData = {
         word: word.word,
         wordTranslation: word.wordTranslation,
@@ -85,22 +86,26 @@ export default {
         visible: word.visible,
         writter: word.writter,
       }
+    } else {
+      this.mode = 'Creating',
+      this.wordData = {
+        word: '',
+        wordTranslation: '',
+        wordPronuntiation: '',
+        wordPronuntiationTranslation: '',
+        EN: {},
+        ES: {},
+        createdAt: '',
+        updatedAt: '',
+        visible: '',
+        writter: '',
+      }
     }
   },
   data: () => ({
     id: null,
-    wordData: {
-      word: '',
-      wordTranslation: '',
-      wordPronuntiation: '',
-      wordPronuntiationTranslation: '',
-      EN: {},
-      ES: {},
-      createdAt: '',
-      updatedAt: '',
-      visible: '',
-      writter: '',
-    }
+    mode: null,
+    wordData: null
   })
 }
 </script>

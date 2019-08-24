@@ -17,7 +17,7 @@ const router = new Router({
   routes: [
     { path: '/login',  name: 'login', component: Login},
     { path: '/', name: 'dashboard', component: Dashboard, meta: { requiresAuth: true }},
-    { path: '/create', name: 'create', component: Word, meta: { requiresAuth: true }},
+    { path: '/word/:id', name: 'word', component: Word, meta: { requiresAuth: true }},
   ]
 });
 

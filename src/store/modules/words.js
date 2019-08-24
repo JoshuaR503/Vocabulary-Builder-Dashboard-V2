@@ -4,10 +4,6 @@ import {url} from '../../lib/config/config';
 const state = {
     words: [],
     wordCount: null,
-    wordMode: {
-        mode: null,
-        id: null
-    }
 };
 
 const getters = {
@@ -15,13 +11,11 @@ const getters = {
     wordCount: state => state.wordCount,
     wordMode: state => state.wordMode,
     getWord:  state => (id) => state.words.find(word => word._id === id)
-
 };
 
 const mutations = {
     setWords: (state, words) => state.words = words,
     setWordCount: (state, count) => state.wordCount = count,
-    setWordMode: (state, wordMode) => state.wordMode = wordMode,
 
     addWord: (state, word) => state.words.unshift(word),
     
@@ -44,12 +38,6 @@ const mutations = {
 };
 
 const actions = {
-
-    // Set setWordMode
-    setWordMode({commit}, data) {
-        commit('setWordMode', data);
-    },
-
     // Load all the words.
     async fetchWords({commit}) {
         try {

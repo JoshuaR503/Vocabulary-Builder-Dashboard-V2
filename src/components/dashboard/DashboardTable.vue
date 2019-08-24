@@ -46,16 +46,7 @@ export default {
 
       // Edit a word.
       editWord(id) {
-        
-        const data = {
-          mode: 'Editing',
-          id: id
-        }
-
-        // Set data and redirect.
-        this.$store
-        .dispatch('setWordMode', data)
-        .finally(() => this.$router.push('/create'));
+        this.$router.push(`/word/${id}`);
       },
     },
     created() {
