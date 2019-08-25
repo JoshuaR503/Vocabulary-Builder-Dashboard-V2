@@ -27,7 +27,32 @@
       </div>
 
       <div class="col-md-12">
-        <DashboardTable />  
+        
+        <ul class="nav nav-tabs flex-column flex-sm-row nav-fill" role="tablist">
+          <li class="nav-item">
+            <a class="nav-link active" id="words-tab" data-toggle="tab" href="#words" role="tab" aria-controls="words" aria-selected="true">Words Dashboard</a>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link" id="users-tab" data-toggle="tab" href="#users" role="tab" aria-controls="users" aria-selected="false">Users Dashboard</a>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link" id="logs-tab" data-toggle="tab" href="#logs" role="tab" aria-controls="logs" aria-selected="false">Logs Dashboard</a>
+          </li>
+        </ul>
+
+        <div class="tab-content">
+          <div class="tab-pane fade show active" id="words" role="tabpanel" aria-labelledby="words-tab">
+            <WordTable />
+          </div>
+          <div class="tab-pane fade" id="users" role="tabpanel" aria-labelledby="users-tab">
+            <UserTable/>
+          </div>
+          <div class="tab-pane fade" id="logs" role="tabpanel" aria-labelledby="logs-tab">
+            <LogTable/>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -36,18 +61,23 @@
 
 <script>
 
-import DashboardTable from './DashboardTable';
+import WordTable from '../word/WordTable';
+import UserTable from '../user/UserTable';
+import LogTable from '../logs/LogTable';
+
 import { mapGetters, mapActions } from 'vuex';
 
 export default {
   name: 'Dashboard',
   components: {
-    DashboardTable
+    WordTable,
+    UserTable,
+    LogTable
   },
   computed: mapGetters(['wordCount', 'authUser']),
   methods: {
     addWord() {
-      this.$router.push('/word/new')
+      this.$router.push('/word/new');
     }
   }
   

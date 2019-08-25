@@ -102,18 +102,10 @@ const actions = {
 
     // Delete a single word
     async deleteWord({commit}, id) {
-        // Start loading.
-        commit('setLoading', true);
-
         try {
             await axios
             .delete(`${url}/v2/word/${id}`)
-            .then(() => {
-                // Update word.
-                commit('deleteWord', id)
-                // No longer loading.
-                commit('setLoading', false);
-            });
+            .then(() => commit('deleteWord', id));
         } catch (error) {
             throw error;
         }

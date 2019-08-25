@@ -2,7 +2,7 @@
   <div class="container pt-4 pb-4">
     <h3 class="pt-4 pb-4"> 
       <Back/>
-      {{mode}} {{id}}
+      {{mode}} {{wordData.word}}
     </h3>
 
     <form @submit="save">
