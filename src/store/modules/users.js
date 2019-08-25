@@ -16,7 +16,7 @@ const getters = {
 
 const mutations = {
     setUsers: (state, users) => state.users = users,
-    setUsersCount: (state, count) => state.userCount = count,
+    setUsersCount: (state, count) => state.usersCount = count,
     setLoading: (state, usersIsLoading) => state.usersIsLoading = usersIsLoading,
 
     addUser: (state, user) => state.users.unshift(user),
@@ -25,7 +25,7 @@ const mutations = {
         const index = state.users.findIndex(user => user._id === id);
 
         if (user._id === id) {
-            state.userCount--;
+            state.usersCount--;
             state.users.splice(index, 1);
         }
     }),

@@ -6,6 +6,22 @@
     </div>
 
     <div v-else-if="users.length > 0" class="content">
+      <div class="row pt-4 pb-4">
+        <div class="col-sm-6">
+          <div class="text-left">
+            <h3>Registered Users: {{usersCount}}</h3>
+          </div>
+        </div>
+
+        <div class="col-sm-6">
+          <div class="text-right">
+            <button @click="add" class="btn btn-primary">
+              <i class="fas fa-plus"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+
       <div class="page_container">
         <div class="table-responsive">
           <table class="table table-hover">
@@ -58,13 +74,20 @@ import {
 export default {
   name: 'UserTable',
   components: { Empty, Spinner },
-  computed: mapGetters(['users', 'usersIsLoading']),
+  computed: mapGetters(['users', 'usersCount', 'usersIsLoading']),
   methods: {
+    // Actions from Vuex.
     ...mapActions(['fetchUsers', 'deleteUser']),
     
+    // Edit an user.
     edit(id) {
       this.$router.push(`/user/${id}`);
     },
+
+    // Add a user.
+    add() {
+      this.$router.push('/user/new');
+    }
   },
   created() {
     this.fetchUsers();

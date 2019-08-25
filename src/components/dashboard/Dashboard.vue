@@ -5,15 +5,6 @@
       <div class="col-sm-12 col-md-6">
         <div class="text-left">
           <h3>{{authUser}}</h3>
-          <h4 class="pt-2 pb-2">Word Count: {{wordCount}}</h4>  
-        </div>
-      </div>
-
-      <div class="col-sm-12 col-md-6">
-        <div class="text-right">
-          <button @click="addWord" type="button" class="btn btn-primary">
-            <i class="fas fa-plus"></i>
-          </button>
         </div>
       </div>
 
@@ -44,7 +35,7 @@
 
         <div class="tab-content">
           <div class="tab-pane fade show active" id="words" role="tabpanel" aria-labelledby="words-tab">
-            <WordTable />
+            <WordTable/>
           </div>
           <div class="tab-pane fade" id="users" role="tabpanel" aria-labelledby="users-tab">
             <UserTable/>
@@ -74,13 +65,7 @@ export default {
     UserTable,
     LogTable
   },
-  computed: mapGetters(['wordCount', 'authUser']),
-  methods: {
-    addWord() {
-      this.$router.push('/word/new');
-    }
-  }
-  
+  computed: mapGetters(['authUser']),
 }
 
 </script>
