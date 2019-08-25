@@ -33,7 +33,7 @@
           <div class="form-group">
             <label>Password</label>
             <input v-if="id !== 'new'" disabled type="text" class="form-control" placeholder="Password">
-            <input v-else v-model="userData.password" type="text" class="form-control" placeholder="Password">
+            <input v-else disabled type="text" class="form-control" placeholder="Random Password">
           </div>
         </div>
 
@@ -72,6 +72,7 @@ export default {
           .finally(response => this.$router.push('/'));  
   
         } else {
+          this.userData.password = Math.random().toString(36).slice(-8);
           this.$store
           .dispatch('createUser', this.userData)
           .finally(response => this.$router.push('/'));  
@@ -95,6 +96,7 @@ export default {
         this.id = id;
         this.mode = 'Editing';
         this.userData = user;
+        this.userData.password = 'sup';
       }
     }
   },
@@ -104,7 +106,7 @@ export default {
     userData: {
       name: null,
       email: null,
-      role: null,
+      role: 'LowerPermission',
       password: null,
     }
   })
