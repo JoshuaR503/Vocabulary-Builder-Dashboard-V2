@@ -6,7 +6,6 @@
     </div>
 
     <div v-else-if="words.length > 0" class="content">
-      
       <div class="page_container">
         <div class="table-responsive">
           <table class="table table-hover">
@@ -39,7 +38,6 @@
           </table>
         </div>
       </div>
-  
     </div>
 
     <div v-else class="content">
@@ -47,6 +45,7 @@
        title="Nothing to see here" 
        message="Start by adding new words."/>
     </div>
+
   </div>
 </template>
 
@@ -56,7 +55,7 @@ import Empty from '../../layout/Empty';
 import Spinner from '../../layout/Spinner';
 
 export default {
-    name: 'DashboardTable',
+    name: 'WordTable',
     components: { Empty, Spinner },
     computed: mapGetters(['words', 'isLoading']),
     methods: {
