@@ -61,9 +61,11 @@
 
 <script>
 
-import WordTable from '../word/WordTable';
-import UserTable from '../user/UserTable';
-import LogTable from '../logs/LogTable';
+import { 
+  WordTable,
+  UserTable,
+  LogTable
+} from '../index';
 
 import { mapGetters, mapActions } from 'vuex';
 
