@@ -16,7 +16,11 @@
 
           <div class="form-group">
             <label>Role</label>
-            <input v-model="userData.role" type="text" class="form-control" placeholder="Role" required>
+
+            <select v-model="userData.role" class="form-control">
+              <option value="UpperPermission">Admin</option>
+              <option value="LowerPermission">Editor</option>
+            </select>
           </div>
         </div>
 
@@ -28,7 +32,8 @@
 
           <div class="form-group">
             <label>Password</label>
-            <input v-model="userData.password" type="text" class="form-control" placeholder="Password" required>
+            <input v-if="id !== 'new'" disabled type="text" class="form-control" placeholder="Password">
+            <input v-else v-model="userData.password" type="text" class="form-control" placeholder="Password">
           </div>
         </div>
 

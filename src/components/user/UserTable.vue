@@ -40,14 +40,14 @@
                 <td>{{user.email}}</td>
                 <td>{{user.role === 'UpperPermission' ? 'Admin' : 'Editor'}}</td>
                 <td>
-                  <button type="button" class="btn btn-warning mr-1">
-                    <i @click="edit(user._id)" class="fas fa-pen"></i>
+                  <button @click="edit(user._id)" type="button" class="btn btn-warning mr-1">
+                    <i class="fas fa-pen"></i>
                   </button>
                 </td>
                 <td>
-                  <button type="button" class="btn btn-danger ml-1">
-                    <i @click="deleteUser(user._id)" class="fas fa-trash"></i>
-                  </button>  
+                  <button @click="deleteUser(user._id)" type="button" class="btn btn-danger ml-1">
+                    <i class="fas fa-trash"></i>
+                  </button>
                 </td>
               </tr>
             </tbody>
