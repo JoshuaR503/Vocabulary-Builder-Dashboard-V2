@@ -63,7 +63,7 @@ export default {
     ...mapActions(['fetchUsers', 'deleteUser']),
     
     edit(id) {
-      this.$router.push(`/word/${id}`);
+      this.$router.push(`/user/${id}`);
     },
   },
   created() {
