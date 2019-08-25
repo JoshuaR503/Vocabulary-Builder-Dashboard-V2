@@ -51,24 +51,27 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex';
-import Empty from '../../layout/Empty';
-import Spinner from '../../layout/Spinner';
+import {
+  Spinner,
+  Empty
+} from '../../layout/index';
 
 export default {
-    name: 'WordTable',
-    components: { Empty, Spinner },
-    computed: mapGetters(['words', 'isLoading']),
-    methods: {
-      ...mapActions(['fetchWords', 'deleteWord']),
+  name: 'WordTable',
+  components: { Empty, Spinner },
+  computed: mapGetters(['words', 'isLoading']),
+  methods: {
 
-      // Edit a word.
-      editWord(id) {
-        this.$router.push(`/word/${id}`);
-      },
+    ...mapActions(['fetchWords', 'deleteWord']),
+    // Edit a word.
+
+    editWord(id) {
+      this.$router.push(`/word/${id}`);
     },
-    created() {
-      this.fetchWords();
-    }
+  },
+  created() {
+    this.fetchWords();
+  }
 }
 </script>
 

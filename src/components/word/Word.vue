@@ -183,7 +183,9 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex';
-import Back from '../../layout/Back';
+import { 
+  Back,
+} from '../../layout/index';
 
 import axios from 'axios';
 export default {

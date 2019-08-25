@@ -5,7 +5,8 @@ import store from './store/index';
 import { 
   Login,
   Dashboard,
-  Word
+  Word,
+  User
 } from './components/index';
 
 Vue.use(Router);
@@ -18,12 +19,16 @@ const router = new Router({
     { path: '/login',  name: 'login', component: Login},
     { path: '/', name: 'dashboard', component: Dashboard, meta: { requiresAuth: true }},
     { path: '/word/:id', name: 'word', component: Word, meta: { requiresAuth: true }},
+    { path: '/user/:id', name: 'user', component: User, meta: { requiresAuth: true }},
   ]
 });
 
 // Check if we need to authenticate
 router.beforeEach((to, from, next) => {
-  if (to.matched.some(record => record.meta.requiresAuth) && !store.getters['isAuth']) {
+  const requiresAuth = to.matched.some(record => record.meta.requiresAuth);
+  const isAuth = store.getters['isAuth'];
+
+  if (requiresAuth && !isAuth) {
     next('/login');
   } else {
     next();
