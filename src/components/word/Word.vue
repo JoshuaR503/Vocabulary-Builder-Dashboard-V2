@@ -22,10 +22,10 @@
           </div>
 
           <p class="pt-1 pb-1">
-            <a data-toggle="collapse" href="#ENinfoSection"  aria-expanded="false"  aria-controls="ENinfoSection">Information Section</a>
+            <a data-toggle="collapse" href="#ENinfoSection"  aria-expanded="true"  aria-controls="ENinfoSection">Information Section</a>
           </p>
 
-          <div class="collapse multi-collapse" id="ENinfoSection">
+          <div class="collapse multi-collapse" id="ENinfoSection" >
             <div class="form-group">
               <label>Examples</label>
               <input v-model="wordData.EN.examplesEN" type="text" class="form-control" placeholder="Examples">
@@ -103,7 +103,7 @@
           </div>
 
           <p class="pt-1 pb-1">
-            <a data-toggle="collapse" href="#ESinfoSection"  aria-expanded="false" aria-controls="ESinfoSection">Information Section</a>  
+            <a data-toggle="collapse" href="#ESinfoSection" aria-expanded="true" aria-controls="ESinfoSection">Information Section</a>  
           </p>
 
           <div class="collapse multi-collapse" id="ESinfoSection">
@@ -134,7 +134,7 @@
           </div>
 
           <p class="pt-1 pb-1">
-            <a data-toggle="collapse" href="#ESVerbSection"  aria-expanded="false" aria-controls="ESVerbSection">Verb Section</a>  
+            <a data-toggle="collapse" href="#ESVerbSection" aria-expanded="false" aria-controls="ESVerbSection">Verb Section</a>  
           </p>
 
           <div class="collapse multi-collapse" id="ESVerbSection">
@@ -170,14 +170,25 @@
           </div>
         </div>
 
+        <!-- Audio player -->
+        <div class="col-md-6 text-left">
+          <audio class=" mt-2" controls>
+            <source v-bind:src="wordData.wordPronuntiation" type="audio/mp3">
+            Your browser does not support the audio tag.
+          </audio>
+
+          <audio class=" mt-2 mb-2" controls>
+            <source v-bind:src="wordData.wordPronuntiationTranslation" type="audio/mp3">
+            Your browser does not support the audio tag.
+          </audio>
+        </div>
+
         <!-- Save button -->
-        <div class="col-md-6">
+        <div class="col-md-6 mt-2">
           <button @click="save" type="button" class="btn btn-block btn-primary">Save</button>
         </div>
       </div>
-
     </form>
-
   </div>
 </template>
 

@@ -40,13 +40,13 @@
                 <td>{{word.wordTranslation}}</td>
                 <td>{{word.visible ? 'Public' : 'Needs Revision'}}</td>
                 <td>
-                  <button type="button" class="btn btn-warning mr-1">
-                    <i @click="editWord(word._id)" class="fas fa-pen"></i>
+                  <button @click="editWord(word._id)" class="btn btn-warning mr-1">
+                    <i class="fas fa-pen"></i>
                   </button>
                 </td>
                 <td>
-                  <button type="button" class="btn btn-danger ml-1">
-                    <i @click="deleteWord(word._id)" class="fas fa-trash"></i>
+                  <button  @click="deleteWord(word._id)" class="btn btn-danger ml-1">
+                    <i class="fas fa-trash"></i>
                   </button>  
                 </td>
               </tr>
