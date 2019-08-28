@@ -9,12 +9,7 @@
       </div>
 
       <div class="col-md-12">
-        <form class="pt-2">
-          <div class="form-group">
-            <label for="search">Search Antyhing.</label>
-            <input type="email" class="form-control" placeholder="Search">
-          </div>
-        </form>
+        <Search/>
       </div>
 
       <div class="col-md-12">
@@ -55,6 +50,7 @@
 import WordTable from '../word/WordTable';
 import UserTable from '../user/UserTable';
 import LogTable from '../logs/LogTable';
+import Search from '../search/Search';
 
 import { mapGetters, mapActions } from 'vuex';
 
@@ -63,7 +59,8 @@ export default {
   components: {
     WordTable,
     UserTable,
-    LogTable
+    LogTable,
+    Search
   },
   computed: mapGetters(['authUser']),
 }
