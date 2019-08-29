@@ -52,7 +52,7 @@ import UserTable from '../user/UserTable';
 import LogTable from '../logs/LogTable';
 import Search from '../search/Search';
 
-import { mapGetters, mapActions } from 'vuex';
+import { mapGetters } from 'vuex';
 
 export default {
   name: 'Dashboard',
