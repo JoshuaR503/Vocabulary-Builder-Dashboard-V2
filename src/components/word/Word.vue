@@ -193,73 +193,52 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex';
-import { 
-  Back,
-} from '../../layout/index';
-
-import axios from 'axios';
+import { Back } from '../../layout/index';
 export default {
   name: 'Word',
   components: { Back },
   methods: {
-    save(e) {
+    save(event) {
+
+      const isNotNew = this.id !== 'new';
+      const action = isNotNew ? 'updateWord' : 'createWord';
 
       if (this.wordData.word && this.wordData.wordTranslation ) {
 
-        if (this.id !== 'new') {
-
-          console.log(this.wordData);
-          // Update.
+        if (isNotNew) {
           this.wordData._id = this.id;
-          this.$store
-          .dispatch('updateWord', this.wordData)
-          .finally(response => this.$router.push('/'));  
-        } else {
-          // Create a new word.
-          this.$store
-          .dispatch('createWord', this.wordData)
-          .finally(response => this.$router.push('/'));  
         }
+
+        this.$store
+        .dispatch(action, this.wordData)
+        .finally(() => this.$router.push('/'));  
         
       } else {
-        // Display warning message.
         swal('Required data missing', 'Complete all the required data', 'warning');
       }
 
-      e.preventDefault();
+      event.preventDefault();
     },
   },
   created() {
-    const id = this.$route.params.id;
+    this.id = this.$route.params.id;
+    this.isNotNew = this.id !== 'new';
     
-    if (id !== 'new') {
-      // Load a single word.
-      const word = this.$store.getters.getWord(id);
-      console.log(word);
+    if (this.isNotNew) {
 
-      if (word === undefined) {
-        this.$router.push('/');
-      } else {
-        this.id = id;
+      const word = this.$store.getters.getWord(this.id);
+
+      if (word !== undefined) {
         this.mode = 'Editing';
-        this.wordData = {
-          word: word.word,
-          wordTranslation: word.wordTranslation,
-          wordPronuntiation: word.wordPronuntiation,
-          wordPronuntiationTranslation: word.wordPronuntiationTranslation,
-          EN: word.EN,
-          ES: word.ES,
-          createdAt: word.createdAt,
-          updatedAt: word.updatedAt,
-          visible: word.visible,
-          writter: word.writter,
-        }
+        this.wordData = word;
+      } else {
+        this.$router.push('/');
       }
     }
   },
   data: () => ({
     id: 'new',
+    isNotNew: null,
     mode: 'Creating',
     wordData: {
       word: '',

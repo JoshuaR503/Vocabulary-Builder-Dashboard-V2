@@ -47,8 +47,6 @@
 </template>
 
 <script>
-import axios from 'axios';
-import { mapGetters, mapActions } from 'vuex';
 import { 
   Back,
 } from '../../layout/index';
@@ -69,13 +67,13 @@ export default {
           this.userData._id = this.id;
           this.$store
           .dispatch('updateUser', this.userData)
-          .finally(response => this.$router.push('/'));  
+          .finally(() => this.$router.push('/'));  
   
         } else {
           this.userData.password = Math.random().toString(36).slice(-8);
           this.$store
           .dispatch('createUser', this.userData)
-          .finally(response => this.$router.push('/'));  
+          .finally(() => this.$router.push('/'));  
         }
   
       } else {
