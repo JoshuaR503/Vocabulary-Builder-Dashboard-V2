@@ -1,10 +1,20 @@
 
 <template>
-    <h1>Log's Table</h1>
+    <div class="page_content">
+        <Empty 
+        title="Nothing to see here" 
+        message="Start by adding new users."/>
+    </div>
 </template>
 
 <script>
+import { 
+  Spinner,
+  Empty
+} from '../../layout/index';
+
 export default {
-    name: 'LogTable'
+    name: 'LogTable',
+    components: { Empty, Spinner }
 }
 </script>

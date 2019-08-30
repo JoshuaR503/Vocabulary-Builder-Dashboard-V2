@@ -1,5 +1,6 @@
 <template>
-  <transition name="moveInUp">
+  <transition name="fadeIn" 
+    enter-active-class="fadeIn">
     <router-view/>
   </transition>
 </template>
@@ -9,3 +10,22 @@ export default {
   name: 'app'
 }
 </script>
+
+<style scoped>
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+.fadeIn {
+  animation-name: fadeIn;
+  animation-duration: 1s;
+  animation-fill-mode: both;
+}
+</style>
