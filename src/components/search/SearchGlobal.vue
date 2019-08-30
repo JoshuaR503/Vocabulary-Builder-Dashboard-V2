@@ -9,6 +9,6 @@
 
 <script>
 export default {
-  name: 'Search'
+  name: 'GlobalSearch'
 }
 </script>
