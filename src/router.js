@@ -6,7 +6,8 @@ import {
   Login,
   Dashboard,
   Word,
-  User
+  User,
+  SearchResults
 } from './components/index';
 
 Vue.use(Router);
@@ -20,6 +21,12 @@ const router = new Router({
     { path: '/', name: 'dashboard', component: Dashboard, meta: { requiresAuth: true }},
     { path: '/word/:id', name: 'word', component: Word, meta: { requiresAuth: true }},
     { path: '/user/:id', name: 'user', component: User, meta: { requiresAuth: true }},
+    { path: '/search/:query', name: 'search', component: SearchResults, 
+      meta: { 
+        requiresAuth: true 
+      }
+    },
+
   ]
 });
 
