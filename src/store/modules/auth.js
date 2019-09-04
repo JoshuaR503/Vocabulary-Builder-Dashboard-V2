@@ -27,31 +27,28 @@ const actions = {
     // Login the user.
     async loginAction({commit}, user) {
 
-        try {
-            await axios
-            .post(`${url}/v2/auth`, user)
-            .then(response => {
+        await axios
+        .post(`${url}/v2/auth`, user)
+        .then(response => {
+            // Get data from response.
+            const authToken = response.data.token;
+            const authPermission = response.data.document.role;
+            const authUser = response.data.document;
 
-                // Get data from response.
-                const authToken = response.data.token;
-                const authPermission = response.data.document.role;
-                const authUser = response.data.document;
+            // Save data in LocalStorage.
+            localStorage.setItem('auth_token', authToken);
+            localStorage.setItem('auth_permission', authPermission);
+            localStorage.setItem('auth_user', authUser.name);
 
-                // Save data in LocalStorage.
-                localStorage.setItem('auth_token', authToken);
-                localStorage.setItem('auth_permission', authPermission);
-                localStorage.setItem('auth_user', authUser.name);
-
-                // Set state.
-                commit('setAuthData',
-                    authToken,
-                    authPermission,
-                    authUser
-                );
-            });
-        } catch (error) {
-            throw error;            
-        }
+            // Set state.
+            commit('setAuthData',
+                authToken,
+                authPermission,
+                authUser
+            );
+        });
+        // No need to handle error. Or is it?.
+        // .catch()
     },
 
     // Logout the user.

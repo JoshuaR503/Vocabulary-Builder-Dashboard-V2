@@ -74,7 +74,7 @@ const httpInterceptorOnError = error => {
     // Display 500 error.
     if (error.response.status === 500 && error.response.data) {
         // Display error.
-        displayError(error.response.statusText, error.response.data.response);
+        displayError(error.response.statusText, error.response.data.message);
     }
 
     // Reject.

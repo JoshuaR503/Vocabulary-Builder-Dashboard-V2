@@ -4,7 +4,7 @@ import router from './router'
 import store from './store/index';
 
 // http helper.
-import setup from './lib/helpers/httpInterceptor';
+import { setup } from './lib/helpers';
 
 // Sentry
 import * as Sentry from '@sentry/browser';

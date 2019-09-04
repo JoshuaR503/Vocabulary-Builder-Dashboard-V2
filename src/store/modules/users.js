@@ -1,5 +1,6 @@
 import axios from 'axios';
 import {url} from '../../lib/config/config';
+import { reportExeption } from '../../lib/helpers';
 
 const state = {
     users: [],
@@ -45,20 +46,22 @@ const actions = {
         // Start loading.
         commit('setLoading', true);
 
-        try {
-            await axios
-            .get(`${url}/v2/user`)
-            .then(response => {
-                // Set users.
-                commit('setUsers', response.data.response.document);
-                // Set user count
-                commit('setUsersCount', response.data.response.count);
-                // No longer loading.
-                commit('setLoading', false);
-            });
-        } catch (error) {
-            throw error;
-        }
+        await axios
+        .get(`${url}/v2/user`)
+        .then(response => {
+            // Set users.
+            commit('setUsers', response.data.response.document);
+            // Set user count
+            commit('setUsersCount', response.data.response.count);
+            // No longer loading.
+            commit('setLoading', false);
+        })
+        .catch(error => {
+            // No longer loading.
+            commit('setLoading', false);
+            // Report error to Sentry.
+            reportExeption(error);
+        });
     },
 
     // Create new user.
@@ -66,18 +69,20 @@ const actions = {
         // Start loading.
         commit('setLoading', true);
 
-        try {
-            await axios
-            .post(`${url}/v2/user`, data)
-            .then(response => {
-                // Add new user.
-                commit('addUser', response.data.response.document);
-                // No longer loading.
-                commit('setLoading', false);
-            })
-        } catch (error) {
-            throw error;
-        }
+        await axios
+        .post(`${url}/v2/user`, data)
+        .then(response => {
+            // Add new user.
+            commit('addUser', response.data.response.document);
+            // No longer loading.
+            commit('setLoading', false);
+        })
+        .catch(error => {
+            // No longer loading.
+            commit('setLoading', false);
+            // Report error to Sentry.
+            reportExeption(error);
+        });
     },
 
     // Update single user.
@@ -85,29 +90,42 @@ const actions = {
         // Start loading.
         commit('setLoading', true);
 
-        try {
-            await axios
-            .put(`${url}/v2/user/${data._id}`, data)
-            .then(response => {
-                // Update user.
-                commit('updateUser', response.data.document);
-                // No longer loading.
-                commit('setLoading', false);
-            });
-        } catch (error) {
-            throw error;
-        }
+        await axios
+        .put(`${url}/v2/user/${data._id}`, data)
+        .then(response => {
+            // Update user.
+            commit('updateUser', response.data.document);
+            // No longer loading.
+            commit('setLoading', false);
+        })
+        .catch(error => {
+            // No longer loading.
+            commit('setLoading', false);
+            // Report error to Sentry.
+            reportExeption(error);
+        });
     },
 
     // Delete an user.
     async deleteUser({commit}, id) {
-        try {
-            await axios
-            .delete(`${url}/v2/user/${id}`)
-            .then(() => commit('deleteUser', id));
-        } catch (error) {
-            throw error;
-        }
+        // Start loading.
+        commit('setLoading', true);
+
+        await axios
+        .delete(`${url}/v2/user/${id}`)
+        .then(() => {
+            // No longer loading.
+            commit('setLoading', false);
+            // Delete user.
+            commit('deleteUser', id)
+        })
+        .catch(error => {
+            // No longer loading.
+            commit('setLoading', false);
+            // Report error to Sentry.
+            reportExeption(error);
+        });
+
     }
 }
 
