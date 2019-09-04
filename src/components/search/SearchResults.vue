@@ -42,8 +42,27 @@
             </div>
 
             <div v-if="searchResults.users.length > 0" class="col-md-6 col-sm-6">
-                <div >
-                    <h1>Hay Usuarios</h1>
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Edit</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr v-for="user in searchResults.users" :key="user._id">
+                            <td>{{user.name}}</td>
+                            <td>{{user.email}}</td>
+                            <td>
+                                <button @click="redirect('user', user._id)" class="btn btn-warning mr-1">
+                                    <i class="fas fa-arrow-right"></i>
+                                </button>
+                            </td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
 
