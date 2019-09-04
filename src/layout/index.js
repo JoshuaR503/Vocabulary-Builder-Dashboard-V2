@@ -1,6 +1,6 @@
-import Back from './Back';
-import Empty from './Empty';
-import Spinner from './Spinner';
+import Back from './ui/Back';
+import Empty from './ui/Empty';
+import Spinner from './ui/Spinner';
 
 export  {
     Back,

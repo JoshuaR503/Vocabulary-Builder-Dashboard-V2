@@ -5,7 +5,7 @@
       {{mode}} {{wordData.word}}
     </h3>
 
-    <form @submit="save">
+    <form @submit.prevent="save">
       <div class="row">
 
         <!-- English Data Column -->
@@ -198,7 +198,7 @@ export default {
   name: 'Word',
   components: { Back },
   methods: {
-    save(event) {
+    save() {
 
       const isNotNew = this.id !== 'new';
       const action = isNotNew ? 'updateWord' : 'createWord';
@@ -216,8 +216,6 @@ export default {
       } else {
         swal('Required data missing', 'Complete all the required data', 'warning');
       }
-
-      event.preventDefault();
     },
   },
   created() {

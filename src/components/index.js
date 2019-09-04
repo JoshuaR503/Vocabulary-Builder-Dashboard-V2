@@ -6,6 +6,7 @@ import UserTable from './user/UserTable';
 import User from './user/User';
 import LogTable from './logs/LogTable';
 import Search from './search/Search';
+import SearchResults from './search/SearchResults';
 
 export  {
     Login,
@@ -15,5 +16,6 @@ export  {
     UserTable,
     User,
     LogTable,
-    Search
+    Search,
+    SearchResults
 }
