@@ -81,12 +81,15 @@
 </template>
 
 <script>
-import { Back, Empty, Spinner } from '../../layout/index';
+import { Back, Empty } from '../../layout/index';
 import { mapGetters, mapActions } from 'vuex';
 
 export default {
     name: 'SearchResults',
-    components: { Empty, Back, Spinner },
+    components: { 
+        Empty, 
+        Back 
+    },
     methods: {
         ...mapGetters(['query', 'isSearchLoading']),
         ...mapActions(['search']),
