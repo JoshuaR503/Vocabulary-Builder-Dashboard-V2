@@ -28,12 +28,12 @@
           <div class="collapse multi-collapse" id="ENinfoSection" >
             <div class="form-group">
               <label>Examples</label>
-              <input v-model="wordData.EN.examplesEN" type="text" class="form-control" placeholder="Examples">
+              <textarea v-model="wordData.EN.examplesEN" type="text" class="form-control" placeholder="Examples"></textarea>
             </div>
 
             <div class="form-group">
               <label>Definition</label>
-              <input v-model="wordData.EN.definitionEN" type="text" class="form-control" placeholder="Definition">
+              <textarea v-model="wordData.EN.definitionEN" type="text" class="form-control" placeholder="Definition"></textarea>
             </div>
 
             <div class="form-group">
@@ -109,12 +109,12 @@
           <div class="collapse multi-collapse" id="ESinfoSection">
             <div class="form-group">
               <label>Examples in Spanish</label>
-              <input v-model="wordData.ES.examplesES" type="text" class="form-control" placeholder="Examples in Spanish">
+              <textarea v-model="wordData.ES.examplesES" type="text" class="form-control" placeholder="Examples in Spanish"></textarea>
             </div>
 
             <div class="form-group">
               <label>Definition in Spanish</label>
-              <input v-model="wordData.ES.definitionES" type="text" class="form-control" placeholder="Definition in Spanish">
+              <textarea v-model="wordData.ES.definitionES" type="text" class="form-control" placeholder="Definition in Spanish"></textarea>
             </div>
 
             <div class="form-group">
