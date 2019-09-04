@@ -1,5 +1,6 @@
 import axios from 'axios';
 import {url} from '../../lib/config/config';
+import { reportExeption } from '../../lib/helpers';
 
 const state = {
     query: null,
@@ -27,26 +28,28 @@ const actions = {
      * @param query 
      */
     async search({commit}, query) {
-        try {
-            commit('setIsSearchLoading', true);
+        commit('setIsSearchLoading', true);
 
-            return await axios
-            .get(`${url}/v2/search?query=${query}`)
-            .then(response => {
-                const data = response.data;
+        return await axios
+        .get(`${url}/v2/search?query=${query}`)
+        .then(response => {
+            const data = response.data;
 
-                commit('setQuery', query);
-                commit('setGlobalSearchResults', data);
-                commit('setIsSearchLoading', false);
+            commit('setQuery', query);
+            commit('setGlobalSearchResults', data);
+            commit('setIsSearchLoading', false);
 
-                return {
-                    data,
-                    query
-                }
-            });
-        } catch (error) {
-            //TODO: Report error.
-        }
+            return {
+                data,
+                query
+            }
+        })
+        .catch(error => {
+            // Set is search loading to false.
+            commit('setIsSearchLoading', false);
+            // Report error to Sentry.
+            reportExeption(error);
+        });
     }
 }
 

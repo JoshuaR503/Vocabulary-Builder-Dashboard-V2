@@ -1,5 +1,6 @@
 import axios from 'axios';
 import {url} from '../../lib/config/config';
+import { reportExeption } from '../../lib/helpers';
 
 const state = {
     words: [],
@@ -46,20 +47,22 @@ const actions = {
         // Start loading.
         commit('setLoading', true);
 
-        try {
-            await axios
-            .get(`${url}/v2/word`)
-            .then(response => {
-                // Set words.
-                commit('setWords', response.data.response.document);
-                // Set word count
-                commit('setWordCount', response.data.response.count);
-                // No longer loading.
-                commit('setLoading', false);
-            });
-        } catch (error) {
-            throw error;
-        }
+        await axios
+        .get(`${url}/v2/word`)
+        .then(response => {
+            // Set words.
+            commit('setWords', response.data.response.document);
+            // Set word count
+            commit('setWordCount', response.data.response.count);
+            // No longer loading.
+            commit('setLoading', false);
+        })
+        .catch(error => {
+            // No longer loading.
+            commit('setLoading', false);
+            // Report error to Sentry.
+            reportExeption(error);
+        });
     },
     
     // Create new word.
@@ -67,18 +70,20 @@ const actions = {
         // Start loading.
         commit('setLoading', true);
 
-        try {
-            await axios
-            .post(`${url}/v2/word`, data)
-            .then(response => {
-                // Add new word.
-                commit('addWord', response.data.response.document);
-                // No longer loading.
-                commit('setLoading', false);
-            })
-        } catch (error) {
-            throw error;
-        }
+        await axios
+        .post(`${url}/v2/word`, data)
+        .then(response => {
+            // Add new word.
+            commit('addWord', response.data.response.document);
+            // No longer loading.
+            commit('setLoading', false);
+        })
+        .catch(error => {
+            // No longer loading.
+            commit('setLoading', false);
+            // Report error to Sentry.
+            reportExeption(error);
+        });
     },
 
     // Update single word.
@@ -86,29 +91,41 @@ const actions = {
         // Start loading.
         commit('setLoading', true);
 
-        try {
-            await axios
-            .put(`${url}/v2/word/${data._id}`, data)
-            .then(response => {
-                // Update word.
-                commit('updateWord', response.data.document);
-                // No longer loading.
-                commit('setLoading', false);
-            });
-        } catch (error) {
-            throw error;
-        }
+        await axios
+        .put(`${url}/v2/word/${data._id}`, data)
+        .then(response => {
+            // Update word.
+            commit('updateWord', response.data.document);
+            // No longer loading.
+            commit('setLoading', false);
+        })
+        .catch(error => {
+            // No longer loading.
+            commit('setLoading', false);
+            // Report error to Sentry.
+            reportExeption(error);
+        });
     },
 
     // Delete a single word
     async deleteWord({commit}, id) {
-        try {
-            await axios
-            .delete(`${url}/v2/word/${id}`)
-            .then(() => commit('deleteWord', id));
-        } catch (error) {
-            throw error;
-        }
+        // Start loading.
+        commit('setLoading', true);
+
+        await axios
+        .delete(`${url}/v2/word/${id}`)
+        .then(() => {
+            // No longer loading.
+            commit('setLoading', false);
+            // Delete word from state.
+            commit('deleteWord', id);
+        })
+        .catch(error => {
+            // No longer loading.
+            commit('setLoading', false);
+            // Report error to Sentry.
+            reportExeption(error);
+        });
     }
 }
 

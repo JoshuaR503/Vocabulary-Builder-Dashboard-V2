@@ -2,7 +2,7 @@
     <div class="container">
         <h1 class="text-center pt-4">Vocabulary Builder</h1>
 
-        <form @submit="login">
+        <form @submit.prevent="login">
           <div class="form-group pt-4">
             <label for="exampleInputEmail1">Email address</label>
             <input type="email" v-model="email" class="form-control" placeholder="Enter email">
@@ -19,23 +19,19 @@
 </template>
 
 <script>
-import axios from 'axios';
-import { mapGetters, mapActions } from 'vuex';
+import { mapGetters } from 'vuex';
+import { reportMessage } from '../../lib/helpers';
 
 export default {
     name: 'Login',
     computer: mapGetters(['get']),
     methods: {
-        // Authenticate the user.
-        login(e) {
-
-            // Create user.
+        login() {
             const user = {
                 email: this.email,
                 password: this.password
             }
 
-            // Show alert if data is missing.
             if (!user.email || !user.password) {
                 swal('Data Missing!', 'Please fill all the fields', 'warning');
             }
@@ -44,9 +40,7 @@ export default {
             this.$store
             .dispatch('loginAction', user)
             .then(() => this.$router.push('/'))
-            .catch(error => console.error(error));
-            
-            e.preventDefault();
+            .catch(error => reportMessage(error));
         }
     },
     data: () => ({

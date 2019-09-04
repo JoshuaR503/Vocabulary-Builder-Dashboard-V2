@@ -8,13 +8,10 @@
 </template>
 
 <script>
-import { 
-  Spinner,
-  Empty
-} from '../../layout/index';
+import { Empty } from '../../layout/index';
 
 export default {
     name: 'LogTable',
-    components: { Empty, Spinner }
+    components: { Empty }
 }
 </script>

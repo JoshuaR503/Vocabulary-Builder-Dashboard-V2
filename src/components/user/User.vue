@@ -5,7 +5,7 @@
       <Back/> {{mode}} {{userData.name}}
     </h3>
 
-    <form @submit="save">
+    <form @submit.prevent="save">
       <div class="row">
 
         <div class="col-md-6 col-sm-6">
@@ -55,10 +55,7 @@ export default {
   name: 'User',
   components: { Back },
   methods: {
-    save(event) {
-
-      event.preventDefault();
-  
+    save() {
       if ( this.userData.name && 
         this.userData.email &&  
         this.userData.role ) {
@@ -79,7 +76,6 @@ export default {
       } else {
         swal('Required data missing', 'Complete all the required data', 'warning');
       }
-    
     },
   },
   created() {
