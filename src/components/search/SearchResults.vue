@@ -81,39 +81,39 @@
 </template>
 
 <script>
-import Search from '../search/Search';
-
-import { Back, Empty } from '../../layout/index';
+import { Back, Empty, Spinner } from '../../layout/index';
 import { mapGetters, mapActions } from 'vuex';
 
 export default {
     name: 'SearchResults',
-    components: { Empty, Back, Search },
+    components: { Empty, Back, Spinner },
     methods: {
-        ...mapGetters(['query']),
+        ...mapGetters(['query', 'isSearchLoading']),
         ...mapActions(['search']),
 
         redirect(where, id) {
             this.$router.push(`/${where}/${id}`);
+        },
+        replaceRouterParams(param) {
+            this.$router
+            .replace({params: {query: param}})
+            .catch(() => null);
+        },
+        dispatchSearch(search) {
+            this.$store
+            .dispatch('search', search)
+            .then((response) => {
+                this.keyWord = response.query;
+                this.searchResults = response.data;
+            });
         },
         initSearch() {
             const key = this.keyWord;
             const query = this.$route.params.query;
             const search = key ? key : query;
 
-            if (search) {
-                this.$store
-                .dispatch('search', search)
-                .then((response) => {
-                    this.keyWord = response.query;
-                    this.searchResults = response.data;
-                    this.$router
-                    .replace({params: {query: search}})
-                    .catch((error) => console.log('Router will not redirect in the same page.'));
-                });
-            } else if (!this.searchResults || !search) {
-                this.$router.push('/');
-            }
+            this.dispatchSearch(search);
+            this.replaceRouterParams(search);
         }
     },
     created() {
