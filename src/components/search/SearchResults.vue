@@ -16,7 +16,7 @@
                 </form>
             </div>
 
-            <div v-if="searchResults.words.length > 0" class="col-md-6 col-sm-6">
+            <div v-if="searchResults.words.length > 0" class="col-md-6 col-sm-12">
                 <div class="table-responsive">
                     <table class="table table-hover">
                         <thead>
@@ -41,7 +41,7 @@
                 </div>
             </div>
 
-            <div v-if="searchResults.users.length > 0" class="col-md-6 col-sm-6">
+            <div v-if="searchResults.users.length > 0" class="col-md-6 col-sm-12">
                 <div class="table-responsive">
                     <table class="table table-hover">
                         <thead>
@@ -81,37 +81,42 @@
 </template>
 
 <script>
-import Search from '../search/Search';
-
 import { Back, Empty } from '../../layout/index';
 import { mapGetters, mapActions } from 'vuex';
 
 export default {
     name: 'SearchResults',
-    components: { Empty, Back, Search },
+    components: { 
+        Empty, 
+        Back 
+    },
     methods: {
-        ...mapGetters(['query']),
+        ...mapGetters(['query', 'isSearchLoading']),
         ...mapActions(['search']),
 
         redirect(where, id) {
             this.$router.push(`/${where}/${id}`);
+        },
+        replaceRouterParams(param) {
+            this.$router
+            .replace({params: {query: param}})
+            .catch(() => null);
+        },
+        dispatchSearch(search) {
+            this.$store
+            .dispatch('search', search)
+            .then((response) => {
+                this.keyWord = response.query;
+                this.searchResults = response.data;
+            });
         },
         initSearch() {
             const key = this.keyWord;
             const query = this.$route.params.query;
             const search = key ? key : query;
 
-            if (search) {
-                this.$store
-                .dispatch('search', search)
-                .then((response) => {
-                    this.keyWord = response.query;
-                    this.searchResults = response.data;
-                    this.$router.replace({params: {query: search}});
-                });
-            } else if (!this.searchResults || !search) {
-                this.$router.push('/');
-            }
+            this.dispatchSearch(search);
+            this.replaceRouterParams(search);
         }
     },
     created() {
