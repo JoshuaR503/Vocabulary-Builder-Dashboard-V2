@@ -16,7 +16,7 @@
                 </form>
             </div>
 
-            <div v-if="searchResults.words.length > 0" class="col-md-6 col-sm-6">
+            <div v-if="searchResults.words.length > 0" class="col-md-6 col-sm-12">
                 <div class="table-responsive">
                     <table class="table table-hover">
                         <thead>
@@ -41,7 +41,7 @@
                 </div>
             </div>
 
-            <div v-if="searchResults.users.length > 0" class="col-md-6 col-sm-6">
+            <div v-if="searchResults.users.length > 0" class="col-md-6 col-sm-12">
                 <div class="table-responsive">
                     <table class="table table-hover">
                         <thead>
@@ -107,7 +107,9 @@ export default {
                 .then((response) => {
                     this.keyWord = response.query;
                     this.searchResults = response.data;
-                    this.$router.replace({params: {query: search}});
+                    this.$router
+                    .replace({params: {query: search}})
+                    .catch((error) => console.log('Router will not redirect in the same page.'));
                 });
             } else if (!this.searchResults || !search) {
                 this.$router.push('/');
