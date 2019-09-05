@@ -14,7 +14,7 @@
         </div>
 
         <div class="col-sm-6">
-          <AddMore component="word" param="new"/>
+          <Add component="word" param="new"/>
         </div>
 
       </div>
@@ -37,14 +37,12 @@
                 <td>{{word.wordTranslation}}</td>
                 <td>{{word.visible ? 'Public' : 'Needs Revision'}}</td>
                 <td>
-                  <button @click="editWord(word._id)" class="btn btn-warning mr-1">
-                    <i class="fas fa-pen"></i>
-                  </button>
+                  <Edit component="word" :param="word._id" />
                 </td>
                 <td>
                   <button  @click="deleteWord(word._id)" class="btn btn-danger ml-1">
                     <i class="fas fa-trash"></i>
-                  </button>  
+                  </button> 
                 </td>
               </tr>
             </tbody>
@@ -54,7 +52,7 @@
     </div>
 
     <div v-else class="content">
-      <AddMore component="word" param="new"/>
+      <Add component="word" param="new"/>
 
       <Empty 
        title="Nothing to see here" 
@@ -69,35 +67,17 @@ import { mapGetters, mapActions } from 'vuex';
 import {
   Spinner,
   Empty,
-  AddMore
+  Add,
+  Edit
 } from '../../layout/index';
 
 export default {
   name: 'WordTable',
-  components: { Empty, Spinner, AddMore },
+  components: { Empty, Spinner, Add, Edit },
   computed: mapGetters(['words', 'wordCount', 'isLoading']),
-  methods: {
-    // Actions from Vuex.
-    ...mapActions(['fetchWords', 'deleteWord']),
-
-    // Edit a word.
-    editWord(id) {
-      this.$router.push(`/word/${id}`);
-    },
-
-    // Add a word.
-    addWord() {
-      this.$router.push('/word/new');
-    }
-  },
+  methods: mapActions(['fetchWords', 'deleteWord']),
   created() {
     this.fetchWords();
   }
 }
 </script>
-
-<style scoped>
-  i {
-    color: white;
-  }
-</style>

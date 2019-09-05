@@ -14,7 +14,7 @@
         </div>
 
         <div class="col-sm-6">
-          <AddMore component="user" param="new"/>
+          <Add component="user" param="new"/>
         </div>
       </div>
 
@@ -36,9 +36,7 @@
                 <td>{{user.email}}</td>
                 <td>{{user.role === 'UpperPermission' ? 'Admin' : 'Editor'}}</td>
                 <td>
-                  <button @click="edit(user._id)" type="button" class="btn btn-warning mr-1">
-                    <i class="fas fa-pen"></i>
-                  </button>
+                  <Edit component="user" :param="user._id" />
                 </td>
                 <td>
                   <button @click="deleteUser(user._id)" type="button" class="btn btn-danger ml-1">
@@ -53,7 +51,7 @@
     </div>
 
     <div v-else class="content">
-      <AddMore component="user" param="new"/>
+      <Add component="user" param="new"/>
 
       <Empty 
         title="Nothing to see here" 
@@ -64,33 +62,15 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex';
-import { Spinner, Empty, AddMore } from '../../layout/index';
+import { Spinner, Empty, Add, Edit } from '../../layout/index';
 
 export default {
   name: 'UserTable',
-  components: { 
-    Empty, 
-    Spinner,
-    AddMore 
-  },
+  components: {  Empty,  Spinner, Add, Edit },
   computed: mapGetters(['users', 'usersCount', 'usersIsLoading']),
-  methods: {
-    // Actions from Vuex.
-    ...mapActions(['fetchUsers', 'deleteUser']),
-    
-    // Edit an user.
-    edit(id) {
-      this.$router.push(`/user/${id}`);
-    },
-  },
+  methods: mapActions(['fetchUsers', 'deleteUser']),
   created() {
     this.fetchUsers();
   }
 }
 </script>
-
-<style scoped>
-  i {
-    color: white;
-  }
-</style>

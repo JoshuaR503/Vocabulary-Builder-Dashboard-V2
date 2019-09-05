@@ -1,6 +1,6 @@
 <template>
     <div class="pt-4 text-right">
-        <button @click="addMore" class="btn btn-primary">
+        <button @click="redirect" class="btn btn-primary">
           <i class="fas fa-plus"></i>
         </button>
     </div>
@@ -8,11 +8,11 @@
 
 <script>
 export default {
-    name: 'AddMore',
+    name: 'Add',
     props: ['component', 'param'],
     methods: {
         // Redirect to a specified route.
-        addMore() {
+        redirect() {
             this.$router.push({
                 name: this.component,
                 params: { id: this.param }
