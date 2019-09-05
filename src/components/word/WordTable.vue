@@ -14,12 +14,9 @@
         </div>
 
         <div class="col-sm-6">
-          <div class="text-right">
-            <button @click="addWord" class="btn btn-primary">
-              <i class="fas fa-plus"></i>
-            </button>
-          </div>
+          <AddMore component="word" param="new"/>
         </div>
+
       </div>
       
       <div class="page_container">
@@ -57,6 +54,8 @@
     </div>
 
     <div v-else class="content">
+      <AddMore component="word" param="new"/>
+
       <Empty 
        title="Nothing to see here" 
        message="Start by adding new words."/>
@@ -69,12 +68,13 @@
 import { mapGetters, mapActions } from 'vuex';
 import {
   Spinner,
-  Empty
+  Empty,
+  AddMore
 } from '../../layout/index';
 
 export default {
   name: 'WordTable',
-  components: { Empty, Spinner },
+  components: { Empty, Spinner, AddMore },
   computed: mapGetters(['words', 'wordCount', 'isLoading']),
   methods: {
     // Actions from Vuex.

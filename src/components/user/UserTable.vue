@@ -14,11 +14,7 @@
         </div>
 
         <div class="col-sm-6">
-          <div class="text-right">
-            <button @click="add" class="btn btn-primary">
-              <i class="fas fa-plus"></i>
-            </button>
-          </div>
+          <AddMore component="user" param="new"/>
         </div>
       </div>
 
@@ -57,6 +53,8 @@
     </div>
 
     <div v-else class="content">
+      <AddMore component="user" param="new"/>
+
       <Empty 
         title="Nothing to see here" 
         message="Start by adding new users."/>
@@ -66,14 +64,15 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex';
-import { 
-  Spinner,
-  Empty
-} from '../../layout/index';
+import { Spinner, Empty, AddMore } from '../../layout/index';
 
 export default {
   name: 'UserTable',
-  components: { Empty, Spinner },
+  components: { 
+    Empty, 
+    Spinner,
+    AddMore 
+  },
   computed: mapGetters(['users', 'usersCount', 'usersIsLoading']),
   methods: {
     // Actions from Vuex.
@@ -83,11 +82,6 @@ export default {
     edit(id) {
       this.$router.push(`/user/${id}`);
     },
-
-    // Add a user.
-    add() {
-      this.$router.push('/user/new');
-    }
   },
   created() {
     this.fetchUsers();
