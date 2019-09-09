@@ -2,20 +2,18 @@ import axios from 'axios';
 import store from '../../store/index';
 import router from '../../router';
 
-// HTTP interceptor, error handling.
-export default function setup() {
-    // Request handler.
-    axios.interceptors.request.use(request => httpInterceptorOnRequest(request));
+// Display error message to the user.
+const displayError = (title, message) => {
+    swal(title, message, 'error');
+}
 
-    // Response handler.
-    axios.interceptors.response.use(
-        response => httpInterceptorOnSuccess(response),
-        error => httpInterceptorOnError(error)
-    );
+// Display success message to the user.
+const displaySuccess = (title, message) => {
+    swal(title, message, 'success');
 }
 
 // Request handing - Just adds an auth header.
-const httpInterceptorOnRequest = request => {
+const httpInterceptorOnRequest = (request) => {
 
     // Add authorization header.
     request.headers['x-authorization-token'] = store.getters['authToken'];
@@ -25,7 +23,7 @@ const httpInterceptorOnRequest = request => {
 }
 
 // Sucess Hanlder
-const httpInterceptorOnSuccess = response => {
+const httpInterceptorOnSuccess = (response) => {
 
     // Display sucess message when created.
     if (response.status === 201 && response.data) {
@@ -45,8 +43,9 @@ const httpInterceptorOnSuccess = response => {
     // Rsolve
     return response;
 }
+
 // Error handling.
-const httpInterceptorOnError = error => {
+const httpInterceptorOnError = (error) => {
 
     // Display error message if there is no response from the server.
     if (!error.response) {
@@ -81,12 +80,14 @@ const httpInterceptorOnError = error => {
     return Promise.reject(error);
 }
 
-// Display error message to the user.
-const displayError = (title, message) => {
-    swal(title, message, 'error');
-}
+// HTTP interceptor, error handling.
+export default function setup() {
+    // Request handler.
+    axios.interceptors.request.use((request) => httpInterceptorOnRequest(request));
 
-// Display success message to the user.
-const displaySuccess = (title, message) => {
-    swal(title, message, 'success');
+    // Response handler.
+    axios.interceptors.response.use(
+        (response) => httpInterceptorOnSuccess(response),
+        (error) => httpInterceptorOnError(error)
+    );
 }
