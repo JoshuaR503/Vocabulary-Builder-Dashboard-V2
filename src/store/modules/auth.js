@@ -37,10 +37,10 @@ const mutations = {
 const actions = {
     // Login the user.
     async loginAction({commit}, user) {
-
         await axios
         .post(`${url}/v2/auth`, user)
         .then(response => {
+            
             // Get data from response.
             const authUser = response.data.document.name;
             const authToken = response.data.token;
@@ -65,7 +65,6 @@ const actions = {
 
     // Logout the user.
     logoutAction({commit}) {
-
         // Remove data from LocalStorage.
         localStorage.removeItem('auth_token');
         localStorage.removeItem('auth_permission');
