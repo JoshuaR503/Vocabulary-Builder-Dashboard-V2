@@ -16,7 +16,6 @@
         <div class="col-sm-6">
           <Add component="word" param="new"/>
         </div>
-
       </div>
       
       <div class="page_container">

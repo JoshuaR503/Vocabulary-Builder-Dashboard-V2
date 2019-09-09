@@ -12,6 +12,15 @@
         <div class="col-md-6 col-sm-6">
 
           <div class="form-group">
+            <label>Level</label>
+            <select v-model="wordData.level" class="form-control">
+              <option value="easy">Beginner</option>
+              <option value="medium">Normal</option>
+              <option value="hard">Hard</option>
+            </select>
+          </div>
+
+          <div class="form-group">
             <label>Word</label>
             <input v-model="wordData.word" type="text" class="form-control" placeholder="Word" required>
           </div>
@@ -187,6 +196,7 @@
         <div class="col-md-6 mt-2">
           <button @click="save" type="button" class="btn btn-block btn-primary">Save</button>
         </div>
+
       </div>
     </form>
   </div>
