@@ -12,6 +12,15 @@
         <div class="col-md-6 col-sm-6">
 
           <div class="form-group">
+            <label>Level</label>
+            <select v-model="wordData.level" class="form-control">
+              <option value="easy">Beginner</option>
+              <option value="medium">Normal</option>
+              <option value="hard">Hard</option>
+            </select>
+          </div>
+
+          <div class="form-group">
             <label>Word</label>
             <input v-model="wordData.word" type="text" class="form-control" placeholder="Word" required>
           </div>
@@ -92,6 +101,7 @@
 
         <!-- Spanish Data Column -->
         <div class="col-md-6 col-sm-6">
+
           <div class="form-group">
             <label>Word in Spanish</label>
             <input v-model="wordData.wordTranslation" type="text" class="form-control" placeholder="Word in Spanish" required>
@@ -185,8 +195,15 @@
 
         <!-- Save button -->
         <div class="col-md-6 mt-2">
+
+          <div class="form-check mb-4">
+            <input class="form-check-input" type="checkbox" v-model="wordData.visible">
+            <label class="form-check-label"> Display to public</label>
+          </div>
+
           <button @click="save" type="button" class="btn btn-block btn-primary">Save</button>
         </div>
+
       </div>
     </form>
   </div>

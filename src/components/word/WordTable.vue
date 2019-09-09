@@ -16,7 +16,6 @@
         <div class="col-sm-6">
           <Add component="word" param="new"/>
         </div>
-
       </div>
       
       <div class="page_container">
@@ -27,6 +26,7 @@
                 <th>Word</th>
                 <th>Translation</th>
                 <th>Status</th>
+                <th>Level</th>
                 <th>Edit</th>
                 <th>Delete</th>
               </tr>
@@ -35,12 +35,26 @@
               <tr v-for="word in words" :key="word._id">
                 <td>{{word.word}}</td>
                 <td>{{word.wordTranslation}}</td>
-                <td>{{word.visible ? 'Public' : 'Needs Revision'}}</td>
+
+                <td v-if="word.visible">
+                  <label class="label label-success">Public</label>
+                </td>
+
+                <td v-if="!word.visible">
+                  <label class="label label-danger">Needs Revision</label>
+                </td>
+
+                <td>
+                  <label v-if="word.level === 'easy'" class="label label-custom">Easy</label>
+                  <label v-else-if="word.level === 'medium'" class="label label-info">Normal</label>
+                  <label v-if="word.level === 'hard'" class="label label-purple">Hard</label>
+                </td>
+
                 <td>
                   <Edit component="word" :param="word._id" />
                 </td>
                 <td>
-                  <button  @click="deleteWord(word._id)" class="btn btn-danger ml-1">
+                  <button @click="deleteWord(word._id)" class="btn btn-danger ml-1">
                     <i class="fas fa-trash"></i>
                   </button> 
                 </td>
@@ -81,3 +95,7 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+@import url(../../css/label.css);
+</style>
