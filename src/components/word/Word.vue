@@ -1,5 +1,5 @@
 <template>
-  <div class="container pt-4 pb-4">
+  <div class="container pt-4 pb-4">    
     <h3 class="pt-4 pb-4"> 
       <Back/>
       {{mode}} {{wordData.word}}
@@ -211,28 +211,22 @@
 
 <script>
 import { Back } from '../../layout/index';
+
 export default {
   name: 'Word',
   components: { Back },
   methods: {
     save() {
-
       const isNotNew = this.id !== 'new';
       const action = isNotNew ? 'updateWord' : 'createWord';
-
-      if (this.wordData.word && this.wordData.wordTranslation ) {
-
-        if (isNotNew) {
-          this.wordData._id = this.id;
-        }
-
-        this.$store
-        .dispatch(action, this.wordData)
-        .finally(() => this.$router.push('/'));  
-        
-      } else {
-        swal('Required data missing', 'Complete all the required data', 'warning');
+    
+      if (isNotNew) {
+        this.wordData._id = this.id;
       }
+
+      this.$store
+      .dispatch(action, this.wordData)
+      .finally(() => this.$router.push('/')); 
     },
   },
   created() {

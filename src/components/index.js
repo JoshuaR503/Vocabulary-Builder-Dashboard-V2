@@ -18,4 +18,4 @@ export  {
     LogTable,
     Search,
     SearchResults
-}
+};
