@@ -1,0 +1,37 @@
+.label {
+  padding: 3px 10px;
+  line-height: 13px;
+  color: #ffffff;
+  font-weight: 400;
+  border-radius: 4px;
+  font-size: 75%; }
+
+.label-rounded {
+  border-radius: 60px; }
+
+.label-custom {
+  background-color: #56c0d8; }
+
+.label-success {
+  background-color: #06d79c; }
+
+.label-info {
+  background-color: #398bf7; }
+
+.label-warning {
+  background-color: #ffb22b; }
+
+.label-danger {
+  background-color: #ef5350; }
+
+.label-megna {
+  background-color: #56c0d8; }
+
+.label-primary {
+  background-color: #745af2; }
+
+.label-purple {
+  background-color: #7460ee; }
+
+.label-red {
+  background-color: #fb3a3a; }
