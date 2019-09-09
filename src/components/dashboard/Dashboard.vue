@@ -1,12 +1,9 @@
 <template>
   <div class="container pt-4">
     
+    <Header/>
+    
     <div class="row">
-      <div class="col-sm-12 col-md-6">
-        <div class="text-left">
-          <h3>{{authUser}}</h3>
-        </div>
-      </div>
 
       <div class="col-md-12">
         <Search/>
@@ -51,6 +48,7 @@ import WordTable from '../word/WordTable';
 import UserTable from '../user/UserTable';
 import LogTable from '../logs/LogTable';
 import Search from '../search/Search';
+import { Header } from '../../layout';
 
 import { mapGetters } from 'vuex';
 
@@ -60,7 +58,8 @@ export default {
     WordTable,
     UserTable,
     LogTable,
-    Search
+    Search,
+    Header
   },
   computed: mapGetters(['authUser']),
 }
