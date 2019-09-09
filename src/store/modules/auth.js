@@ -1,5 +1,7 @@
 import axios from 'axios';
-import {url} from '../../lib/config/config';
+import router from '../../router';
+import { url } from '../../lib/config/config';
+import { reportExeption } from '../../lib/helpers';
 
 const state = {
     authToken: localStorage.getItem('auth_token') || null,
@@ -15,12 +17,21 @@ const getters = {
 };
 
 const mutations = {
-    // Mutate the data values.
-    setAuthData(state, token, authPermission, authUser) {
-        state.authToken = token;
-        state.authPermission = authPermission;
-        state.authUser = authUser;
-    },
+    // Set user name.
+    setAuthUser: (state, authUser) => state.authUser = authUser,
+
+    // Set user name.
+    setAuthToken: (state, authToken) => state.authToken = authToken,
+
+    // Set user permission.
+    setAuthPermission: (state, authPermission) => state.authPermission = authPermission,
+
+    // Set data null. 
+    setDataNull: (state, data) => {
+        state.authUser = data;
+        state.authToken = data;
+        state.authPermission = data;
+    }
 };
 
 const actions = {
@@ -31,24 +42,25 @@ const actions = {
         .post(`${url}/v2/auth`, user)
         .then(response => {
             // Get data from response.
+            const authUser = response.data.document.name;
             const authToken = response.data.token;
             const authPermission = response.data.document.role;
-            const authUser = response.data.document;
 
-            // Save data in LocalStorage.
-            localStorage.setItem('auth_token', authToken);
-            localStorage.setItem('auth_permission', authPermission);
-            localStorage.setItem('auth_user', authUser.name);
+            // Set user name.
+            commit('setAuthUser', authUser);
+
+            // Set token.
+            commit('setAuthToken', authToken);
 
             // Set state.
-            commit('setAuthData',
-                authToken,
-                authPermission,
-                authUser
-            );
-        });
-        // No need to handle error. Or is it?.
-        // .catch()
+            commit('setAuthPermission', authPermission);
+
+            // Save data in LocalStorage.
+            localStorage.setItem('auth_user', authUser);
+            localStorage.setItem('auth_token', authToken);
+            localStorage.setItem('auth_permission', authPermission);
+        })
+        .catch(error => reportExeption(error));
     },
 
     // Logout the user.
@@ -59,9 +71,11 @@ const actions = {
         localStorage.removeItem('auth_permission');
         localStorage.removeItem('auth_users');
 
-        // Redirect user to login.        
+        // Redirect user to login.
+        router.push('/login');
+        
         // Set state.
-        commit('setAuthData', null, null, null);
+        commit('setDataNull', null);
     }
 };
 
