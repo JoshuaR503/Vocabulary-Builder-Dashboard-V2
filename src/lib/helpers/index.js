@@ -5,4 +5,4 @@ export {
     setup,
     reportExeption,
     reportMessage
-}
+};

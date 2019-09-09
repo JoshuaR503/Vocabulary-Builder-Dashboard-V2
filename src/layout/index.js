@@ -12,4 +12,4 @@ export  {
     Add,
     Edit,
     Header
-}
+};

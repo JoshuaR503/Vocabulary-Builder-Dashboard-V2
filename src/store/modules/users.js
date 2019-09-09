@@ -117,7 +117,7 @@ const actions = {
             // No longer loading.
             commit('setLoading', false);
             // Delete user.
-            commit('deleteUser', id)
+            commit('deleteUser', id);
         })
         .catch(error => {
             // No longer loading.
