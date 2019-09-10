@@ -25,6 +25,7 @@
               <tr>
                 <th>Word</th>
                 <th>Translation</th>
+                <th>Category</th>
                 <th>Status</th>
                 <th>Level</th>
                 <th>Edit</th>
@@ -35,6 +36,10 @@
               <tr v-for="word in words" :key="word._id">
                 <td>{{word.word}}</td>
                 <td>{{word.wordTranslation}}</td>
+
+                <td>
+                  <label class="label label-primary">{{word.EN.categoryEN}}</label>
+                </td>
 
                 <td v-if="word.visible">
                   <label class="label label-success">Public</label>
