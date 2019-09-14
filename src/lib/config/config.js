@@ -1,6 +1,6 @@
-const LIMIT = 10;
-const NEXT = 10;
-const PREV = -10;
+const LIMIT = 8;
+const NEXT = 8;
+const PREV = -8;
 
 const URL_API = process.env.NODE_ENV 
 ? 'http://localhost:5200'
