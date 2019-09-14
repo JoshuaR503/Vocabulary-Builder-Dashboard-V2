@@ -33,3 +33,4 @@ Currently, the admin panel is meant to be simple. It only has a few features but
 
 ## Future Features
 - Pagination
+- Search on a single screeen
