@@ -33,7 +33,7 @@
           <div class="form-group">
             <label>Password</label>
             <input v-if="id !== 'new'" disabled type="text" class="form-control" placeholder="Password">
-            <input v-else disabled type="text" class="form-control" placeholder="Random Password">
+            <input v-else disabled type="text" class="form-control" placeholder="Random Password" required>
           </div>
         </div>
 
@@ -56,25 +56,17 @@ export default {
   components: { Back },
   methods: {
     save() {
-      if ( this.userData.name && 
-        this.userData.email &&  
-        this.userData.role ) {
-        
-        if (this.id !== 'new') {
-          this.userData._id = this.id;
-          this.$store
-          .dispatch('updateUser', this.userData)
-          .finally(() => this.$router.push('/'));  
-  
-        } else {
-          this.userData.password = Math.random().toString(36).slice(-8);
-          this.$store
-          .dispatch('createUser', this.userData)
-          .finally(() => this.$router.push('/'));  
-        }
-  
+      if (this.id !== 'new') {
+        this.userData._id = this.id;
+        this.$store
+        .dispatch('updateUser', this.userData)
+        .finally(() => this.$router.push('/'));  
+
       } else {
-        swal('Required data missing', 'Complete all the required data', 'warning');
+        this.userData.password = Math.random().toString(36).slice(-8);
+        this.$store
+        .dispatch('createUser', this.userData)
+        .finally(() => this.$router.push('/'));  
       }
     },
   },
