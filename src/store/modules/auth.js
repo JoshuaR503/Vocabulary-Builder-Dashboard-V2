@@ -1,6 +1,6 @@
 import axios from 'axios';
 import router from '../../router';
-import { url } from '../../lib/config/config';
+import { URL_API } from '../../lib/config/config';
 import { reportExeption } from '../../lib/helpers';
 
 const state = {
@@ -38,7 +38,7 @@ const actions = {
     // Login the user.
     async loginAction({commit}, user) {
         await axios
-        .post(`${url}/v2/auth`, user)
+        .post(`${URL_API}/v2/auth`, user)
         .then(response => {
             
             // Get data from response.

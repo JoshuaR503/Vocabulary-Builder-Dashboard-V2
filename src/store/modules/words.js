@@ -1,5 +1,5 @@
 import axios from 'axios';
-import {url} from '../../lib/config/config';
+import { URL_API } from '../../lib/config/config';
 import { reportExeption } from '../../lib/helpers';
 
 const state = {
@@ -48,7 +48,7 @@ const actions = {
         commit('setLoading', true);
 
         await axios
-        .get(`${url}/v2/word`)
+        .get(`${URL_API}/v2/word`)
         .then(response => {
             // Set words.
             commit('setWords', response.data.response.document);
@@ -71,7 +71,7 @@ const actions = {
         commit('setLoading', true);
 
         await axios
-        .post(`${url}/v2/word`, data)
+        .post(`${URL_API}/v2/word`, data)
         .then(response => {
             // Add new word.
             commit('addWord', response.data.response.document);
@@ -92,7 +92,7 @@ const actions = {
         commit('setLoading', true);
 
         await axios
-        .put(`${url}/v2/word/${data._id}`, data)
+        .put(`${URL_API}/v2/word/${data._id}`, data)
         .then(response => {
             // Update word.
             commit('updateWord', response.data.document);
@@ -113,7 +113,7 @@ const actions = {
         commit('setLoading', true);
 
         await axios
-        .delete(`${url}/v2/word/${id}`)
+        .delete(`${URL_API}/v2/word/${id}`)
         .then(() => {
             // No longer loading.
             commit('setLoading', false);

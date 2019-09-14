@@ -1,5 +1,5 @@
 import axios from 'axios';
-import {url} from '../../lib/config/config';
+import { URL_API } from '../../lib/config/config';
 import { reportExeption } from '../../lib/helpers';
 
 const state = {
@@ -31,7 +31,7 @@ const actions = {
         commit('setIsSearchLoading', true);
 
         return await axios
-        .get(`${url}/v2/search?query=${query}`)
+        .get(`${URL_API}/v2/search?query=${query}`)
         .then(response => {
             const data = response.data;
 
