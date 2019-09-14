@@ -6,7 +6,7 @@
         </div>
       
         <div @click="logoutAction" class="icon">
-            <i class="fas fa-power-off fa-2x"></i>
+            <i class="fas fa-times fa-2x"></i>
         </div>
     </div>
 

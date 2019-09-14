@@ -45,8 +45,8 @@ export default {
     }
   },
   data: () => ({
-    email: 'josshuagarciia310@gmail.com',
-    password: 'Alichai510'
+    email: '',
+    password: ''
   }),
 }
 </script>

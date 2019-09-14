@@ -1,5 +1,5 @@
 <template>
-    <div class="pt-4 text-right">
+    <div class="text-right">
         <button @click="redirect" class="btn btn-primary">
           <i class="fas fa-plus"></i>
         </button>

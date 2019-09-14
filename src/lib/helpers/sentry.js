@@ -20,4 +20,4 @@ const reportMessage = (message, level = 'info') => {
 export {
     reportExeption,
     reportMessage
-}
+};

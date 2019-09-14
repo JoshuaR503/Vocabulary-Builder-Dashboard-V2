@@ -6,16 +6,13 @@
     </div>
 
     <div v-else-if="users.length > 0" class="content">
-      <div class="row pt-4 pb-4">
-        <div class="col-sm-6">
-          <div class="text-left">
-            <h3>Registered Users: {{usersCount}}</h3>
-          </div>
-        </div>
 
-        <div class="col-sm-6">
-          <Add component="user" param="new"/>
+      <div class="d-flex pt-4 pb-4">
+        <div class="mr-auto">
+          <h3>Registered Users: {{usersCount}}</h3>
         </div>
+      
+        <Add component="user" param="new"/>
       </div>
 
       <div class="page_container">
@@ -51,7 +48,7 @@
     </div>
 
     <div v-else class="content">
-      <Add component="user" param="new"/>
+      <Add class="pt-4" component="user" param="new"/>
 
       <Empty 
         title="Nothing to see here" 
