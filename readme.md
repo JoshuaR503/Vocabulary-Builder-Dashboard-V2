@@ -32,5 +32,4 @@ Currently, the admin panel is meant to be simple. It only has a few features but
 - State management for users, words, and search
 
 ## Future Features
-- Pagination
 - Search on a single screeen
