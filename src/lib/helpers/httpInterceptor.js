@@ -58,8 +58,14 @@ const httpInterceptorOnError = (error) => {
         displayError('Authentication failed', error.response.data.message);
     }
 
+    // Display error if it's an permission related error.
+    if (error.response.data.type === 'PermissionExeption') {
+        // Display error.
+        displayError('You are not allowed to do that', error.response.data.message);
+    }
+
     // Display error message if token expired.
-    if (error.response.status === 403) {
+    if (error.response.status === 403 && error.response.data.type === 'OAuthException') {
         // Display error.
         displayError('Session expired', 'Please login again');
 
