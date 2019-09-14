@@ -6,20 +6,20 @@ const state = {
     query: null,
     isSearchLoading: false,
     globalSearchResults: null
-}
+};
 
 const getters = {
     query: state => state.query,
     isSearchLoading: state => state.isSearchLoading,
     globalSearchResults: state => state.globalSearchResults,
     
-}
+};
 
 const mutations = {
     setQuery: (state, query) => state.query = query,
     setIsSearchLoading: (state, isSearchLoading) => state.isSearchLoading = isSearchLoading,
     setGlobalSearchResults: (state, globalSearchResults) => state.globalSearchResults = globalSearchResults,
-}
+};
 
 const actions = {
     /**
@@ -32,7 +32,7 @@ const actions = {
 
         return await axios
         .get(`${URL_API}/v2/search?query=${query}`)
-        .then(response => {
+        .then((response) => {
             const data = response.data;
 
             commit('setQuery', query);
@@ -44,14 +44,14 @@ const actions = {
                 query
             }
         })
-        .catch(error => {
+        .catch((error) => {
             // Set is search loading to false.
             commit('setIsSearchLoading', false);
             // Report error to Sentry.
             reportExeption(error);
         });
     }
-}
+};
 
 export default {
     state,

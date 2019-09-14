@@ -48,7 +48,7 @@ const actions = {
 
         await axios
         .get(`${URL_API}/v2/user`)
-        .then(response => {
+        .then((response) => {
             // Set users.
             commit('setUsers', response.data.response.document);
             // Set user count
@@ -56,7 +56,7 @@ const actions = {
             // No longer loading.
             commit('setLoading', false);
         })
-        .catch(error => {
+        .catch((error) => {
             // No longer loading.
             commit('setLoading', false);
             // Report error to Sentry.
@@ -71,13 +71,13 @@ const actions = {
 
         await axios
         .post(`${URL_API}/v2/user`, data)
-        .then(response => {
+        .then((response) => {
             // Add new user.
             commit('addUser', response.data.response.document);
             // No longer loading.
             commit('setLoading', false);
         })
-        .catch(error => {
+        .catch((error) => {
             // No longer loading.
             commit('setLoading', false);
             // Report error to Sentry.
@@ -92,13 +92,13 @@ const actions = {
 
         await axios
         .put(`${URL_API}/v2/user/${data._id}`, data)
-        .then(response => {
+        .then((response) => {
             // Update user.
             commit('updateUser', response.data.document);
             // No longer loading.
             commit('setLoading', false);
         })
-        .catch(error => {
+        .catch((error) => {
             // No longer loading.
             commit('setLoading', false);
             // Report error to Sentry.
@@ -119,7 +119,7 @@ const actions = {
             // Delete user.
             commit('deleteUser', id);
         })
-        .catch(error => {
+        .catch((error) => {
             // No longer loading.
             commit('setLoading', false);
             // Report error to Sentry.
@@ -127,7 +127,7 @@ const actions = {
         });
 
     }
-}
+};
 
 export default {
     state,

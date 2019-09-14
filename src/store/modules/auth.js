@@ -39,7 +39,7 @@ const actions = {
     async loginAction({commit}, user) {
         await axios
         .post(`${URL_API}/v2/auth`, user)
-        .then(response => {
+        .then((response) => {
             
             // Get data from response.
             const authUser = response.data.document.name;
@@ -60,7 +60,7 @@ const actions = {
             localStorage.setItem('auth_token', authToken);
             localStorage.setItem('auth_permission', authPermission);
         })
-        .catch(error => reportExeption(error));
+        .catch((error) => reportExeption(error));
     },
 
     // Logout the user.
