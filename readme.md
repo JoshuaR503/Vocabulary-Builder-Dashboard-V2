@@ -16,6 +16,7 @@ Currently, the admin panel is meant to be simple. It only has a few features but
 
 ### User
 - User login
+- User Logout
 - User creation, read, update and delete
 - User Authentication Guards
 - User Token storage
@@ -31,6 +32,4 @@ Currently, the admin panel is meant to be simple. It only has a few features but
 - State management for users, words, and search
 
 ## Future Features
-- User logout
 - Pagination
-- Sentry integration

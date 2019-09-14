@@ -35,7 +35,7 @@
                 <td>{{word.wordTranslation}}</td>
 
                 <td>
-                  <label class="label label-primary">{{word.EN.categoryEN}}</label>
+                  <label>{{word.EN.categoryEN}}</label>
                 </td>
 
                 <td v-if="word.visible">

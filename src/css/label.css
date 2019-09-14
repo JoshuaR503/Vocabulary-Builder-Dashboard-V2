@@ -21,8 +21,14 @@
 .label-warning {
   background-color: #ffb22b; }
 
+.label-orange {
+  background-color: #fd5000; }
+
 .label-danger {
   background-color: #ef5350; }
+
+.label-fatal {
+  background-color: brown; }
 
 .label-megna {
   background-color: #56c0d8; }
@@ -31,7 +37,7 @@
   background-color: #745af2; }
 
 .label-purple {
-  background-color: #7460ee; }
+  background-color: #7d6aff; }
 
 .label-red {
   background-color: #fb3a3a; }
