@@ -1,14 +1,16 @@
 import axios from 'axios';
-import { URL_API } from '../../lib/config/config';
+import { URL_API, LIMIT } from '../../lib/config/config';
 import { reportExeption } from '../../lib/helpers';
 
 const state = {
     words: [],
     wordCount: null,
-    isLoading: true
+    isLoading: true,
+    skip: 0
 };
 
 const getters = {
+    skip: state => state.skip,
     words: state => state.words,
     wordCount: state => state.wordCount,
     wordMode: state => state.wordMode,
@@ -20,7 +22,7 @@ const mutations = {
     setWords: (state, words) => state.words = words,
     setWordCount: (state, count) => state.wordCount = count,
     setLoading: (state, isLoading) => state.isLoading = isLoading,
-
+    
     addWord: (state, word) => state.words.unshift(word),
     
     deleteWord: (state, id) => state.words.filter(word => {
@@ -39,16 +41,18 @@ const mutations = {
             state.words.splice(index, 1, word);
         }
     },
+
+    setSkip: (state, value) => state.skip = state.skip += value
 };
 
 const actions = {
     // Load all the words.
-    async fetchWords({commit}) {
+    async fetchWords({commit, state}) {
         // Start loading.
         commit('setLoading', true);
 
         await axios
-        .get(`${URL_API}/v2/word`)
+        .get(`${URL_API}/v2/word?limit=${LIMIT}&skip=${state.skip}`)
         .then((response) => {
             // Set words.
             commit('setWords', response.data.response.document);
@@ -63,6 +67,12 @@ const actions = {
             // Report error to Sentry.
             reportExeption(error);
         });
+    },
+
+    // Load more words.
+    async updateSkip({commit}, value) {
+        // Change more skip state.
+        commit('setSkip', value);
     },
     
     // Create new word.

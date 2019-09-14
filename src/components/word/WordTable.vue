@@ -6,7 +6,6 @@
     </div>
 
     <div v-else-if="words.length > 0" class="content">
-
       <div class="d-flex pt-4 pb-4">
         <div class="mr-auto">
           <h3>Word Count: {{wordCount}}</h3>
@@ -65,11 +64,23 @@
           </table>
         </div>
       </div>
+
+      <nav aria-label="Page navigation example">
+        <ul class="pagination justify-content-center pagination-lg">
+          
+          <li  class="page-item" v-bind:class="{ disabled: skip === 0 }" >
+            <button class="page-link" @click="prev">Previous</button>
+          </li>
+
+          <li class="page-item" v-bind:class="{ disabled: skip > words.length }">
+            <button class="page-link" @click="next">Next</button>
+          </li>
+        </ul>
+      </nav>
     </div>
 
     <div v-else class="content">
       <Add class="pt-4" component="word" param="new"/>
-
       <Empty 
        title="Nothing to see here" 
        message="Start by adding new words."/>
@@ -80,6 +91,7 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex';
+import { NEXT, PREV, } from '../../lib/config/config';
 import {
   Spinner,
   Empty,
@@ -90,11 +102,23 @@ import {
 export default {
   name: 'WordTable',
   components: { Empty, Spinner, Add, Edit },
-  computed: mapGetters(['words', 'wordCount', 'isLoading']),
-  methods: mapActions(['fetchWords', 'deleteWord']),
+  computed: mapGetters(['words', 'wordCount', 'isLoading', 'skip']),
+  methods: {
+    ...mapActions(['fetchWords', 'deleteWord', 'updateSkip']),
+
+    next() {
+      this.updateSkip(NEXT);
+      this.fetchWords();
+    },
+
+    prev() {
+      this.updateSkip(PREV);
+      this.fetchWords();
+    },
+  },
   created() {
     this.fetchWords();
-  }
+  },
 }
 </script>
 
