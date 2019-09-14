@@ -19,7 +19,7 @@
                         <td><label class="label label-megna">{{log.status}}</label></td>
                         <td><LogLabel :level="log.level"/></td>
                         <td>
-                            <a :href="log.permalink" class="btn btn-warning mr-1">
+                            <a :href="log.permalink" target="_blank"  class="btn btn-warning mr-1">
                                 <i class="fas fa-arrow-right"></i>
                             </a>
                         </td>
