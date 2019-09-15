@@ -72,7 +72,7 @@
             <button class="page-link" @click="prev">Previous</button>
           </li>
 
-          <li class="page-item" v-bind:class="{ disabled: skip >= words.length }">
+          <li class="page-item" v-bind:class="{ disabled: skip > words.length }">
             <button class="page-link" @click="next">Next</button>
           </li>
         </ul>
