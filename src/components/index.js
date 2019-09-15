@@ -7,6 +7,7 @@ import User from './user/User';
 import LogTable from './logs/LogTable';
 import Search from './search/Search';
 import SearchResults from './search/SearchResults';
+import PasswordUpdate from './auth/PasswordUpdate.vue';
 
 export  {
     Login,
@@ -17,5 +18,6 @@ export  {
     User,
     LogTable,
     Search,
-    SearchResults
+    SearchResults,
+    PasswordUpdate
 };

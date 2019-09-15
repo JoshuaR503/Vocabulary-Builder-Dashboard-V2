@@ -65,8 +65,8 @@
         </div>
       </div>
 
-      <nav aria-label="Page navigation example">
-        <ul class="pagination justify-content-center pagination-lg">
+      <nav aria-label="Page navigation example pt-2">
+        <ul class="pagination justify-content-center">
           
           <li  class="page-item" v-bind:class="{ disabled: skip === 0 }" >
             <button class="page-link" @click="prev">Previous</button>
