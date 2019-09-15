@@ -17,6 +17,7 @@ Currently, the admin panel is meant to be simple. It only has a few features but
 ### User
 - User login
 - User Logout
+- User password reset
 - User creation, read, update and delete
 - User Authentication Guards
 - User Token storage

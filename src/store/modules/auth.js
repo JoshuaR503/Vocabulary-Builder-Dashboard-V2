@@ -45,6 +45,7 @@ const actions = {
             const authUser = response.data.document.name;
             const authToken = response.data.token;
             const authPermission = response.data.document.role;
+            const verified = response.data.document.verified;
 
             // Set user name.
             commit('setAuthUser', authUser);
@@ -59,6 +60,13 @@ const actions = {
             localStorage.setItem('auth_user', authUser);
             localStorage.setItem('auth_token', authToken);
             localStorage.setItem('auth_permission', authPermission);
+
+            // Redirect to home page if user is verified
+            if (!verified) {
+                router.push('/password');
+            } else {
+                router.push('/');
+            }
         })
         .catch((error) => reportExeption(error));
     },
