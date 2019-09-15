@@ -16,7 +16,7 @@ Vue.use(Router);
 // Routes
 const router = new Router({
   mode: 'history',
-  hash: false,
+  hash: true,
   routes: [
     { path: '/login',  name: 'login', component: Login},
     { path: '/password/',  name: 'password', component: PasswordUpdate},
