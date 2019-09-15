@@ -5,13 +5,17 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "start": "node server.js"
   },
   "dependencies": {
     "@sentry/browser": "^5.6.3",
     "@sentry/integrations": "^5.6.1",
     "axios": "^0.19.0",
+    "compression": "^1.7.4",
+    "connect-history-api-fallback": "^1.6.0",
     "core-js": "^2.6.5",
+    "express": "^4.17.1",
     "vue": "^2.6.10",
     "vue-router": "^3.1.2",
     "vuelidate": "^0.7.4",
