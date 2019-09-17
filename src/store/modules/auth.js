@@ -5,7 +5,7 @@ import { reportExeption } from '../../lib/helpers';
 
 const state = {
     authToken: localStorage.getItem('auth_token') || null,
-    authPermission: localStorage.getItem('auth_permission') || null,
+    authPermission: localStorage.getItem('auth_permission'),
     authUser: localStorage.getItem('auth_user') || null
 };
 
