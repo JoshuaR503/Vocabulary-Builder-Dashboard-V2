@@ -22,17 +22,17 @@ const mutations = {
 
     addUser: (state, user) => state.users.unshift(user),
     
-    deleteUser: (state, id) => state.users.filter(user => {
-        const index = state.users.findIndex(user => user._id === id);
+    deleteUser: (state, id) => {
+        const index = state.users.findIndex((user) => user._id === id);
 
-        if (user._id === id) {
+        if (index !== -1) {
             state.usersCount--;
-            state.users.splice(index, 1);
+            state.users.splice(index, 1);    
         }
-    }),
+    },
 
     updateUser: (state, user) => {
-        const index = state.users.findIndex(user => user._id === user._id);
+        const index = state.users.findIndex((user) => user._id === user._id);
 
         if (index !== -1) {
             state.users.splice(index, 1, user);
@@ -41,34 +41,42 @@ const mutations = {
 };
 
 const actions = {
-    // Load all the users.
-    async fetchUsers({commit}) {
-        // Start loading.
-        commit('setLoading', true);
+    /**
+     * Load all users
+     * @param state
+     * @param commit 
+     */
+    async fetchUsers({commit, state}) {
+        // Amount of users.
+        const users = state.users.length > 0;
 
-        await axios
-        .get(`${URL_API}/v2/user`)
-        .then((response) => {
-            // Set users.
-            commit('setUsers', response.data.response.document);
-            // Set user count
-            commit('setUsersCount', response.data.response.count);
-            // No longer loading.
-            commit('setLoading', false);
-        })
-        .catch((error) => {
-            // No longer loading.
-            commit('setLoading', false);
-            // Report error to Sentry.
-            reportExeption(error);
-        });
+        // Fecth new users if there are none.
+        if (!users) {
+            await axios
+            .get(`${URL_API}/v2/user`)
+            .then((response) => {
+                // Set users.
+                commit('setUsers', response.data.response.document);
+                // Set user count
+                commit('setUsersCount', response.data.response.count);
+                // No longer loading.
+                commit('setLoading', false);
+            })
+            .catch((error) => {
+                // No longer loading.
+                commit('setLoading', false);
+                // Report error to Sentry.
+                reportExeption(error);
+            });    
+        }
     },
 
-    // Create new user.
+    /**
+     * Creates a new user.
+     * @param commit 
+     * @param data 
+     */
     async createUser({commit}, data) {
-        // Start loading.
-        commit('setLoading', true);
-
         await axios
         .post(`${URL_API}/v2/user`, data)
         .then((response) => {
@@ -85,11 +93,12 @@ const actions = {
         });
     },
 
-    // Update single user.
+    /**
+     * Updates a new user.
+     * @param commit 
+     * @param data 
+     */
     async updateUser({commit}, data) {
-        // Start loading.
-        commit('setLoading', true);
-
         await axios
         .put(`${URL_API}/v2/user/${data._id}`, data)
         .then((response) => {
@@ -106,18 +115,19 @@ const actions = {
         });
     },
 
-    // Delete an user.
+    /**
+     * Deletes a new user.
+     * @param commit 
+     * @param data 
+     */
     async deleteUser({commit}, id) {
-        // Start loading.
-        commit('setLoading', true);
-
         await axios
         .delete(`${URL_API}/v2/user/${id}`)
         .then(() => {
-            // No longer loading.
-            commit('setLoading', false);
             // Delete user.
             commit('deleteUser', id);
+            // No longer loading.
+            commit('setLoading', false);
         })
         .catch((error) => {
             // No longer loading.
@@ -125,7 +135,6 @@ const actions = {
             // Report error to Sentry.
             reportExeption(error);
         });
-
     }
 };
 
