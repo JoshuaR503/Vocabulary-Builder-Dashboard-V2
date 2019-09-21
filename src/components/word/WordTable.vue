@@ -19,7 +19,6 @@
 
     <div v-else-if="words.length > 0" class="fadeIn content">
       
-      
       <div class="page_container">
         <div class="table-responsive">
           <table class="table table-hover">
@@ -78,7 +77,7 @@
             <button class="page-link" @click="prev">Previous</button>
           </li>
 
-          <li class="page-item" v-bind:class="{ disabled: skip > words.length }">
+          <li class="page-item" v-bind:class="{ disabled: words.length < skip }">
             <button class="page-link" @click="next">Next</button>
           </li>
         </ul>

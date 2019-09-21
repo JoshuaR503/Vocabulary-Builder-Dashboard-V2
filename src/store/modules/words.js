@@ -86,9 +86,7 @@ const actions = {
             .then((response) => {
                 // Set words.
                 commit('setWords', response.data.words);
-                // Set word count
-                commit('setWordCount', response.data.response.count);
-                // // No longer loading.
+                // No longer loading.
                 commit('setLoading', false);
             })
             .catch((error) => {
