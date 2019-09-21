@@ -25,14 +25,14 @@ const mutations = {
     
     addWord: (state, word) => state.words.unshift(word),
     
-    deleteWord: (state, id) => state.words.filter(word => {
-        const index = state.words.findIndex(word => word._id === id);
+    deleteWord:  (state, id) => {
+        const index = state.words.findIndex((words) => words._id === id);
 
-        if (word._id === id) {
+        if (index !== -1) {
             state.wordCount--;
-            state.words.splice(index, 1);
+            state.words.splice(index, 1);    
         }
-    }),
+    },
 
     updateWord: (state, word) => {
         const index = state.words.findIndex(word => word._id === word._id);
@@ -119,22 +119,34 @@ const actions = {
 
     // Delete a single word
     async deleteWord({commit}, id) {
-        // Start loading.
-        commit('setLoading', true);
 
-        await axios
-        .delete(`${URL_API}/v2/word/${id}`)
-        .then(() => {
-            // No longer loading.
-            commit('setLoading', false);
-            // Delete word from state.
-            commit('deleteWord', id);
+        swal({
+            title: "Are you sure?",
+            text: "Once deleted, you will not be able to recover this word",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,    
         })
-        .catch((error) => {
-            // No longer loading.
-            commit('setLoading', false);
-            // Report error to Sentry.
-            reportExeption(error);
+        .then((d) => {
+            if (d) {
+                // Start loading.
+                commit('setLoading', true);
+                // Axios http request.
+                axios
+                .delete(`${URL_API}/v2/word/${id}`)
+                .then(() => {
+                    // Delete word from state.
+                    commit('deleteWord', id);
+                    // No longer loading.
+                    commit('setLoading', false);
+                })
+                .catch((error) => {
+                    // No longer loading.
+                    commit('setLoading', false);
+                    // Report error to Sentry.
+                    reportExeption(error);
+                });
+            }
         });
     }
 };
