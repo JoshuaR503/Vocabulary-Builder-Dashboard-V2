@@ -76,8 +76,11 @@ const actions = {
 
     // Search in all the words.
     async searchWords({commit, dispatch}, query) {
+
+        const search = !!query; 
+
         // Making sure that there is content.
-        if (!!query) {
+        if (search) {
             // Start loading.
             commit('setLoading', true);
             // axios http request.
@@ -151,6 +154,7 @@ const actions = {
     // Delete a single word
     async deleteWord({commit}, id) {
         // Warn user before deleting.
+        // eslint-disable-next-line
         swal({
             title: "Are you sure?",
             text: "Once deleted, you will not be able to recover this word",

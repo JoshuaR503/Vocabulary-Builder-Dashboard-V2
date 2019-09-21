@@ -81,6 +81,7 @@
 <script>
 import { mapGetters, mapActions } from 'vuex';
 import { Spinner, Empty, Add, Edit } from '../../layout/index';
+import { NEXT, PREV, } from '../../lib/config/config';
 
 export default {
   name: 'UserTable',

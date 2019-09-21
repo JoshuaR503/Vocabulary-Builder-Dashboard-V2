@@ -55,7 +55,7 @@ const actions = {
      * @param state
      * @param commit 
      */
-    async fetchUsers({commit, state}) {
+    async fetchUsers({commit}) {
         // Fecth new users if there are none.
         await axios
         .get(`${URL_API}/v2/user`)
@@ -82,8 +82,11 @@ const actions = {
      * @param query
      */
     async searchUsers({commit, dispatch}, query) {
+
+        const search = !!query; 
+
         // Making sure that there is content.
-        if (!!query) {
+        if (search) {
             // Start loading.
             commit('setLoading', true);
             // axios http request.
@@ -128,7 +131,11 @@ const actions = {
         });
     },
 
-    // Load more words.
+    /**
+     * Updates 
+     * @param commit 
+     * @param data 
+     */
     async updateUsersSkip({commit}, value) {
         // Change more skip state.
         commit('setUserSkip', value);
@@ -162,20 +169,36 @@ const actions = {
      * @param data 
      */
     async deleteUser({commit}, id) {
-        await axios
-        .delete(`${URL_API}/v2/user/${id}`)
-        .then(() => {
-            // Delete user.
-            commit('deleteUser', id);
-            // No longer loading.
-            commit('setLoading', false);
+         // Warn user before deleting.
+         // eslint-disable-next-line
+         swal({
+            title: "Are you sure?",
+            text: "Once deleted, you will not be able to recover this user",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,    
         })
-        .catch((error) => {
-            // No longer loading.
-            commit('setLoading', false);
-            // Report error to Sentry.
-            reportExeption(error);
-        });
+        .then((d) => {
+            if (d) {
+                // Start loading.
+                commit('setLoading', true);
+                // Axios http request.
+                axios
+                .delete(`${URL_API}/v2/user/${id}`)
+                .then(() => {
+                    // Delete user.
+                    commit('deleteUser', id);
+                    // No longer loading.
+                    commit('setLoading', false);
+                })
+                .catch((error) => {
+                    // No longer loading.
+                    commit('setLoading', false);
+                    // Report error to Sentry.
+                    reportExeption(error);
+                });
+            }
+        }); 
     }
 };
 

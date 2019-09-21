@@ -48,6 +48,7 @@ export default {
       const newPassword = this.newPassword;
 
       if (newPassword !== this.newPassword2) {
+        // eslint-disable-next-line
         swal('Passwords do not match', 'Make sure passwords match', 'warning');
       } else {
 
@@ -59,7 +60,7 @@ export default {
 
         await axios
         .post(`${URL_API}/v2/password-reset`, user)
-        .then((response) => this.$router.push('/login'))
+        .then(() => this.$router.push('/login'))
         .catch((error) => reportExeption(error));
       }
     }
