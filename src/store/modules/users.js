@@ -4,15 +4,17 @@ import { reportExeption } from '../../lib/helpers';
 
 const state = {
     users: [],
-    usersCount: null,
-    usersIsLoading: true
+    usersCount: 0,
+    usersIsLoading: true,
+    usersSkip: 0
 };
 
 const getters = {
-    users: state => state.users,
-    usersCount: state => state.usersCount,
+    users: (state) => state.users,
+    usersCount: (state) => state.usersCount,
+    usersIsLoading: (state) => state.usersIsLoading,
+    usersSkip: (state) => state.usersSkip,
     getUser:  state => id => state.users.find(user => user._id === id),
-    usersIsLoading: state => state.usersIsLoading
 };
 
 const mutations = {
@@ -38,6 +40,13 @@ const mutations = {
             state.users.splice(index, 1, user);
         }
     },
+
+    setUserSkip: (state, value) => {
+        // Change state only if user is online.
+        if (navigator.onLine) {
+            state.usersSkip = state.usersSkip += value
+        }
+    }
 };
 
 const actions = {
@@ -47,18 +56,42 @@ const actions = {
      * @param commit 
      */
     async fetchUsers({commit, state}) {
-        // Amount of users.
-        const users = state.users.length > 0;
-
         // Fecth new users if there are none.
-        if (!users) {
+        await axios
+        .get(`${URL_API}/v2/user`)
+        .then((response) => {
+            // Set users.
+            commit('setUsers', response.data.response.document);
+            // Set user count
+            commit('setUsersCount', response.data.response.count);
+            // No longer loading.
+            commit('setLoading', false);
+        })
+        .catch((error) => {
+            // No longer loading.
+            commit('setLoading', false);
+            // Report error to Sentry.
+            reportExeption(error);
+        });
+    },
+
+    /**
+     * Search in the users collection.
+     * @param commit 
+     * @param dispatch
+     * @param query
+     */
+    async searchUsers({commit, dispatch}, query) {
+        // Making sure that there is content.
+        if (!!query) {
+            // Start loading.
+            commit('setLoading', true);
+            // axios http request.
             await axios
-            .get(`${URL_API}/v2/user`)
+            .get(`${URL_API}/v2/search/users?search=${query}`)
             .then((response) => {
                 // Set users.
-                commit('setUsers', response.data.response.document);
-                // Set user count
-                commit('setUsersCount', response.data.response.count);
+                commit('setUsers', response.data.users);
                 // No longer loading.
                 commit('setLoading', false);
             })
@@ -68,6 +101,8 @@ const actions = {
                 // Report error to Sentry.
                 reportExeption(error);
             });    
+        } else {
+            dispatch('fetchUsers');
         }
     },
 
@@ -91,6 +126,12 @@ const actions = {
             // Report error to Sentry.
             reportExeption(error);
         });
+    },
+
+    // Load more words.
+    async updateUsersSkip({commit}, value) {
+        // Change more skip state.
+        commit('setUserSkip', value);
     },
 
     /**
