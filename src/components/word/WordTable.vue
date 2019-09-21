@@ -1,18 +1,24 @@
 <template>
   <div class="page_content">
 
+    <div class="d-flex pt-4 pb-4">
+      <div class="mr-auto">
+        <h3>Word Count: {{wordCount}}</h3>
+      </div>
+    
+      <Add component="word" param="new"/>
+    </div>
+    
+    <div class="form-group">
+      <input v-model="query" @keyup="searchWords(query)" class="form-control" placeholder="Word Search">
+    </div>
+
     <div v-if="isLoading">
       <Spinner/>
     </div>
 
-    <div v-else-if="words.length > 0" class="content">
-      <div class="d-flex pt-4 pb-4">
-        <div class="mr-auto">
-          <h3>Word Count: {{wordCount}}</h3>
-        </div>
+    <div v-else-if="words.length > 0" class="fadeIn content">
       
-        <Add component="word" param="new"/>
-      </div>
       
       <div class="page_container">
         <div class="table-responsive">
@@ -65,7 +71,7 @@
         </div>
       </div>
 
-      <nav aria-label="Page navigation example pt-2">
+      <nav v-if="!query" aria-label="Page navigation example pt-2">
         <ul class="pagination justify-content-center">
           
           <li  class="page-item" v-bind:class="{ disabled: skip === 0 }" >
@@ -79,11 +85,16 @@
       </nav>
     </div>
 
-    <div v-else class="content">
-      <Add class="pt-4" component="word" param="new"/>
+    <div v-else-if="query && !isLoading" class="fadeIn content">
       <Empty 
-       title="Nothing to see here" 
-       message="Start by adding new words."/>
+        title="Could not find any results" 
+        message="Try using different keywords."/>
+    </div>
+
+    <div v-else-if="query.length === 0" class="fadeIn content">
+      <Empty 
+        title="Nothing to see here" 
+        message="Start by adding new words."/>
     </div>
 
   </div>
@@ -104,7 +115,7 @@ export default {
   components: { Empty, Spinner, Add, Edit },
   computed: mapGetters(['words', 'wordCount', 'isLoading', 'skip']),
   methods: {
-    ...mapActions(['fetchWords', 'deleteWord', 'updateSkip']),
+    ...mapActions(['fetchWords', 'deleteWord', 'updateSkip', 'searchWords']),
 
     next() {
       this.updateSkip(NEXT);
@@ -119,6 +130,9 @@ export default {
   created() {
     this.fetchWords();
   },
+  data: () => ({
+    query: ''
+  })
 }
 </script>
 

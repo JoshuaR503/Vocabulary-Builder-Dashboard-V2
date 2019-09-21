@@ -4,7 +4,7 @@ import { reportExeption } from '../../lib/helpers';
 
 const state = {
     words: [],
-    wordCount: null,
+    wordCount: 0,
     isLoading: true,
     skip: 0
 };
@@ -25,14 +25,14 @@ const mutations = {
     
     addWord: (state, word) => state.words.unshift(word),
     
-    deleteWord: (state, id) => state.words.filter(word => {
-        const index = state.words.findIndex(word => word._id === id);
+    deleteWord:  (state, id) => {
+        const index = state.words.findIndex((words) => words._id === id);
 
-        if (word._id === id) {
+        if (index !== -1) {
             state.wordCount--;
-            state.words.splice(index, 1);
+            state.words.splice(index, 1);    
         }
-    }),
+    },
 
     updateWord: (state, word) => {
         const index = state.words.findIndex(word => word._id === word._id);
@@ -42,7 +42,12 @@ const mutations = {
         }
     },
 
-    setSkip: (state, value) => state.skip = state.skip += value
+    setSkip: (state, value) => {
+        // Change state only if user is online.
+        if (navigator.onLine) {
+            state.skip = state.skip += value
+        }
+    }
 };
 
 const actions = {
@@ -50,7 +55,7 @@ const actions = {
     async fetchWords({commit, state}) {
         // Start loading.
         commit('setLoading', true);
-
+        // axios http request.
         await axios
         .get(`${URL_API}/v2/word?limit=${LIMIT}&skip=${state.skip}`)
         .then((response) => {
@@ -69,6 +74,34 @@ const actions = {
         });
     },
 
+    // Search in all the words.
+    async searchWords({commit, dispatch}, query) {
+        // Making sure that there is content.
+        if (!!query) {
+            // Start loading.
+            commit('setLoading', true);
+            // axios http request.
+            await axios
+            .get(`${URL_API}/v2/search/words?search=${query}`)
+            .then((response) => {
+                // Set words.
+                commit('setWords', response.data.words);
+                // Set word count
+                commit('setWordCount', response.data.response.count);
+                // // No longer loading.
+                commit('setLoading', false);
+            })
+            .catch((error) => {
+                // No longer loading.
+                commit('setLoading', false);
+                // Report error to Sentry.
+                reportExeption(error);
+            });    
+        } else {
+            dispatch('fetchWords');
+        }
+    },
+
     // Load more words.
     async updateSkip({commit}, value) {
         // Change more skip state.
@@ -79,7 +112,7 @@ const actions = {
     async createWord({commit}, data) {
         // Start loading.
         commit('setLoading', true);
-
+        // Axios http request.
         await axios
         .post(`${URL_API}/v2/word`, data)
         .then((response) => {
@@ -100,7 +133,7 @@ const actions = {
     async updateWord({commit}, data) {
         // Start loading.
         commit('setLoading', true);
-
+        // Axios http request.
         await axios
         .put(`${URL_API}/v2/word/${data._id}`, data)
         .then((response) => {
@@ -119,22 +152,34 @@ const actions = {
 
     // Delete a single word
     async deleteWord({commit}, id) {
-        // Start loading.
-        commit('setLoading', true);
-
-        await axios
-        .delete(`${URL_API}/v2/word/${id}`)
-        .then(() => {
-            // No longer loading.
-            commit('setLoading', false);
-            // Delete word from state.
-            commit('deleteWord', id);
+        // Warn user before deleting.
+        swal({
+            title: "Are you sure?",
+            text: "Once deleted, you will not be able to recover this word",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,    
         })
-        .catch((error) => {
-            // No longer loading.
-            commit('setLoading', false);
-            // Report error to Sentry.
-            reportExeption(error);
+        .then((d) => {
+            if (d) {
+                // Start loading.
+                commit('setLoading', true);
+                // Axios http request.
+                axios
+                .delete(`${URL_API}/v2/word/${id}`)
+                .then(() => {
+                    // Delete word from state.
+                    commit('deleteWord', id);
+                    // No longer loading.
+                    commit('setLoading', false);
+                })
+                .catch((error) => {
+                    // No longer loading.
+                    commit('setLoading', false);
+                    // Report error to Sentry.
+                    reportExeption(error);
+                });
+            }
         });
     }
 };
