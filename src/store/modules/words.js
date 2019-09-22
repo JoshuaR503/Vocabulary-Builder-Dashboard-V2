@@ -14,8 +14,12 @@ const getters = {
     words: state => state.words,
     wordCount: state => state.wordCount,
     wordMode: state => state.wordMode,
-    getWord:  state => id => state.words.find(word => word._id === id),
-    isLoading: state => state.isLoading
+    isLoading: state => state.isLoading,
+    
+    getWord: state => id => {
+        return state.words.find(word => word._id === id);
+    }
+
 };
 
 const mutations = {

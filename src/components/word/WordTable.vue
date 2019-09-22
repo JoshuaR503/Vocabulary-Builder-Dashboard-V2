@@ -39,7 +39,7 @@
                 <td>{{word.wordTranslation}}</td>
 
                 <td>
-                  <label>{{word.EN.categoryEN}}</label>
+                  <label>{{word.EN.category}}</label>
                 </td>
 
                 <td v-if="word.visible">

@@ -27,7 +27,7 @@
           
           <div class="form-group">
             <label>Gramatical Category</label>
-            <input v-model="wordData.EN.categoryEN" type="text" class="form-control" placeholder="Gramatical Category">
+            <input v-model="wordData.EN.category" type="text" class="form-control" placeholder="Gramatical Category">
           </div>
 
           <p class="pt-1 pb-1">
@@ -37,27 +37,27 @@
           <div class="collapse multi-collapse" id="ENinfoSection" >
             <div class="form-group">
               <label>Examples</label>
-              <textarea v-model="wordData.EN.examplesEN" type="text" class="form-control" placeholder="Examples"></textarea>
+              <textarea v-model="wordData.EN.examples" type="text" class="form-control" placeholder="Examples"></textarea>
             </div>
 
             <div class="form-group">
               <label>Definition</label>
-              <textarea v-model="wordData.EN.definitionEN" type="text" class="form-control" placeholder="Definition"></textarea>
+              <textarea v-model="wordData.EN.definition" type="text" class="form-control" placeholder="Definition"></textarea>
             </div>
 
             <div class="form-group">
               <label>Synonyms</label>
-              <input v-model="wordData.EN.synonymsEN" type="text" class="form-control" placeholder="Synonyms">
+              <input v-model="wordData.EN.synonyms" type="text" class="form-control" placeholder="Synonyms">
             </div>
 
             <div class="form-group">
               <label>Antonyms</label>
-              <input v-model="wordData.EN.antonymsEN" type="text" class="form-control" placeholder="Antonyms">
+              <input v-model="wordData.EN.antonyms" type="text" class="form-control" placeholder="Antonyms">
             </div>
 
             <div class="form-group">
               <label>Note</label>
-              <input v-model="wordData.EN.noteEN" type="text" class="form-control" placeholder="Note">
+              <input v-model="wordData.EN.note" type="text" class="form-control" placeholder="Note">
             </div>  
           </div>
 
@@ -68,32 +68,32 @@
           <div class="collapse multi-collapse" id="ENVerbSection">
             <div class="form-group">
               <label>Fisrt Person</label>
-              <input v-model="wordData.EN.firstPersonEN" type="text" class="form-control" placeholder="Fisrt Person">
+              <input v-model="wordData.EN.firstPerson" type="text" class="form-control" placeholder="Fisrt Person">
             </div>
 
             <div class="form-group">
               <label>Second Person</label>
-              <input v-model="wordData.EN.secondPersonEN" type="text" class="form-control" placeholder="Second Person">
+              <input v-model="wordData.EN.secondPerson" type="text" class="form-control" placeholder="Second Person">
             </div>
 
             <div class="form-group">
               <label>Third Person</label>
-              <input v-model="wordData.EN.thirdPersonEN" type="text" class="form-control" placeholder="Third Person">
+              <input v-model="wordData.EN.thirdPerson" type="text" class="form-control" placeholder="Third Person">
             </div>
 
             <div class="form-group">
               <label>Past Form</label>
-              <input v-model="wordData.EN.pastEN" type="text" class="form-control" placeholder="Past Form">
+              <input v-model="wordData.EN.past" type="text" class="form-control" placeholder="Past Form">
             </div>
 
             <div class="form-group">
               <label>Root Form</label>
-              <input v-model="wordData.EN.rootEN" type="text" class="form-control" placeholder="Root Form">
+              <input v-model="wordData.EN.root" type="text" class="form-control" placeholder="Root Form">
             </div>
 
             <div class="form-group">
               <label>Present Form</label>
-              <input v-model="wordData.EN.presentEN" type="text" class="form-control" placeholder="Present Form">
+              <input v-model="wordData.EN.present" type="text" class="form-control" placeholder="Present Form">
             </div>
           </div>
 
@@ -103,13 +103,18 @@
         <div class="col-md-6 col-sm-6">
 
           <div class="form-group">
+            <label>Left blank intentionally</label>
+            <input disabled type="text" class="form-control" placeholder="Left blank intentionally" required>
+          </div>
+
+          <div class="form-group">
             <label>Word in Spanish</label>
             <input v-model="wordData.wordTranslation" type="text" class="form-control" placeholder="Word in Spanish" required>
           </div>
           
           <div class="form-group">
             <label>Gramatical Category in Spanish</label>
-            <input v-model="wordData.ES.categoryES" type="text" class="form-control" placeholder="Gramatical Category in Spanish">
+            <input v-model="wordData.ES.category" type="text" class="form-control" placeholder="Gramatical Category in Spanish">
           </div>
 
           <p class="pt-1 pb-1">
@@ -119,27 +124,27 @@
           <div class="collapse multi-collapse" id="ESinfoSection">
             <div class="form-group">
               <label>Examples in Spanish</label>
-              <textarea v-model="wordData.ES.examplesES" type="text" class="form-control" placeholder="Examples in Spanish"></textarea>
+              <textarea v-model="wordData.ES.examples" type="text" class="form-control" placeholder="Examples in Spanish"></textarea>
             </div>
 
             <div class="form-group">
               <label>Definition in Spanish</label>
-              <textarea v-model="wordData.ES.definitionES" type="text" class="form-control" placeholder="Definition in Spanish"></textarea>
+              <textarea v-model="wordData.ES.definition" type="text" class="form-control" placeholder="Definition in Spanish"></textarea>
             </div>
 
             <div class="form-group">
               <label>Synonyms in Spanish</label>
-              <input v-model="wordData.ES.synonymsES" type="text" class="form-control" placeholder="Synonyms in Spanish">
+              <input v-model="wordData.ES.synonyms" type="text" class="form-control" placeholder="Synonyms in Spanish">
             </div>
 
             <div class="form-group">
               <label>Antonyms in Spanish</label>
-              <input v-model="wordData.ES.antonymsES" type="text" class="form-control" placeholder="Antonyms in Spanish">
+              <input v-model="wordData.ES.antonyms" type="text" class="form-control" placeholder="Antonyms in Spanish">
             </div>
 
             <div class="form-group">
               <label>Note in Spanish</label>
-              <input v-model="wordData.ES.noteES" type="text" class="form-control" placeholder="Note in Spanish">
+              <input v-model="wordData.ES.note" type="text" class="form-control" placeholder="Note in Spanish">
             </div>  
           </div>
 
@@ -150,32 +155,32 @@
           <div class="collapse multi-collapse" id="ESVerbSection">
             <div class="form-group">
               <label>Fisrt Person in Spanish</label>
-              <input v-model="wordData.ES.firstPersonES" type="text" class="form-control" placeholder="Fisrt Person in Spanish">
+              <input v-model="wordData.ES.firstPerson" type="text" class="form-control" placeholder="Fisrt Person in Spanish">
             </div>
 
             <div class="form-group">
               <label>Second Person in Spanish</label>
-              <input v-model="wordData.ES.secondPersonES" type="text" class="form-control" placeholder="Second Person in Spanish">
+              <input v-model="wordData.ES.secondPerson" type="text" class="form-control" placeholder="Second Person in Spanish">
             </div>
 
             <div class="form-group">
               <label>Third Person in Spanish</label>
-              <input v-model="wordData.ES.thirdPersonES" type="text" class="form-control" placeholder="Third Person in Spanish">
+              <input v-model="wordData.ES.thirdPerson" type="text" class="form-control" placeholder="Third Person in Spanish">
             </div>
 
             <div class="form-group">
               <label>Past Form in Spanish</label>
-              <input v-model="wordData.ES.pastES" type="text" class="form-control" placeholder="Past Form in Spanish">
+              <input v-model="wordData.ES.past" type="text" class="form-control" placeholder="Past Form in Spanish">
             </div>
 
             <div class="form-group">
               <label>Root Form in Spanish</label>
-              <input v-model="wordData.ES.rootES" type="text" class="form-control" placeholder="Root Form in Spanish">
+              <input v-model="wordData.ES.root" type="text" class="form-control" placeholder="Root Form in Spanish">
             </div>
 
             <div class="form-group">
               <label>Present Form in Spanish</label>
-              <input v-model="wordData.ES.presentES" type="text" class="form-control" placeholder="Present Form in Spanish">
+              <input v-model="wordData.ES.present" type="text" class="form-control" placeholder="Present Form in Spanish">
             </div>
           </div>
         </div>
@@ -217,11 +222,11 @@ export default {
   components: { Back },
   methods: {
     save() {
-      const isNotNew = this.id !== 'new';
+      const isNotNew = this._id !== 'new';
       const action = isNotNew ? 'updateWord' : 'createWord';
     
       if (isNotNew) {
-        this.wordData._id = this.id;
+        this.wordData._id = this._id;
       }
 
       this.$store
@@ -230,24 +235,25 @@ export default {
     },
   },
   created() {
-    this.id = this.$route.params.id;
-    this.isNotNew = this.id !== 'new';
+    this._id = this.$route.params.id;
+    this.status = this._id === 'new';
     
-    if (this.isNotNew) {
-
-      const word = this.$store.getters.getWord(this.id);
+    if (!this.status) {
+  
+      const word = this.$store.getters.getWord(this._id);
 
       if (word !== undefined) {
         this.mode = 'Editing';
         this.wordData = word;
+
       } else {
         this.$router.push('/');
       }
     }
   },
   data: () => ({
-    id: 'new',
-    isNotNew: null,
+    _id: 'new',
+    status: null,
     mode: 'Creating',
     wordData: {
       word: '',
