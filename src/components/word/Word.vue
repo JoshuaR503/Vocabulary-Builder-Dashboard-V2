@@ -2,7 +2,7 @@
   <div class="container pt-4 pb-4">    
     <h3 class="pt-4 pb-4"> 
       <Back/>
-      {{mode}} {{wordData.word}}
+      {{mode}} {{wordData.EN.word}}
     </h3>
 
     <form @submit.prevent="save">
@@ -22,7 +22,7 @@
 
           <div class="form-group">
             <label>Word</label>
-            <input v-model="wordData.word" type="text" class="form-control" placeholder="Word" required>
+            <input v-model="wordData.EN.word" type="text" class="form-control" placeholder="Word" required>
           </div>
           
           <div class="form-group">
@@ -109,7 +109,7 @@
 
           <div class="form-group">
             <label>Word in Spanish</label>
-            <input v-model="wordData.wordTranslation" type="text" class="form-control" placeholder="Word in Spanish" required>
+            <input v-model="wordData.ES.word" type="text" class="form-control" placeholder="Word in Spanish" required>
           </div>
           
           <div class="form-group">
@@ -188,12 +188,12 @@
         <!-- Audio player -->
         <div class="col-md-6 text-left">
           <audio class=" mt-2" controls>
-            <source v-bind:src="wordData.wordPronuntiation" type="audio/mp3">
+            <source v-bind:src="wordData.EN.wordPronuntiation" type="audio/mp3">
             Your browser does not support the audio tag.
           </audio>
 
           <audio class=" mt-2 mb-2" controls>
-            <source v-bind:src="wordData.wordPronuntiationTranslation" type="audio/mp3">
+            <source v-bind:src="wordData.ES.wordPronuntiation" type="audio/mp3">
             Your browser does not support the audio tag.
           </audio>
         </div>
@@ -256,10 +256,6 @@ export default {
     status: null,
     mode: 'Creating',
     wordData: {
-      word: '',
-      wordTranslation: '',
-      wordPronuntiation: '',
-      wordPronuntiationTranslation: '',
       EN: {},
       ES: {},
       visible: '',
