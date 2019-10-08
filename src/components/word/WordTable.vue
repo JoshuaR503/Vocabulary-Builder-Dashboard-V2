@@ -35,8 +35,8 @@
             </thead>
             <tbody>
               <tr v-for="word in words" :key="word._id">
-                <td>{{word.word}}</td>
-                <td>{{word.wordTranslation}}</td>
+                <td>{{word.EN.word}}</td>
+                <td>{{word.ES.word}}</td>
 
                 <td>
                   <label>{{word.EN.category}}</label>
