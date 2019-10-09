@@ -13,7 +13,7 @@
 
           <div class="form-group">
             <label>Level</label>
-            <select v-model="wordData.level" class="form-control">
+            <select required v-model="wordData.level" class="form-control">
               <option value="easy">Beginner</option>
               <option value="medium">Normal</option>
               <option value="hard">Hard</option>
@@ -206,7 +206,7 @@
             <label class="form-check-label"> Display to public</label>
           </div>
 
-          <button @click="save" type="button" class="btn btn-block btn-primary">Save</button>
+          <button  class="btn btn-block btn-primary">Save</button>
         </div>
 
       </div>
@@ -229,6 +229,8 @@ export default {
         this.wordData._id = this._id;
       }
 
+      console.log(this.wordData);
+
       this.$store
       .dispatch(action, this.wordData)
       .finally(() => this.$router.push('/')); 
@@ -245,7 +247,6 @@ export default {
       if (word !== undefined) {
         this.mode = 'Editing';
         this.wordData = word;
-
       } else {
         this.$router.push('/');
       }
