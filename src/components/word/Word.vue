@@ -206,7 +206,12 @@
             <label class="form-check-label"> Display to public</label>
           </div>
 
-          <button  class="btn btn-block btn-primary">Save</button>
+          <div class="form-check mb-4">
+            <input class="form-check-input" type="checkbox" v-model="updateAudio">
+            <label class="form-check-label">Update Audio</label>
+          </div>
+
+          <button class="btn btn-block btn-primary">Save</button>
         </div>
 
       </div>
@@ -229,11 +234,16 @@ export default {
         this.wordData._id = this._id;
       }
 
-      console.log(this.wordData);
-
+      if (isNotNew && this.updateAudio) {
+        this.$store
+        .dispatch('updateAudioWord', this.wordData)
+        .finally(() => this.$router.push('/'));
+      }
+      
       this.$store
       .dispatch(action, this.wordData)
-      .finally(() => this.$router.push('/')); 
+      .finally(() => this.$router.push('/'));   
+      
     },
   },
   created() {
@@ -250,11 +260,13 @@ export default {
       } else {
         this.$router.push('/');
       }
+
     }
   },
   data: () => ({
     _id: 'new',
     status: null,
+    updateAudio: false,
     mode: 'Creating',
     wordData: {
       EN: {},

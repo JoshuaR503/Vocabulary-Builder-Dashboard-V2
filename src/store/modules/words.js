@@ -155,6 +155,27 @@ const actions = {
         });
     },
 
+    // Update single word.
+    async updateAudioWord({commit}, data) {
+        // Start loading.
+        commit('setLoading', true);
+        // Axios http request.
+        await axios
+        .put(`${URL_API}/v2/word/${data._id}/audio`, data)
+        .then((response) => {
+            // Update word.
+            commit('updateWord', response.data.document);
+            // No longer loading.
+            commit('setLoading', false);
+        })
+        .catch((error) => {
+            // No longer loading.
+            commit('setLoading', false);
+            // Report error to Sentry.
+            reportExeption(error);
+        });
+    },
+
     // Delete a single word
     async deleteWord({commit}, id) {
         // Warn user before deleting.
