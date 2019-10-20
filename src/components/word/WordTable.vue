@@ -129,6 +129,7 @@ export default {
   created() {
     this.fetchWords();
   },
+  
   data: () => ({
     query: ''
   })
