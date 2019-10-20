@@ -28,10 +28,11 @@ const actions = {
      * @param query 
      */
     async search({commit}, query) {
+
         commit('setIsSearchLoading', true);
 
         return await axios
-        .get(`${URL_API}/v2/search?query=${query}`)
+        .get(`${URL_API}/v2/search?search=${query}`)
         .then((response) => {
             const data = response.data;
 

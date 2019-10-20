@@ -28,8 +28,8 @@
                         </thead>
                         <tbody>
                             <tr v-for="word in searchResults.words" :key="word._id">
-                            <td>{{word.word}}</td>
-                            <td>{{word.wordTranslation}}</td>
+                            <td>{{word.EN.word}}</td>
+                            <td>{{word.ES.word}}</td>
                             <td>
                                 <button @click="redirect('word', word._id)" class="btn btn-warning mr-1">
                                     <i class="fas fa-arrow-right"></i>
