@@ -15,7 +15,7 @@
             <label>Level</label>
             <select required v-model="wordData.level" class="form-control">
               <option value="easy">Beginner</option>
-              <option value="medium">Normal</option>
+              <option selected value="medium">Normal</option>
               <option value="hard">Hard</option>
             </select>
           </div>
@@ -23,6 +23,11 @@
           <div class="form-group">
             <label>Word</label>
             <input v-model="wordData.EN.word" type="text" class="form-control" placeholder="Word" required>
+          </div>
+
+          <div class="form-group">
+            <label>Word Pronunciation</label>
+            <input v-model="wordData.EN.wordPronuntiation" type="text" class="form-control" placeholder="Word" required>
           </div>
           
           <div class="form-group">
@@ -103,13 +108,22 @@
         <div class="col-md-6 col-sm-6">
 
           <div class="form-group">
-            <label>Left blank intentionally</label>
-            <input disabled type="text" class="form-control" placeholder="Left blank intentionally" required>
+            <label>Target</label>
+            <select required v-model="wordData.target" class="form-control">
+              <option selected value="all">All</option>
+              <option value="es">Spanish Speakers</option>
+              <option value="en">English Speakers</option>
+            </select>
           </div>
 
           <div class="form-group">
             <label>Word in Spanish</label>
             <input v-model="wordData.ES.word" type="text" class="form-control" placeholder="Word in Spanish" required>
+          </div>
+
+          <div class="form-group">
+            <label>Word Pronunciation</label>
+            <input v-model="wordData.ES.wordPronuntiation" type="text" class="form-control" placeholder="Word" required>
           </div>
           
           <div class="form-group">
@@ -265,7 +279,7 @@ export default {
   },
 
   beforeRouteLeave (to, from, next) { 
-    const answer = window.confirm('Do you really want to leave? you have unsaved changes!');
+    const answer = window.confirm('You have unsaved changes!');
 
     if (answer) {
       next();
@@ -282,6 +296,7 @@ export default {
     wordData: {
       EN: {},
       ES: {},
+      target: '',
       visible: '',
       writter: '',
     }
