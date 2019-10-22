@@ -27,7 +27,7 @@
 
           <div class="form-group">
             <label>Word Pronunciation</label>
-            <input v-model="wordData.EN.wordPronuntiation" type="text" class="form-control" placeholder="Word" required>
+            <input v-model="wordData.EN.wordPronuntiation" type="text" class="form-control" placeholder="Word">
           </div>
           
           <div class="form-group">
@@ -109,7 +109,7 @@
 
           <div class="form-group">
             <label>Target</label>
-            <select required v-model="wordData.target" class="form-control">
+            <select v-model="wordData.target" class="form-control">
               <option selected value="all">All</option>
               <option value="es">Spanish Speakers</option>
               <option value="en">English Speakers</option>
@@ -123,7 +123,7 @@
 
           <div class="form-group">
             <label>Word Pronunciation</label>
-            <input v-model="wordData.ES.wordPronuntiation" type="text" class="form-control" placeholder="Word" required>
+            <input v-model="wordData.ES.wordPronuntiation" type="text" class="form-control" placeholder="Word">
           </div>
           
           <div class="form-group">
