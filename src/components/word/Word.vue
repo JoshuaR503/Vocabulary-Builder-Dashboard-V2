@@ -35,6 +35,11 @@
             <input v-model="wordData.EN.category" type="text" class="form-control" placeholder="Gramatical Category">
           </div>
 
+          <div class="form-group">
+            <label>Gif</label>
+            <input v-model="wordData.EN.word.gif" type="text" class="form-control" placeholder="Gif url">
+          </div>
+
           <p class="pt-1 pb-1">
             <a data-toggle="collapse" href="#ENinfoSection"  aria-expanded="true"  aria-controls="ENinfoSection">Information Section</a>
           </p>
@@ -62,7 +67,7 @@
 
             <div class="form-group">
               <label>Note</label>
-              <input v-model="wordData.EN.note" type="text" class="form-control" placeholder="Note">
+              <textarea v-model="wordData.EN.note" type="text" class="form-control" placeholder="Note"></textarea>
             </div>  
           </div>
 
@@ -85,6 +90,25 @@
               <label>Third Person</label>
               <input v-model="wordData.EN.thirdPerson" type="text" class="form-control" placeholder="Third Person">
             </div>
+
+            <br>
+
+            <div class="form-group">
+              <label>Fisrt Person Plural</label>
+              <input v-model="wordData.EN.firstPersonPlural" type="text" class="form-control" placeholder="Fisrt Person Plural">
+            </div>
+
+            <div class="form-group">
+              <label>Second Person Plural</label>
+              <input v-model="wordData.EN.secondPersonPlural" type="text" class="form-control" placeholder="Second Person Plural">
+            </div>
+
+            <div class="form-group">
+              <label>Third Person Plural</label>
+              <input v-model="wordData.EN.thirdPersonPlural" type="text" class="form-control" placeholder="Third Person Plural">
+            </div>
+
+            <br>
 
             <div class="form-group">
               <label>Past Form</label>
@@ -109,7 +133,7 @@
 
           <div class="form-group">
             <label>Target</label>
-            <select v-model="wordData.target" class="form-control">
+            <select required v-model="wordData.target" class="form-control">
               <option selected value="all">All</option>
               <option value="es">Spanish Speakers</option>
               <option value="en">English Speakers</option>
@@ -129,6 +153,11 @@
           <div class="form-group">
             <label>Gramatical Category in Spanish</label>
             <input v-model="wordData.ES.category" type="text" class="form-control" placeholder="Gramatical Category in Spanish">
+          </div>
+
+          <div class="form-group">
+            <label>Field left blank intentionally</label>
+            <input disabled type="text" class="form-control" placeholder="Field left blank intentionally">
           </div>
 
           <p class="pt-1 pb-1">
@@ -158,7 +187,7 @@
 
             <div class="form-group">
               <label>Note in Spanish</label>
-              <input v-model="wordData.ES.note" type="text" class="form-control" placeholder="Note in Spanish">
+              <textarea v-model="wordData.ES.note" type="text" class="form-control" placeholder="Note in Spanish"></textarea>
             </div>  
           </div>
 
@@ -181,6 +210,25 @@
               <label>Third Person in Spanish</label>
               <input v-model="wordData.ES.thirdPerson" type="text" class="form-control" placeholder="Third Person in Spanish">
             </div>
+
+            <br>
+
+            <div class="form-group">
+              <label>Fisrt Person Plural in Spanish</label>
+              <input v-model="wordData.ES.firstPersonPlural" type="text" class="form-control" placeholder="Fisrt Person Plural">
+            </div>
+
+            <div class="form-group">
+              <label>Second Person Plural in Spanish</label>
+              <input v-model="wordData.ES.secondPersonPlural" type="text" class="form-control" placeholder="Second Person Plural">
+            </div>
+
+            <div class="form-group">
+              <label>Third Person Plural in Spanish</label>
+              <input v-model="wordData.ES.thirdPersonPlural" type="text" class="form-control" placeholder="Third Person Plural">
+            </div>
+
+            <br>
 
             <div class="form-group">
               <label>Past Form in Spanish</label>
