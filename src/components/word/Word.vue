@@ -37,7 +37,7 @@
 
           <div class="form-group">
             <label>Gif</label>
-            <input v-model="wordData.EN.word.gif" type="text" class="form-control" placeholder="Gif url">
+            <input v-model="wordData.gif" type="text" class="form-control" placeholder="Gif url">
           </div>
 
           <p class="pt-1 pb-1">
@@ -344,6 +344,7 @@ export default {
     wordData: {
       EN: {},
       ES: {},
+      gif: '',
       target: '',
       visible: '',
       writter: '',
