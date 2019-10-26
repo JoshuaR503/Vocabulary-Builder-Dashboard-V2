@@ -25,14 +25,14 @@ const router = new Router({
       path: '/word/:id', 
       name: 'word', 
       component: Word, meta: { requiresAuth: true },
-      beforeRouteLeave (to, from, next) {
+      beforeRouteLeave () {
 
         window.onbeforeunload = function (e) {
           e = e || window.event;
       
           // For IE and Firefox prior to version 4
           if (e) {
-              e.returnValue = 'Sure?';
+            e.returnValue = 'Sure?';
           }
       
           // For Safari

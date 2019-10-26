@@ -77,7 +77,7 @@
             <button class="page-link" @click="prev">Previous</button>
           </li>
 
-          <li class="page-item" v-bind:class="{ disabled: words.length < skip }">
+          <li class="page-item" v-bind:class="{ disabled: wordCount < skip + NEXT }">
             <button class="page-link" @click="next">Next</button>
           </li>
         </ul>
@@ -131,7 +131,8 @@ export default {
   },
   
   data: () => ({
-    query: ''
+    query: '',
+    NEXT: NEXT
   })
 }
 </script>

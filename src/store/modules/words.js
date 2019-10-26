@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { URL_API, LIMIT } from '../../lib/config/config';
+import { URL_API, LIMIT, NEXT } from '../../lib/config/config';
 import { reportExeption } from '../../lib/helpers';
 
 const state = {
@@ -47,6 +47,11 @@ const mutations = {
     },
 
     setSkip: (state, value) => {
+
+        if (state.wordCount < state.skip + value) {
+            return;
+        }
+
         // Change state only if user is online.
         if (navigator.onLine) {
             state.skip = state.skip += value
