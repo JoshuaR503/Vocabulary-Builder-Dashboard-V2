@@ -5,6 +5,7 @@ import words from './modules/words';
 import users from './modules/users';
 import search from './modules/search';
 import log from './modules/log';
+import chart from './modules/chart';
 
 // Load Vuex
 Vue.use(Vuex);
@@ -15,6 +16,7 @@ export default new Vuex.Store({
         words,
         users,
         search,
-        log
+        log,
+        chart
     }
 });

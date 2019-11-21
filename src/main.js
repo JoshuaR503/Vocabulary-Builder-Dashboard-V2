@@ -2,6 +2,7 @@ import Vue from 'vue';
 import App from './App.vue';
 import router from './router';
 import store from './store/index';
+import VueApexCharts from 'vue-apexcharts';
 
 // http helper.
 import { setup } from './lib/helpers';
@@ -23,6 +24,7 @@ Sentry.init({
 });
 
 Vue.config.productionTip = false;
+Vue.use(VueApexCharts)
 
 new Vue({
   router,

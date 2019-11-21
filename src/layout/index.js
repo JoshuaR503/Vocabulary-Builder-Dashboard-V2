@@ -4,6 +4,7 @@ import Spinner from './ui/Spinner';
 import Add from './ui/buttons/Add';
 import Edit from './ui/buttons/Edit';
 import Header from './ui/header/Header';
+import Reload from './ui/buttons/Reload';
 
 export  {
     Back,
@@ -11,5 +12,6 @@ export  {
     Spinner,
     Add,
     Edit,
-    Header
+    Header,
+    Reload
 };

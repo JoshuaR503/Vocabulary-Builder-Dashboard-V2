@@ -88,6 +88,7 @@ export default {
   components: {  Empty,  Spinner, Add, Edit },
   computed: mapGetters(['users', 'usersCount', 'usersIsLoading', 'usersSkip']),
   methods: {
+
     ...mapActions(['fetchUsers', 'deleteUser', 'searchUsers', 'setUserSkip']),
 
     next() {
