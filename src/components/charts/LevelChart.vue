@@ -1,20 +1,16 @@
 <template>
-    <div class="col-md-12">
-        <div id="chart">
-            <apexchart type=bar height=350 
-
-            :options="chartOptions" 
-            :series="[{data: chartData}]"/>
-        </div>
+    <div id="chart">
+        <apexchart type=bar height=350 
+        :options="chartOptions" 
+        :series="[{data: chartData}]"/>
     </div>
 </template>
-
 
 <script>
 import VueApexCharts from 'vue-apexcharts'
 
 export default {
-    name: 'ChartSeries',
+    name: 'LevelChart',
     props: ['chartData'],
 
     components: {
@@ -26,7 +22,7 @@ export default {
         chartOptions: {
             plotOptions: {
                 bar: {
-                  horizontal: false,
+                  horizontal: true,
                 }
             },
             dataLabels: {
@@ -34,16 +30,12 @@ export default {
             },
             xaxis: {
                 categories: [
-                    'Nouns', 
-                    'Verbs', 
-                    'Idioms',
-                    'Adverbs', 
-                    'Adjectives', 
-                    'Phrasal Verbs',
+                    'Hard',
+                    'Easy',
+                    'Normal', 
                 ],
             }
         }
     })
-
 }
 </script>
