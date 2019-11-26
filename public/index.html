@@ -23,6 +23,8 @@
     <link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16x16.png">
     <link rel="manifest" href="/manifest.json">
 
+    <link id="style" rel="stylesheet" href="assets/css/dark.css">
+
     <title>Vocabulary Builder Dashboard</title>
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
@@ -39,4 +41,18 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
     <script src="https://kit.fontawesome.com/798e66d2c1.js"></script>
   </body>
+
+  <script>
+  
+  function swapStyleSheet(sheet) {
+    document
+    .getElementById("style")
+    .setAttribute("href", sheet);  
+  }
+
+  function initate() {
+    swapStyleSheet('default');
+  }
+  
+  </script>
 </html>

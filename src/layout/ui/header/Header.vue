@@ -4,9 +4,13 @@
         <div class="mr-auto">
             <h3 >{{authUser}}</h3>
         </div>
-      
+
+        <div onclick="initate()" click class="icon">
+            <i class="fas fa-moon fa-2x mr-4"></i>
+        </div>
+
         <div @click="logoutAction" class="icon">
-            <i class="fas fa-times fa-2x"></i>
+            <i class="fas fa-toggle-off fa-2x"></i>
         </div>
     </div>
 

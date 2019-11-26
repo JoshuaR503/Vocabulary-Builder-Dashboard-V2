@@ -1,0 +1,43 @@
+
+body {
+    background-color: #1f1f1f!important;
+    color: #ededed!important;
+}
+
+td, tr, th {
+    color: #c2c2c2!important;
+    border-top: 1px solid #414141!important;
+    border-bottom: 1px solid #414141!important;
+}
+
+.form-control {
+    border: none!important;
+    color: #c9c9c9!important;
+    background-color: #333333!important;
+}
+.nav-tabs  {
+    border: none!important;
+    border-bottom: none!important;
+}
+
+.nav-tabs .nav-link.active {
+    border: none!important;
+    color: #ebebeb!important;
+    background-color: #333333!important;
+    border-bottom: none!important;
+
+}
+
+.nav-tabs .nav-link{
+    border: none!important;
+    border-bottom: none!important;
+}
+
+.nav-link:hover {
+    color: #ebebeb!important;
+}
+
+.pagination .page-item .page-link{
+    border: none!important;
+    background-color: #333333!important;
+}
