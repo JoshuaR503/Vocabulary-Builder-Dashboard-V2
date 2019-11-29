@@ -5,7 +5,7 @@
             <h3 >{{authUser}}</h3>
         </div>
 
-        <div onclick="initate()" click class="icon">
+        <div @click="change" class="icon">
             <i class="fas fa-moon fa-2x mr-4"></i>
         </div>
 
@@ -21,8 +21,17 @@ import { mapGetters, mapActions } from 'vuex';
 
 export default {
   name: 'Header',
-  computed: mapGetters(['authUser']),
-  methods: mapActions(['logoutAction'])
+  computed: mapGetters(['authUser', 'theme']),
+  methods: {
+    ...mapActions(['logoutAction', 'changeTheme']),
+
+    change() {
+
+        console.log(this.theme);
+        
+        this.changeTheme(this.theme);
+    }
+  }
 }
 
 </script>

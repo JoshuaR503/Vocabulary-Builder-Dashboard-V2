@@ -6,8 +6,15 @@
 </template>
 
 <script>
+import { mapGetters, mapActions } from 'vuex';
+
 export default {
-  name: 'app'
+  name: 'app',
+  computed: mapGetters(['theme']),
+  methods: mapActions(['changeTheme']),
+  mounted() {
+    this.changeTheme(this.theme);
+  }
 }
 </script>
 

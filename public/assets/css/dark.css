@@ -2,6 +2,7 @@
 body {
     background-color: #1f1f1f!important;
     color: #ededed!important;
+    transition-duration: 0.5s!important;
 }
 
 td, tr, th {
@@ -14,7 +15,9 @@ td, tr, th {
     border: none!important;
     color: #c9c9c9!important;
     background-color: #333333!important;
+    transition-duration: 0.5s!important;
 }
+
 .nav-tabs  {
     border: none!important;
     border-bottom: none!important;
@@ -25,7 +28,6 @@ td, tr, th {
     color: #ebebeb!important;
     background-color: #333333!important;
     border-bottom: none!important;
-
 }
 
 .nav-tabs .nav-link{

@@ -18,29 +18,11 @@ const router = new Router({
   mode: 'history',
   hash: true,
   routes: [
+    { path: "*", component: Dashboard, meta: { requiresAuth: true }},
     { path: '/login',  name: 'login', component: Login},
     { path: '/password/',  name: 'password', component: PasswordUpdate},
     { path: '/', name: 'dashboard', component: Dashboard, meta: { requiresAuth: true }},
-    { 
-      path: '/word/:id', 
-      name: 'word', 
-      component: Word, meta: { requiresAuth: true },
-      beforeRouteLeave () {
-
-        window.onbeforeunload = function (e) {
-          e = e || window.event;
-      
-          // For IE and Firefox prior to version 4
-          if (e) {
-            e.returnValue = 'Sure?';
-          }
-      
-          // For Safari
-          return 'Sure?';
-        };
-      }
-      
-    },
+    { path: '/word/:id',name: 'word', component: Word, meta: { requiresAuth: true }},
     { path: '/user/:id', name: 'user', component: User, meta: { requiresAuth: true }},
     { path: '/search/:query', name: 'search', component: SearchResults,  meta: { requiresAuth: true }},
   ]

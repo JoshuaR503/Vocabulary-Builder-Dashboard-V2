@@ -6,6 +6,7 @@ import users from './modules/users';
 import search from './modules/search';
 import log from './modules/log';
 import chart from './modules/chart';
+import settings from './modules/settings';
 
 // Load Vuex
 Vue.use(Vuex);
@@ -17,6 +18,7 @@ export default new Vuex.Store({
         users,
         search,
         log,
-        chart
+        chart,
+        settings
     }
 });
