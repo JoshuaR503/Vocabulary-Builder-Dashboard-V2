@@ -2,7 +2,7 @@
   <div class="container pt-4 pb-4">
 
     <h3 class="pt-4 pb-4"> 
-      <Back/> {{mode}} {{userData.name}}
+      <Back/> {{user.name}}
     </h3>
 
     <form @submit.prevent="save">
@@ -11,13 +11,13 @@
         <div class="col-md-6 col-sm-6">
           <div class="form-group">
             <label>Name</label>
-            <input v-model="userData.name" type="text" class="form-control" placeholder="Name" required>
+            <input v-model="user.name" type="text" class="form-control" placeholder="Name" required>
           </div>
 
           <div class="form-group">
             <label>Role</label>
 
-            <select v-model="userData.role" class="form-control">
+            <select v-model="user.role" class="form-control">
               <option value="UpperPermission">Admin</option>
               <option value="LowerPermission">Editor</option>
             </select>
@@ -27,7 +27,7 @@
         <div class="col-md-6 col-sm-6">
           <div class="form-group">
             <label>Email</label>
-            <input v-model="userData.email" type="text" class="form-control" placeholder="Email" required>
+            <input v-model="user.email" type="text" class="form-control" placeholder="Email" required>
           </div>
 
           <div class="form-group">
@@ -47,53 +47,73 @@
 </template>
 
 <script>
-import { 
-  Back,
-} from '../../layout/index';
+import { URL_API } from '../../lib/config/config';
+import { Back } from '../../layout/index';
+import axios from 'axios';
 
 export default {
   name: 'User',
   components: { Back },
   methods: {
+    // User edition handler.
+    async editHandler(id) {
+
+      // Fetch word from API and set it to state.
+      this.user = await axios
+      .get(`${URL_API}/v2/user/${id}`)
+      .then((response) => response.data.response)
+      .catch((error) => this.redirectHome());
+
+      // Set mode to editing
+      this.mode = 'Editing';
+    },
+
+    // Redirect to main screen.
+    redirectHome() {
+      this.$router.push('/')
+    },
+
+    // Save Handler
     save() {
       if (this.id !== 'new') {
-        this.userData._id = this.id;
-        this.$store
-        .dispatch('updateUser', this.userData)
-        .finally(() => this.$router.push('/'));  
 
-      } else {
-        this.userData.password = Math.random().toString(36).slice(-8);
+        this.user._id = this.id;
         this.$store
-        .dispatch('createUser', this.userData)
-        .finally(() => this.$router.push('/'));  
+        .dispatch('updateUser', this.user)
+        .finally(() => this.redirectHome());  
       }
+
+      this.user.password = Math.random().toString(36).slice(-8);
+      this.$store
+      .dispatch('createUser', this.user)
+      .finally(() => this.redirectHome());  
     },
+
   },
   created() {
-    const id = this.$route.params.id;
+    // Set id to the router id.
+    this._id = this.$route.params.id;
 
-    if (id !== 'new') {
-      const user = this.$store.getters.getUser(id);
+    // If the id is not equal to new, then we edit.
+    if (this._id !== 'new') {
+      this.editHandler(this._id);
+    }
 
-      if (user === undefined) {
-        this.$router.push('/');
-      } else {
-        this.id = id;
-        this.mode = 'Editing';
-        this.userData = user;
-        this.userData.password = 'sup';
-      }
+    // If the id is  equal to new, then we create.
+    if (this._id === 'new') {
+      this.mode = 'Creating'
     }
   },
+
   data: () => ({
     id: 'new',
-    mode: 'Creating',
-    userData: {
-      name: null,
-      email: null,
+    mode: '',
+
+    user: {
+      name: '',
+      email: '',
       role: 'LowerPermission',
-      password: null,
+      password: '',
     }
   })
 }
