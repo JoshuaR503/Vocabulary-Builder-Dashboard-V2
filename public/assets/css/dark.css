@@ -47,3 +47,12 @@ td, tr, th {
     border: none!important;
     background-color: #333333!important;
 }
+
+.card {
+    background-color: #1f1f1f!important;
+}
+
+.btn-primary {
+    background-color: #333333!important;
+    border: none!important;
+}

@@ -1,11 +1,10 @@
 <template>
-
   <div class="container">
     <div class="row">
       <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
         <div class="card card-signin my-5">
           <div class="card-body">
-            <h1 class="card-title text-center">Vocabulary Builder</h1>
+            <h1 class="card-title text-center">Vocabulary Builder Dashboard</h1>
             
             <form @submit.prevent="login" class="form-signin">
               <div class="form-label-group">
@@ -60,17 +59,16 @@ body {
 .card-signin {
   border: 0;
   border-radius: 1rem;
-  box-shadow: 0 0.5rem 1rem 0 #a3a3a31a;
 }
 
 .card-signin .card-title {
-  margin-bottom: 2rem;
+  margin-bottom: 3rem;
   font-weight: 300;
-  font-size: 1.8rem;
+  font-size: 2.5rem;
 }
 
 .card-signin .card-body {
-  padding: 2rem;
+  padding: 1rem;
 }
 
 .form-signin .btn {

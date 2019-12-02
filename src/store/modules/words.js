@@ -5,6 +5,7 @@ import { reportExeption } from '../../lib/helpers';
 const state = {
     words: [],
     wordCount: 0,
+
     isLoading: true,
     skip: 0
 };
@@ -15,11 +16,6 @@ const getters = {
     wordCount: state => state.wordCount,
     wordMode: state => state.wordMode,
     isLoading: state => state.isLoading,
-    
-    getWord: state => id => {
-        return state.words.find(word => word._id === id);
-    }
-
 };
 
 const mutations = {
