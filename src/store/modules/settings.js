@@ -1,7 +1,7 @@
 import swapStyleSheet from '../../lib/helpers/dom';
 
 const state = {
-    theme: localStorage.getItem('theme_sheet'),
+    theme: localStorage.getItem('theme_sheet') || 'default.css',
 }
 
 const getters = {
@@ -15,6 +15,17 @@ const mutations = {
 const actions = {
 
     /**
+     * Loads the current theme.
+     * @param state
+     * @param theme
+     */
+    loadTheme({commit}) {
+        commit('setTheme', state.theme);
+        // eslint-disable-next-line
+        swapStyleSheet(state.theme);
+    },
+
+    /**
      * Changes the theme
      * @param state
      * @param theme
@@ -23,13 +34,12 @@ const actions = {
 
         switch (theme) {
             case 'dark.css':
-                commit('setTheme', 'light.css');
-
+                commit('setTheme', 'default.css');
                 // eslint-disable-next-line
-                swapStyleSheet(`light.css`);
+                swapStyleSheet(`default.css`);
                 break;
 
-            case 'light.css':
+            case 'default.css':
                 commit('setTheme', 'dark.css');
                 // eslint-disable-next-line
                 swapStyleSheet(`dark.css`);

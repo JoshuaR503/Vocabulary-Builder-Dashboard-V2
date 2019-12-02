@@ -2,7 +2,7 @@
 body {
     background-color: #1f1f1f!important;
     color: #ededed!important;
-    transition-duration: 0.5s!important;
+    transition-duration: 0.2s!important;
 }
 
 td, tr, th {
@@ -11,11 +11,15 @@ td, tr, th {
     border-bottom: 1px solid #414141!important;
 }
 
+.apexcharts-tooltip {
+    color: #333333!important;
+}
+
 .form-control {
     border: none!important;
     color: #c9c9c9!important;
     background-color: #333333!important;
-    transition-duration: 0.5s!important;
+    transition-duration: 0.2s!important;
 }
 
 .nav-tabs  {

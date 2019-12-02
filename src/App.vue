@@ -11,9 +11,9 @@ import { mapGetters, mapActions } from 'vuex';
 export default {
   name: 'app',
   computed: mapGetters(['theme']),
-  methods: mapActions(['changeTheme']),
+  methods: mapActions(['loadTheme']),
   mounted() {
-    this.changeTheme(this.theme);
+    this.loadTheme();
   }
 }
 </script>
