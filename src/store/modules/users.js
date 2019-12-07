@@ -56,6 +56,9 @@ const actions = {
      * @param commit 
      */
     async fetchUsers({commit}) {
+        // Start loading.
+        commit('setLoading', true);
+
         // Fecth new users if there are none.
         await axios
         .get(`${URL_API}/v2/user`)

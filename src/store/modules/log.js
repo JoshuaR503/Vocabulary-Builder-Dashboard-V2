@@ -6,52 +6,69 @@ const state = {
     logsAdmin: [],
     logsServer: [],
     logsLoading: true,
+    totalLogs: 0
 }
 
 const getters = {
     logsAdmin: (state) => state.logsAdmin,
     logsServer: (state) => state.logsServer,
     logsLoading: (state) => state.logsLoading,
+    totalLogs: (state) => state.totalLogs
 }
 
 const mutations = {
     setLogsAdmin: (state, data) => state.logsAdmin = data,
     setLogsServer: (state, data) => state.logsServer = data,
     setLogsLoading: (state, data) => state.logsLoading = data,
+    setTotalLogs: (state, data) => state.totalLogs = data,
 }
 
 const actions = {
-
     /**
      * Loads the logs from Sentry.
      * @param state
      * @param commit
      */
-    async loadLogs({commit, state}) {
+    async loadLogs({commit}) {
+        // Start loading
+        commit('setLogsLoading', true);
+        await axios
+        .get(`${URL_API}/v1/sentry/issues`)
+        .then((response) => {
 
-        const admin = state.logsAdmin.length > 0;
-        const server = state.logsServer.length > 0;
+            const serverLogs = response.data.projects.server;
+            const adminLogs = response.data.projects.admin;
 
-        // Load only if state hasn't loaded.
-        if (!admin && !server) {
-            await axios
-            .get(`${URL_API}/v1/sentry/issues`)
-            .then((response) => {
-                const data = response.data;
-                const server = data.projects.server;
-                const admin = data.projects.admin;
-                
-                commit('setLogsServer', server);
-                commit('setLogsAdmin', admin);
-                commit('setLogsLoading', false);
-            })
-            .catch((error) => {
-                // Set loading to false.
-                commit('setLogsLoading', false);
-                // Report error to Sentry.
-                reportExeption(error);
-            });    
-        }
+            commit('setLogsServer', serverLogs);
+            commit('setLogsAdmin', adminLogs);
+            commit('setTotalLogs', serverLogs.length + adminLogs.length);
+            commit('setLogsLoading', false);
+        })
+        .catch((error) => {
+            // Set loading to false.
+            commit('setLogsLoading', false);
+            // Report error to Sentry.
+            reportExeption(error);
+        });
+    },
+
+    /**
+     * Deletes an issue from Sentry
+     * @param state
+     * @param commit
+     */
+    async deleteIssue({commit, dispatch}, id, ) {
+        // Start loading
+        commit('setLogsLoading', true);
+        await axios
+        .delete(`${URL_API}/v1/sentry/issues/${id}`)
+        .then(() => dispatch('loadLogs'))
+        .catch((error) => {
+            // Set loading to false.
+            commit('setLogsLoading', false);
+            // Report error to Sentry.
+            reportExeption(error);
+        });
     },
 
 }

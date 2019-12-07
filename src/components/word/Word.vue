@@ -249,13 +249,11 @@
 
         <!-- Audio player -->
         <div class="col-md-6 text-left">
-          <audio class=" mt-2" controls>
-            <source type="audio/mp3" v-bind:src="word.EN.wordPronuntiation">
+          <audio class="mt-2" type="audio/mp3" v-bind:src="word.EN.wordPronuntiation" controls="controls">
             Your browser does not support the audio tag.
           </audio>
 
-          <audio class=" mt-2 mb-2" controls>
-            <source type="audio/mp3" v-bind:src="word.ES.wordPronuntiation" >
+          <audio class="mt-2 mb-2" type="audio/mp3" v-bind:src="word.ES.wordPronuntiation"  controls="controls">
             Your browser does not support the audio tag.
           </audio>
         </div>

@@ -27,7 +27,7 @@ const httpInterceptorOnSuccess = (response) => {
 
     // Display sucess message when created.
     if (response.status === 201 && response.data) {
-        displaySuccess('Data Sucessfully Saved', response.data.response.message);
+        displaySuccess('Data Sucessfully Saved', 'Resource successfully created');
     }
 
     // Display success message when updated.
@@ -49,7 +49,7 @@ const httpInterceptorOnError = (error) => {
 
     // Display error message if there is no response from the server.
     if (!error.response) {
-        displayError('Something unexpected happend', error.message);
+        displayError('Something unexpected happend', 'Please try again');
     }
 
     // Dispay error message from the server if authentication failed.
@@ -77,9 +77,9 @@ const httpInterceptorOnError = (error) => {
     }
 
     // Display 500 error.
-    if (error.response.status === 500 && error.response.data) {
+    if (error.response.status === 500) {
         // Display error.
-        displayError(error.response.statusText, error.response.data.message);
+        displayError('Something unexpected happend', '500 error');
     }
 
     // Reject.

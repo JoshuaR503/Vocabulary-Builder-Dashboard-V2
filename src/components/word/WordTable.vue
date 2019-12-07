@@ -3,10 +3,17 @@
 
     <div class="d-flex pt-4 pb-4">
       <div class="mr-auto">
-        <h3>Word Count: {{wordCount}}</h3>
+        <h3>Total {{wordCount.total}} - Public {{wordCount.visible}}</h3>
       </div>
-    
+
+      <!-- Add more and refresh buttons -->
       <Add component="word" param="new"/>
+
+      <button @click="fetchWords()" class="ml-2 btn btn-primary">
+        <i class="fas fa-redo-alt"></i>
+      </button>
+      <!-- End: Add more and refresh buttons -->
+
     </div>
     
     <div class="form-group">

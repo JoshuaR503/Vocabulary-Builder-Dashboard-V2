@@ -5,8 +5,15 @@
       <div class="mr-auto">
         <h3>Registered Users: {{usersCount}}</h3>
       </div>
-    
+
+      <!-- Add more and refresh buttons -->
       <Add component="user" param="new"/>
+
+      <button @click="fetchUsers" class="ml-2 btn btn-primary">
+        <i class="fas fa-redo-alt"></i>
+      </button>
+      <!-- End: Add more and refresh buttons -->
+
     </div>
 
     <div class="form-group">
@@ -88,7 +95,6 @@ export default {
   components: {  Empty,  Spinner, Add, Edit },
   computed: mapGetters(['users', 'usersCount', 'usersIsLoading', 'usersSkip']),
   methods: {
-
     ...mapActions(['fetchUsers', 'deleteUser', 'searchUsers', 'setUserSkip']),
 
     next() {

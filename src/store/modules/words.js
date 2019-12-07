@@ -4,7 +4,11 @@ import { reportExeption } from '../../lib/helpers';
 
 const state = {
     words: [],
-    wordCount: 0,
+
+    wordCount: {
+        total: 0,
+        visible: 0
+    },
 
     isLoading: true,
     skip: 0
@@ -29,7 +33,7 @@ const mutations = {
         const index = state.words.findIndex((words) => words._id === id);
 
         if (index !== -1) {
-            state.wordCount--;
+            state.wordCount.total--;
             state.words.splice(index, 1);    
         }
     },
@@ -66,8 +70,13 @@ const actions = {
         .then((response) => {
             // Set words.
             commit('setWords', response.data.response.document);
+
             // Set word count
-            commit('setWordCount', response.data.response.count);
+            commit('setWordCount', {
+                total: response.data.response.count,
+                visible: response.data.response.visible,
+            });
+            
             // No longer loading.
             commit('setLoading', false);
         })

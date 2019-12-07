@@ -1,6 +1,6 @@
 <template>
     <div class="text-right">
-        <button @click="fetchChartData" class="btn">
+        <button @click="fetchChartData" class="btn btn-primary">
           <i class="fas fa-redo-alt"></i>
         </button>
     </div>
