@@ -250,12 +250,12 @@
         <!-- Audio player -->
         <div class="col-md-6 text-left">
           <audio class=" mt-2" controls>
-            <source v-bind:src="word.EN.wordPronuntiation" type="audio/mp3">
+            <source type="audio/mp3" v-bind:src="word.EN.wordPronuntiation">
             Your browser does not support the audio tag.
           </audio>
 
           <audio class=" mt-2 mb-2" controls>
-            <source v-bind:src="word.ES.wordPronuntiation" type="audio/mp3">
+            <source type="audio/mp3" v-bind:src="word.ES.wordPronuntiation" >
             Your browser does not support the audio tag.
           </audio>
         </div>
@@ -291,19 +291,6 @@ export default {
   name: 'Word',
   components: { Back },
   methods: {
-    // Word edition handler.
-    async editHandler(id) {
-
-      // Fetch word from API and set it to state.
-      this.word = await axios
-      .get(`${URL_API}/v2/word/${id}`)
-      .then((response) => response.data.response)
-      .catch((error) => this.redirectHome());
-
-      // Set mode to editing
-      this.mode = 'Editing';
-    },
-
     // Redirect to main screen.
     redirectHome() {
       this.$router.push('/')
@@ -328,16 +315,22 @@ export default {
       .dispatch(action, this.word)
       .finally(() => this.redirectHome());   
     }
-
   },
-
-  created() {
+  async created() {
     // Set id to the router id.
     this._id = this.$route.params.id;
 
     // If the id is not equal to new, then we edit.
     if (this._id !== 'new') {
-      this.editHandler(this._id);
+      
+      // Fetch word from API and set it to state.
+      this.word = await axios
+      .get(`${URL_API}/v2/word/${this._id}`)
+      .then((response) => response.data.response)
+      .catch((error) => this.redirectHome());
+
+      // Set mode to editing
+      this.mode = 'Editing';
     }
 
     // If the id is  equal to new, then we create.
