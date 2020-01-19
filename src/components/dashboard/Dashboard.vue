@@ -14,16 +14,14 @@
             </a>
           </li>
 
-          
-
-          <li v-if="authPermission === 'UpperPermission'" class="nav-item">
-            <a class="nav-link" id="users-tab" data-toggle="tab" href="#users" role="tab" aria-controls="users" aria-selected="false">Users Dashboard</a>
-          </li>
-
           <li class="nav-item">
             <a class="nav-link" id="charts-tab" data-toggle="tab" href="#charts" role="tab" aria-controls="charts">
               Charts Dashboard
             </a>
+          </li>
+
+          <li v-if="authPermission === 'UpperPermission'" class="nav-item">
+            <a class="nav-link" id="users-tab" data-toggle="tab" href="#users" role="tab" aria-controls="users" aria-selected="false">Users Dashboard</a>
           </li>
 
           <li v-if="authPermission === 'UpperPermission'" class="nav-item">
@@ -60,6 +58,8 @@ import UserTable from '../user/UserTable';
 import LogTable from '../logs/LogTable';
 import Search from '../search/Search';
 import Charts from '../charts/Charts';
+//import FeedbackTable from '../feedback/FeedbackTable';
+
 import { Header } from '../../layout';
 
 import { mapGetters } from 'vuex';
@@ -72,7 +72,7 @@ export default {
     LogTable,
     Search,
     Header,
-    Charts
+    Charts,
   },
   computed: mapGetters(['authUser', 'authPermission']),
 }

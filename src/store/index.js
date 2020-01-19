@@ -7,6 +7,7 @@ import search from './modules/search';
 import log from './modules/log';
 import chart from './modules/chart';
 import settings from './modules/settings';
+import feedback from './modules/feedback';
 
 // Load Vuex
 Vue.use(Vuex);
@@ -19,6 +20,7 @@ export default new Vuex.Store({
         search,
         log,
         chart,
-        settings
+        settings,
+        feedback
     }
 });
