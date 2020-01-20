@@ -66,10 +66,10 @@ const actions = {
             reportExeption(error);
         });
     },
-    
+
     // Search in all the Feedback.
     async searchFeedback({commit, dispatch}, query) {
-        const search = !!query; 
+        //  const search = !!query; 
 
         // // Making sure that there is content.
         // if (search) {

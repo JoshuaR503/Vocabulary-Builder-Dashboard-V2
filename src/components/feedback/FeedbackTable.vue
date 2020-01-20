@@ -14,7 +14,7 @@
     </div>
 
     <div class="form-group">
-      <input v-model="query" @keyup="searchFeedback(query)" class="form-control" placeholder="Word Search">
+      <input disabled v-model="query" @keyup="searchFeedback(query)" class="form-control"  placeholder="Feedback Search (future)">
     </div>
     
     <div v-if="isFeedbackLoading">
