@@ -9,6 +9,7 @@ import Search from './search/Search';
 import SearchResults from './search/SearchResults';
 import PasswordUpdate from './auth/PasswordUpdate.vue';
 import Charts from './charts/Charts.vue';
+import Feedback from './feedback/Feedback.vue';
 
 export  {
     Login,
@@ -21,5 +22,6 @@ export  {
     Search,
     SearchResults,
     PasswordUpdate,
-    Charts
+    Charts,
+    Feedback
 };

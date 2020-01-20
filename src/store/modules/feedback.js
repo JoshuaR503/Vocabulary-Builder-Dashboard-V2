@@ -66,7 +66,7 @@ const actions = {
             reportExeption(error);
         });
     },
-
+    
     // Search in all the Feedback.
     async searchFeedback({commit, dispatch}, query) {
         const search = !!query; 
@@ -100,17 +100,9 @@ const actions = {
         // Change more skip state.
         commit('setFeedbackSkip', value);
     },
-    
-    // Create new Feedback.
-    async createFeedback({commit}, data) {
-
-    },
 
     // Delete a single Feedback
     async deleteFeedback({commit}, id) {
-
-        console.log(id);
-
         // Warn user before deleting.
         // eslint-disable-next-line
          swal({

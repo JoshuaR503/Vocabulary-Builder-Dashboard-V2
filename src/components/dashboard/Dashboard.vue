@@ -15,6 +15,12 @@
           </li>
 
           <li class="nav-item">
+            <a class="nav-link" id="feedback-tab" data-toggle="tab" href="#feedback" role="tab" aria-controls="feedback">
+              Feedback Dashboard
+            </a>
+          </li>
+
+          <li class="nav-item">
             <a class="nav-link" id="charts-tab" data-toggle="tab" href="#charts" role="tab" aria-controls="charts">
               Charts Dashboard
             </a>
@@ -32,6 +38,10 @@
         <div class="tab-content">
           <div class="tab-pane fade show active" id="words" role="tabpanel" aria-labelledby="words-tab">
             <WordTable/>
+          </div>
+
+          <div class="tab-pane fade" id="feedback" role="tabpanel" aria-labelledby="feedback-tab">
+            <FeedbackTable/>
           </div>
 
           <div class="tab-pane fade" id="charts" role="tabpanel" aria-labelledby="charts-tab">
@@ -58,7 +68,7 @@ import UserTable from '../user/UserTable';
 import LogTable from '../logs/LogTable';
 import Search from '../search/Search';
 import Charts from '../charts/Charts';
-//import FeedbackTable from '../feedback/FeedbackTable';
+import FeedbackTable from '../feedback/FeedbackTable';
 
 import { Header } from '../../layout';
 
@@ -73,6 +83,7 @@ export default {
     Search,
     Header,
     Charts,
+    FeedbackTable
   },
   computed: mapGetters(['authUser', 'authPermission']),
 }

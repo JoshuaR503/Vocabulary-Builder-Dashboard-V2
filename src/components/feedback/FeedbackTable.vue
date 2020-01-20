@@ -34,16 +34,18 @@
               </tr>
             </thead>
             <tbody>
-              <tr v-for="opionion in feedback" :key="opionion._id">
-                <td>{{opionion.title}}</td>
-                <td>{{opionion.text}}</td>
+              <tr v-for="singleFeedback in feedback" :key="singleFeedback._id">
+                <td>{{singleFeedback.title}}</td>
+                <td>{{singleFeedback.text}}</td>
 
                 <td>
-                  <Edit component="feedback" :param="feedback._id" />
+                  <button @click="redirect(singleFeedback._id)" class="btn btn-warning mr-1">
+                    <i class="fas fa-eye"></i>
+                  </button>
                 </td>
 
                 <td>
-                  <button @click="deleteFeedback(opionion._id)" class="btn btn-danger ml-1">
+                  <button @click="deleteFeedback(singleFeedback._id)" class="btn btn-danger ml-1">
                     <i class="fas fa-trash"></i>
                   </button> 
                 </td>
@@ -108,6 +110,13 @@ export default {
       this.updateSkip(PREV);
       this.fetchFeedback();
     },
+
+    redirect(id) {
+      this.$router.push({
+        name: 'feedback',
+        params: { id: id }
+      });
+    }
   },
   created() {
     this.fetchFeedback();
@@ -115,11 +124,17 @@ export default {
   
   data: () => ({
     query: '',
-    NEXT: NEXT
+    NEXT: NEXT,
   })
 }
 </script>
 
 <style scoped>
 @import url(../../css/label.css);
+</style>
+
+<style scoped>
+  i {
+    color: white;
+  }
 </style>
